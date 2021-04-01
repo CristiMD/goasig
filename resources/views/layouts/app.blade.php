@@ -76,26 +76,13 @@
 											<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
 										</ul>
 									</li>
-									<li>
-										<div id="polyglotLanguageSwitcher">
-											<form action="#">
-												<select id="polyglot-language-options">
-													<option id="en" value="en" selected>En</option>
-													<option id="fr" value="fr">Fr</option>
-													<option id="de" value="de">Gr</option>
-													<option id="it" value="it">It</option>
-													<option id="es" value="es">Sp</option>
-												</select>
-											</form>
-										</div> <!-- End #polyglotLanguageSwitcher -->
-									</li>
 								</ul>
 							</div>
 							<div class="float-right">
 								<ul class="right-widget clearfix">
-									<li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> copro@comapnymail.com</a></li>
-									<li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> 707-706-2830</a></li>
-									<li class="quote"><a href="#">Get A Quote</a></li>
+									<li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> online@goasig.ro</a></li>
+									<li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> 0770 000 000</a></li>
+									<li class="quote"><a href="#">Suport clienti</a></li>
 								</ul>
 							</div>
 						</div> <!-- /.clearfix -->
@@ -109,22 +96,6 @@
 						<!-- Logo -->
 						<div class="logo float-left"><a href="index.html"><img src="images/logo/logo.png" alt="Logo"></a></div>
 
-						<div class="right-widget float-right">
-					   		<ul>
-					   			<li class="search-option">
-					   				<div class="dropdown">
-					   					<button type="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search" aria-hidden="true"></i></button>
-										<form action="#" class="dropdown-menu">
-											<input type="text" Placeholder="Enter Your Search">
-											<button><i class="fa fa-search"></i></button>
-										</form>
-					   				</div>
-					   			</li>
-					   			<li class="cart-icon">
-					   				<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>2</span></a>
-					   			</li>
-					   		</ul>
-					   	</div> <!-- /.right-widget -->
 
 						<!-- ============================ Theme Menu ========================= -->
 						<nav class="navbar-expand-lg float-right navbar-light" id="mega-menu-wrapper">

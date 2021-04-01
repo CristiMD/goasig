@@ -104,7 +104,7 @@
   z-index: 99;
   text-align: center;
   color: #fff;
-  background: #1455a6;
+  background: #365d4e;
   font-size: 20px;
   display: none;
   cursor: pointer;
@@ -190,7 +190,7 @@
 .our-blog .blog-post .read-more,.blog-details .share-option ul.social-icon li a:hover,.blog-details .share-option ul.tags li a:hover,.related-project .owl-theme .owl-nav [class*=owl-]:hover,
 .blog-details .public-comment-area .comment button,.portfolio-details .details-text .text-left-side h2,.portfolio-details .details-text .portfolio-info-list li strong,.loan-section .loan-confirm-form p,
 .our-service-two .single-service h5:hover a,#mega-menu-wrapper .nav>li.active>a,#mega-menu-wrapper .nav>li:hover>a  {
-  color:#1455a6;
+  color:#365d4e;
 }
 .p-bg-color,#theme-main-banner .camera_caption a.button-one,.loan-section .loan-confirm-form .apply-button:hover,.main-menu-wrapper .right-widget .search-option form button,
 .theme-title a:hover,.theme-footer .subscribe-form input[type="submit"],#searchWrapper #close-button:hover:before,#searchWrapper #close-button:hover:after,
@@ -199,13 +199,13 @@
 .theme-pagination ul li.active a,.blog-sidebar .sidebar-keyword ul li a:hover,.our-blog .blog-post .read-more:hover,.blog-details .comment-form form input[type="submit"],
 .form-styl-two input[type="submit"],.faq-form form input[type="submit"],.error-page a,.theme-title h2:before,body .theme-button,.our-portfolio .all-project-button a:hover,
 .testimonial-section .owl-theme .owl-dots .owl-dot.active span,.testimonial-section .owl-theme .owl-dots .owl-dot:hover span,.consultation-form .form-wrapper .form-button {
-  background: #1455a6;
+  background: #365d4e;
 }
 #theme-main-banner .camera_caption a.button-one,.work-progress .single-figure .count:before,.theme-pagination ul li a:hover,.theme-pagination ul li.active a,
 .blog-sidebar .sidebar-search form input:focus,.blog-sidebar .sidebar-keyword ul li a:hover,.our-blog .blog-post .read-more:hover,.our-portfolio .all-project-button a:hover,
 .testimonial-section .owl-theme .owl-dots .owl-dot.active span,.testimonial-section .owl-theme .owl-dots .owl-dot:hover span {
   border-style: solid;
-  border-color:#1455a6;
+  border-color:#365d4e;
 }
 .s-color,#theme-main-banner .camera_caption h1 span,.theme-menu-wrapper .top-header ul li:first-child a:hover,.top-feature .single-feature:hover .text h4 a,
 .our-service .single-service .text .interest,.work-progress .single-figure:hover h4 a,.why-choose-us .single-block>a:hover,.latest-update .single-update-post:hover h4 a,
@@ -213,7 +213,7 @@
 .our-portfolio .single-item .text h4 a:hover,.our-portfolio .single-item .image-box .overlay-text h4 a:hover,.blog-sidebar .sidebar-recent-post li a:hover,
 .blog-details .public-comment-area .comment button:hover,#theme-main-banner .camera_prev:before,#theme-main-banner .camera_next:before,
 .theme-main-header .top-header .right-widget>li a:hover,.consultation-form .phone-call:hover {
-  color: #ffcb4c;
+  color: #fbe3b7;
 }
 .s-bg-color,.scroll-top:hover,.theme-main-header .top-header .left-widget .social-icon li a:hover, #theme-main-banner .camera_caption a.button-one:hover,#theme-main-banner .camera_caption a.button-two:hover,.theme-title a,
 #watch-video a,.loan-section .loan-confirm-form .apply-button,.theme-main-header .top-header .right-widget>li.quote a,.main-menu-wrapper .right-widget .cart-icon a span,body .theme-button:hover,
@@ -223,13 +223,13 @@
 .our-portfolio .single-item .image-box .overlay-text:after,.blog-details .comment-form form input[type="submit"]:hover,.blog-details .comment-form form input[type="submit"]:focus,
 .contact-us .contact-address ul li a:hover,.popular-faq .faq-panel .panel-group .panel-heading.active-panel a:before,.faq-form form input[type="submit"]:hover,.error-page a:hover,
 .consultation-form .form-wrapper .form-button:hover,.latest-update .theme-title a:hover {
-  background: #ffcb4c;
+  background: #fbe3b7;
 }
 #theme-main-banner .camera_caption a.button-one:hover,#theme-main-banner .camera_caption a.button-two:hover,.home-two-banner #theme-main-banner .camera_caption a.button-one,
 #theme-main-video-slider#theme-main-banner .camera_caption a.button-two:hover,.client-slider-two.owl-theme .owl-dots .owl-dot.active span,.latest-update .theme-title a:hover,
 .client-slider-two.owl-theme .owl-dots .owl-dot:hover span,.contact-us .contact-address ul li a:hover,.popular-faq .faq-panel .panel-group .panel-heading.active-panel a:before {
   border-style: solid;
-  border-color:#ffcb4c;
+  border-color:#fbe3b7;
 }
 /*----------------- Theme Button ---------------*/
 body .theme-button {
@@ -294,7 +294,7 @@ body .theme-button {
 .theme-pagination ul li.active a {color: #fff;}
 .theme-pagination ul li.active a {cursor: default;}
 /*--------------------------- Theme Header ---------------------*/
-.theme-main-header .top-header {background: #104587;}
+.theme-main-header .top-header {background: #365d4e;}
 .theme-main-header .top-header .left-widget>li {display: inline-block;line-height: 45px;vertical-align: middle;}
 .theme-main-header .top-header .left-widget .social-icon li {
   float: left;
@@ -357,7 +357,10 @@ body .theme-button {
 /*------------------------------ Theme menu ----------------------*/
 .main-menu-wrapper {position: relative;}
 .main-menu-wrapper .container {position: relative;}
-.main-menu-wrapper .logo {margin-top: 33px;}
+.main-menu-wrapper .logo {
+  margin-top: 20px;
+  max-width: 200px;
+}
 .main-menu-wrapper .right-widget>ul>li {line-height: 108px;display: inline-block;}
 .main-menu-wrapper .right-widget .cart-icon a {
   position: relative;
@@ -1503,4 +1506,9 @@ body .theme-button {
   background: transparent;
   font-size: 20px;
   color: #a3a3a3;
+}
+
+.pb-4, .py-4 {
+  padding-bottom: 0 !important;
+  padding-top: 0!important;
 }
