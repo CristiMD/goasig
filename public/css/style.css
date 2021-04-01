@@ -498,7 +498,7 @@ body .theme-button {
 #theme-main-banner .camera_caption p {
   font-size: 22px;
   line-height: 35px;
-  color: rgba(0,0,0,0.6);
+  color: rgba(256, 256, 256 ,0.6);
   padding: 25px 0 30px 0;
 }
 #theme-main-banner .camera_caption a {
@@ -508,7 +508,7 @@ body .theme-button {
   font-size: 15px;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: #29293f;
+  color: rgba(256, 256, 256, 0.6);
   padding: 0 30px;
   margin-top: 15px;
   -webkit-transition: all 0.3s ease-in-out;
@@ -517,7 +517,7 @@ body .theme-button {
 #theme-main-banner .camera_caption a.button-one {margin-right: 18px;}
 #theme-main-banner .camera_caption a.button-one,
 #theme-main-banner .camera_caption a.button-two:hover {color: #fff;}
-#theme-main-banner .camera_caption a.button-two {border-color: rgba(0,0,0,0.06);border-style: solid;}
+#theme-main-banner .camera_caption a.button-two {border-color: rgba(256, 256, 256, 0.6);border-style: solid;}
 
 /*--------------------------------- Top Feature -------------------------*/
 .top-feature {border-bottom: 1px solid rgba(0,0,0,0.05);margin-bottom: 120px;}
@@ -1511,4 +1511,8 @@ body .theme-button {
 .pb-4, .py-4 {
   padding-bottom: 0 !important;
   padding-top: 0!important;
+}
+
+.cameraContents .container h1, .cameraContents .container p {
+  text-shadow: #000 0.5px 0.5px 4px;
 }
