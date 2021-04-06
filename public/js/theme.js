@@ -358,5 +358,20 @@
         $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         $('body').delay(350).css({'overflow':'visible'});
     })
+
+    $("#judet").on('change', function() {
+      let val = $("#judet").val();
+      $.getJSON("/js/localitati.json", function(obiect) {
+          // console.log(obiect); // this will show the info it in firebug console
+        let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
+        if(selectat){
+          $('#localitate').empty();
+          selectat.map(localitate => {
+            $('#localitate').append(new Option(localitate.nume, localitate.nume));
+            // console.log(localitate.nume)
+          });
+        }
+      });
+    });
     
 })(jQuery)

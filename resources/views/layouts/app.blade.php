@@ -42,6 +42,25 @@
 			<script src="vendor/respond.js"></script>
 		<![endif]-->
 
+		<!--- For multistep form --->
+		
+		<!-- GOOGLE WEB FONT -->
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+		<!-- BASE CSS -->
+		<link href="{{ asset('css/form/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/form/style.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/form/menu.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/form/vendors.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/form/icon_fonts/css/all_icons.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/form/skins/square/grey.css') }}" rel="stylesheet">
+
+		<!-- YOUR CUSTOM CSS -->
+		<link href="{{ asset('css/form/custom.css') }}" rel="stylesheet">
+
+		<script src="{{ asset('js/form/modernizr.js') }}"></script>
+		<!-- Modernizr -->
+
 			
 	</head>
 
@@ -258,6 +277,15 @@
 
 		<!-- Theme js -->
 		<script src="js/theme.js"></script>
+
+
+
+		<!--- form scripts --->
+		<!-- COMMON SCRIPTS -->
+		<script src="{{ asset('js/form/common_scripts.min.js') }}"></script>
+		<script src="{{ asset('js/form/main.js') }}"></script>
+		<script src="{{ asset('js/form/wizard_func_without_branch.js') }}"></script>
+		
 		</div> <!-- /.main-page-wrapper -->
 	</body>
 </html>

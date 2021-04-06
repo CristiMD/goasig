@@ -82,6 +82,700 @@
 			</div> <!-- /.top-feature -->
 
 
+
+			<div class="container">
+				<div id="wizard_container">
+					<form name="example-1" id="wrapped" method="post" action="/cerere" enctype="multipart/form-data">
+        				{{ csrf_field() }}
+						<input id="website" name="website" type="text" value="">
+						<!-- Leave for security protection, read docs for details -->
+						<div id="middle-wizard">
+							<div class="step">
+								<div class="question_title">
+									<h3>Date despre autovehicul</h3>
+									<p>Pasul 1</p>
+								</div>
+								<div class="row justify-content-center">
+									<div class="col-lg-5">
+										<div class="box_general">
+											<div class="form-group add_bottom_30">
+												<div class="styled-select">
+													<select class="required" name="stare_inmatriculare">
+														<option value="" selected>Stare inmatriculare</option>
+														<option value="Inmatriculat">Inmatriculat</option>
+														<option value="InVedereInmatriculare">In vederea inmatricularii</option>
+														<option value="Inregistrat">Inregistrat la primarie</option>
+														<option value="InVedereInregistrare">In vederea inregistrarii</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<input type="text" name="numar_inmatriculare" class="required form-control" placeholder="Numar Inmatriculare">
+											</div>
+											<div class="form-group add_bottom_30">
+												<div class="styled-select">
+													<select class="required" name="tip_vehicul">
+														<option value="" selected>Tip vehicul</option>
+															<option value="Autoturism">Autoturism</option>
+															<option value="Autobuz">Autobuz</option>
+															<option value="Autocamion">Autocamion</option>
+															<option value="Autocar">Autocar</option>
+															<option value="Automobil mixt">Automobil mixt</option>
+															<option value="Autospeciala">Autospeciala</option>
+															<option value="Autoutilitara<3,5 t">Autoutilitara&lt;3,5 t</option>
+															<option value="Microbuz">Microbuz</option>
+															<option value="Motocicleta">Motocicleta</option>
+															<option value="Remorca">Remorca</option>
+															<option value="Semiremorca">Semiremorca</option>
+															<option value="Cap tractor">Cap tractor</option>
+															<option value="Turism de teren">Turism de teren</option>
+															<option value="Autotractoare cu sa">Autotractoare cu sa</option>
+															<option value="Autovehicule pt dest. speciale">Autovehicule pt dest. speciale</option>
+															<option value="Utilaje">Utilaje</option>
+															<option value="Tractor">Tractor</option>
+															<option value="Tramvai">Tramvai</option>
+															<option value="Troleibuz">Troleibuz</option>
+															<option value="Autobuz articulat">Autobuz articulat</option>
+															<option value="Autobuz interurban">Autobuz interurban</option>
+															<option value="Autobuz special">Autobuz special</option>
+															<option value="Autobuz urban">Autobuz urban</option>
+															<option value="Autorulota">Autorulota</option>
+															<option value="Rulota">Rulota</option>
+															<option value="Motociclu">Motociclu</option>
+															<option value="Scuter">Scuter</option>
+															<option value="Moped">Moped</option>
+															<option value="ATV">ATV</option>
+															<option value="Autoutilitara>3,5 t">Autoutilitara&gt;3,5 t</option>
+															<option value="Autobasculanta">Autobasculanta</option>
+															<option value="Autocisterna">Autocisterna</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group add_bottom_30">
+												<div class="styled-select">
+													<select class="required" name="marca">
+															<option value="" selected>Marca</option>
+															<option value="ACERBI">ACERBI                                                                 </option>
+															<option value="ACHLEITNER">ACHLEITNER                                                         </option>
+															<option value="ACKERMANN">ACKERMANN                                                           </option>
+															<option value="ACTM">ACTM                                                                     </option>
+															<option value="AEBI (A)">AEBI (A)                                                             </option>
+															<option value="AEBI - RASANT (A)">AEBI - RASANT (A)                                           </option>
+															<option value="AEON">AEON                                                                     </option>
+															<option value="AGT - AGROMEHANIKA (SI)">AGT - AGROMEHANIKA (SI)                               </option>
+															<option value="ALFA ROMEO">ALFA ROMEO                                                         </option>
+															<option value="ALPHA">ALPHA                                                                   </option>
+															<option value="ANTONIO CARRARO (I)">ANTONIO CARRARO (I)                                       </option>
+															<option value="APRILIA">APRILIA                                                               </option>
+															<option value="ARDOR">ARDOR                                                                   </option>
+															<option value="ARO">ARO                                                                       </option>
+															<option value="ASKO">ASKO                                                                     </option>
+															<option value="ATALA">ATALA                                                                   </option>
+															<option value="AUDI">AUDI                                                                     </option>
+															<option value="AUREPA (IWS AUREPA)">AUREPA (IWS AUREPA)                                       </option>
+															<option value="AUTOSAN">AUTOSAN                                                               </option>
+															<option value="AVIA">AVIA                                                                     </option>
+															<option value="BAJAJ">BAJAJ                                                                   </option>
+															<option value="BAOTIAN">BAOTIAN                                                               </option>
+															<option value="BC-LDS (BC HUTNIK)">BC-LDS (BC HUTNIK)                                         </option>
+															<option value="BELARUS">BELARUS                                                               </option>
+															<option value="BENALU">BENALU                                                                 </option>
+															<option value="BENELLI">BENELLI                                                               </option>
+															<option value="BERGER (AT)">BERGER (AT)                                                       </option>
+															<option value="BERGER (PL)">BERGER (PL)                                                       </option>
+															<option value="BERGER TRAC">BERGER TRAC                                                       </option>
+															<option value="BETAMOTOR">BETAMOTOR                                                           </option>
+															<option value="BIMOTA">BIMOTA                                                                 </option>
+															<option value="BLUMHARDT">BLUMHARDT                                                           </option>
+															<option value="BMW">BMW                                                                       </option>
+															<option value="BODEX">BODEX                                                                   </option>
+															<option value="BORO">BORO                                                                     </option>
+															<option value="BRANDYS">BRANDYS                                                               </option>
+															<option value="BRENDERUP">BRENDERUP                                                           </option>
+															<option value="BROSHUIS">BROSHUIS                                                             </option>
+															<option value="BUELL">BUELL                                                                   </option>
+															<option value="BUNGE">BUNGE                                                                   </option>
+															<option value="BURG">BURG                                                                     </option>
+															<option value="CAGIVA">CAGIVA                                                                 </option>
+															<option value="CAN-AM BOMBARDIER">CAN-AM BOMBARDIER                                           </option>
+															<option value="CARDI">CARDI                                                                   </option>
+															<option value="CARNEHL">CARNEHL                                                               </option>
+															<option value="CARRARO (I)">CARRARO (I)                                                       </option>
+															<option value="CASE - IH">CASE - IH                                                           </option>
+															<option value="CEZET">CEZET                                                                   </option>
+															<option value="CFMOTO">CFMOTO                                                                 </option>
+															<option value="CHANGHE">CHANGHE                                                               </option>
+															<option value="CHEREAU">CHEREAU                                                               </option>
+															<option value="CHEVROLET">CHEVROLET                                                           </option>
+															<option value="CHRYSLER">CHRYSLER                                                             </option>
+															<option value="CITROEN">CITROEN                                                               </option>
+															<option value="CLAAS (D)">CLAAS (D)                                                           </option>
+															<option value="CMT">CMT                                                                       </option>
+															<option value="CPI">CPI                                                                       </option>
+															<option value="DACIA">DACIA                                                                   </option>
+															<option value="DAELIM">DAELIM                                                                 </option>
+															<option value="DAEWOO">DAEWOO                                                                 </option>
+															<option value="DAF">DAF                                                                       </option>
+															<option value="DAIHATSU">DAIHATSU                                                             </option>
+															<option value="DAVID BROWN (GB)">DAVID BROWN (GB)                                             </option>
+															<option value="DERBI">DERBI                                                                   </option>
+															<option value="DEUTZ - FAHR (D)">DEUTZ - FAHR (D)                                             </option>
+															<option value="DFM">DFM                                                                       </option>
+															<option value="DNEPR">DNEPR                                                                   </option>
+															<option value="DODGE">DODGE                                                                   </option>
+															<option value="DOLL">DOLL                                                                     </option>
+															<option value="DROMECH">DROMECH                                                               </option>
+															<option value="DUCATI">DUCATI                                                                 </option>
+															<option value="EGLMOTOR">EGLMOTOR                                                             </option>
+															<option value="EICHER (D)">EICHER (D)                                                         </option>
+															<option value="ENERCO">ENERCO                                                                 </option>
+															<option value="EOS">EOS                                                                       </option>
+															<option value="F.X. MEILLER">F.X. MEILLER                                                     </option>
+															<option value="FANTIC">FANTIC                                                                 </option>
+															<option value="FARMTRAC (PL)">FARMTRAC (PL)                                                   </option>
+															<option value="FAYMONVILLE">FAYMONVILLE                                                       </option>
+															<option value="FEBER (INTER-CARS)">FEBER (INTER-CARS)                                         </option>
+															<option value="FELDBINDER">FELDBINDER                                                         </option>
+															<option value="FENDT (D)">FENDT (D)                                                           </option>
+															<option value="FERRARI (I)">FERRARI (I)                                                       </option>
+															<option value="FERRO">FERRO                                                                   </option>
+															<option value="FIAT">FIAT                                                                     </option>
+															<option value="FIAT (I)">FIAT (I)                                                             </option>
+															<option value="FLIEGL">FLIEGL                                                                 </option>
+															<option value="FLOOR">FLOOR                                                                   </option>
+															<option value="FORD">FORD                                                                     </option>
+															<option value="FORD (GB)">FORD (GB)                                                           </option>
+															<option value="FOTON (CHN)">FOTON (CHN)                                                       </option>
+															<option value="FRAPPA">FRAPPA                                                                 </option>
+															<option value="FRUEHAUF">FRUEHAUF                                                             </option>
+															<option value="GARELLI">GARELLI                                                               </option>
+															<option value="GAS GAS">GAS GAS                                                               </option>
+															<option value="GENERIC">GENERIC                                                               </option>
+															<option value="GILERA">GILERA                                                                 </option>
+															<option value="GLOGGER">GLOGGER                                                               </option>
+															<option value="GNIOTPOL">GNIOTPOL                                                             </option>
+															<option value="GOFA">GOFA                                                                     </option>
+															<option value="GOLDHOFER">GOLDHOFER                                                           </option>
+															<option value="GOLDONI (I)">GOLDONI (I)                                                       </option>
+															<option value="GRAS">GRAS                                                                     </option>
+															<option value="GREW">GREW                                                                     </option>
+															<option value="GUTBROD (BRD)">GUTBROD (BRD)                                                   </option>
+															<option value="HAKPOL">HAKPOL                                                                 </option>
+															<option value="HAOTIAN">HAOTIAN                                                               </option>
+															<option value="HARLEY-DAVIDSON">HARLEY-DAVIDSON                                               </option>
+															<option value="HENDRICKS">HENDRICKS                                                           </option>
+															<option value="HERCULES">HERCULES                                                             </option>
+															<option value="HOBUR">HOBUR                                                                   </option>
+															<option value="HOLDER (D)">HOLDER (D)                                                         </option>
+															<option value="HONDA">HONDA                                                                   </option>
+															<option value="HUMBAUR">HUMBAUR                                                               </option>
+															<option value="HURLIMANN (CH)">HURLIMANN (CH)                                                 </option>
+															<option value="HUSABERG">HUSABERG                                                             </option>
+															<option value="HUSQVARNA">HUSQVARNA                                                           </option>
+															<option value="HYOSUNG">HYOSUNG                                                               </option>
+															<option value="HYUNDAI">HYUNDAI                                                               </option>
+															<option value="IFA">IFA                                                                       </option>
+															<option value="IGLOOCAR">IGLOOCAR                                                             </option>
+															<option value="IMPODAN (DK\/CHN)">IMPODAN (DK\/CHN)                                           </option>
+															<option value="INFINITI">INFINITI                                                             </option>
+															<option value="INTRALL">INTRALL                                                               </option>
+															<option value="IRISBUS">IRISBUS                                                               </option>
+															<option value="IRIZAR">IRIZAR                                                                 </option>
+															<option value="ISEKI">ISEKI                                                                   </option>
+															<option value="ISTRAIL">ISTRAIL                                                               </option>
+															<option value="ISUZU">ISUZU                                                                   </option>
+															<option value="ITALJET">ITALJET                                                               </option>
+															<option value="IVECO">IVECO                                                                   </option>
+															<option value="IVECO EURO CARGO">IVECO EURO CARGO                                             </option>
+															<option value="JAGUAR">JAGUAR                                                                 </option>
+															<option value="JANMIL">JANMIL                                                                 </option>
+															<option value="JAWA">JAWA                                                                     </option>
+															<option value="JCB">JCB                                                                       </option>
+															<option value="JELCZ">JELCZ                                                                   </option>
+															<option value="JIALING \/ ZONG-SHEN">JIALING \/ ZONG-SHEN                                     </option>
+															<option value="JINCHENG">JINCHENG                                                             </option>
+															<option value="JOHN DEERE (USA)">JOHN DEERE (USA)                                             </option>
+															<option value="JUNAK">JUNAK                                                                   </option>
+															<option value="KAISER">KAISER                                                                 </option>
+															<option value="KAMAZ">KAMAZ                                                                   </option>
+															<option value="KAROSA \/ IRISBUS">KAROSA \/ IRISBUS                                           </option>
+															<option value="KASSBOHRER">KASSBOHRER                                                         </option>
+															<option value="KAWASAKI">KAWASAKI                                                             </option>
+															<option value="KEEWAY">KEEWAY                                                                 </option>
+															<option value="KIA">KIA                                                                       </option>
+															<option value="KIOTI (ROK)">KIOTI (ROK)                                                       </option>
+															<option value="KNAPEN">KNAPEN                                                                 </option>
+															<option value="KOGEL">KOGEL                                                                   </option>
+															<option value="KOMAR">KOMAR                                                                   </option>
+															<option value="KONAR">KONAR                                                                   </option>
+															<option value="KRONE">KRONE                                                                   </option>
+															<option value="KTM">KTM                                                                       </option>
+															<option value="KUBOTA (J)">KUBOTA (J)                                                         </option>
+															<option value="KYMCO">KYMCO                                                                   </option>
+															<option value="LABINPROGRES TPS (HR)">LABINPROGRES TPS (HR)                                   </option>
+															<option value="LADA">LADA                                                                     </option>
+															<option value="LAG">LAG                                                                       </option>
+															<option value="LAMBERET">LAMBERET                                                             </option>
+															<option value="LAMBORGHINI (I)">LAMBORGHINI (I)                                               </option>
+															<option value="LANCIA">LANCIA                                                                 </option>
+															<option value="LAND ROVER">LAND ROVER                                                         </option>
+															<option value="LANDINI (I)">LANDINI (I)                                                       </option>
+															<option value="LANGENDORF">LANGENDORF                                                         </option>
+															<option value="LAVERDA">LAVERDA                                                               </option>
+															<option value="LDS">LDS                                                                       </option>
+															<option value="LECITRAILER">LECITRAILER                                                       </option>
+															<option value="LEGRAS">LEGRAS                                                                 </option>
+															<option value="LEXUS">LEXUS                                                                   </option>
+															<option value="LIAZ">LIAZ                                                                     </option>
+															<option value="LIFAN">LIFAN                                                                   </option>
+															<option value="LIMB - LUXS (SI)">LIMB - LUXS (SI)                                             </option>
+															<option value="LINDNER (A)">LINDNER (A)                                                       </option>
+															<option value="LINGBEN">LINGBEN                                                               </option>
+															<option value="LOHR">LOHR                                                                     </option>
+															<option value="MADO">MADO                                                                     </option>
+															<option value="MAGYAR">MAGYAR                                                                 </option>
+															<option value="MAL">MAL                                                                       </option>
+															<option value="MALAGUTI">MALAGUTI                                                             </option>
+															<option value="MAN">MAN                                                                       </option>
+															<option value="MASERATI">MASERATI                                                             </option>
+															<option value="MASSEY FERGUSON (GB)">MASSEY FERGUSON (GB)                                     </option>
+															<option value="MAZ">MAZ                                                                       </option>
+															<option value="MAZDA">MAZDA                                                                   </option>
+															<option value="MBK">MBK                                                                       </option>
+															<option value="MCCORMICK GB (USA\/D)">MCCORMICK GB (USA\/D)                                   </option>
+															<option value="MEGA">MEGA                                                                     </option>
+															<option value="MEIERLING">MEIERLING                                                           </option>
+															<option value="MERCEDES BENZ (D)">MERCEDES BENZ (D)                                           </option>
+															<option value="MERCEDES-BENZ">MERCEDES-BENZ                                                   </option>
+															<option value="METACO">METACO                                                                 </option>
+															<option value="METALCHEM KOCIAN">METALCHEM KOCIAN                                             </option>
+															<option value="MG">MG                                                                         </option>
+															<option value="MIL REMORQUES">MIL REMORQUES                                                   </option>
+															<option value="MINI (BMW)">MINI (BMW)                                                         </option>
+															<option value="MINSK">MINSK                                                                   </option>
+															<option value="MIROFRET">MIROFRET                                                             </option>
+															<option value="MITSUBISHI">MITSUBISHI                                                         </option>
+															<option value="MITSUBISHI-FUSO \/ FUSO">MITSUBISHI-FUSO \/ FUSO                               </option>
+															<option value="MONTRACON">MONTRACON                                                           </option>
+															<option value="MORINI">MORINI                                                                 </option>
+															<option value="MOTOBI">MOTOBI                                                                 </option>
+															<option value="MOTOGUZZI">MOTOGUZZI                                                           </option>
+															<option value="MULTICAR">MULTICAR                                                             </option>
+															<option value="MV AUGUSTA">MV AUGUSTA                                                         </option>
+															<option value="MZ\/MUZ">MZ\/MUZ                                                               </option>
+															<option value="NEOPLAN">NEOPLAN                                                               </option>
+															<option value="NEPTUN">NEPTUN                                                                 </option>
+															<option value="NEW HOLLAND">NEW HOLLAND                                                       </option>
+															<option value="NIEWIADOW">NIEWIADOW                                                           </option>
+															<option value="NISSAN">NISSAN                                                                 </option>
+															<option value="NOOTEBOOM">NOOTEBOOM                                                           </option>
+															<option value="NOVATRAIL">NOVATRAIL                                                           </option>
+															<option value="OPEL">OPEL                                                                     </option>
+															<option value="OTOYOL">OTOYOL                                                                 </option>
+															<option value="OVIBOS">OVIBOS                                                                 </option>
+															<option value="P.G.O.">P.G.O.                                                                 </option>
+															<option value="PACTON">PACTON                                                                 </option>
+															<option value="PANAV">PANAV                                                                   </option>
+															<option value="PASQUALI (I)">PASQUALI (I)                                                     </option>
+															<option value="PETROMECHANIKA">PETROMECHANIKA                                                 </option>
+															<option value="PEUGEOT">PEUGEOT                                                               </option>
+															<option value="PIACENZA">PIACENZA                                                             </option>
+															<option value="PIAGGIO \/ VESPA">PIAGGIO \/ VESPA                                             </option>
+															<option value="PLANDEX">PLANDEX                                                               </option>
+															<option value="POL METAL REIMANN">POL METAL REIMANN                                           </option>
+															<option value="POLARIS">POLARIS                                                               </option>
+															<option value="POLCAMP">POLCAMP                                                               </option>
+															<option value="POLKON">POLKON                                                                 </option>
+															<option value="PORSCHE">PORSCHE                                                               </option>
+															<option value="PRAGA">PRAGA                                                                   </option>
+															<option value="PRIMBOX">PRIMBOX                                                               </option>
+															<option value="PRO-STAFF">PRO-STAFF                                                           </option>
+															<option value="PRO-WAM">PRO-WAM                                                               </option>
+															<option value="PRODRENT">PRODRENT                                                             </option>
+															<option value="PROTON">PROTON                                                                 </option>
+															<option value="PUCH \/ HERO PUCH">PUCH \/ HERO PUCH                                           </option>
+															<option value="QINGQI">QINGQI                                                                 </option>
+															<option value="QUEST">QUEST                                                                   </option>
+															<option value="REFORM - WERKE (A)">REFORM - WERKE (A)                                         </option>
+															<option value="REISCH">REISCH                                                                 </option>
+															<option value="RENAULT">RENAULT                                                               </option>
+															<option value="RENAULT (F)">RENAULT (F)                                                       </option>
+															<option value="RENDERS">RENDERS                                                               </option>
+															<option value="RIEJU">RIEJU                                                                   </option>
+															<option value="RM MOTOR">RM MOTOR                                                             </option>
+															<option value="ROLFO">ROLFO                                                                   </option>
+															<option value="ROMET">ROMET                                                                   </option>
+															<option value="ROSSART">ROSSART                                                               </option>
+															<option value="ROUTER">ROUTER                                                                 </option>
+															<option value="ROVER">ROVER                                                                   </option>
+															<option value="ROYAL ENFIELD BULLET">ROYAL ENFIELD BULLET                                     </option>
+															<option value="RYDWAN">RYDWAN                                                                 </option>
+															<option value="SAAB">SAAB                                                                     </option>
+															<option value="SACHS">SACHS                                                                   </option>
+															<option value="SAME (I)">SAME (I)                                                             </option>
+															<option value="SAMRO">SAMRO                                                                   </option>
+															<option value="SCANIA">SCANIA                                                                 </option>
+															<option value="SCHMITZ">SCHMITZ                                                               </option>
+															<option value="SCHWARZMULLER">SCHWARZMULLER                                                   </option>
+															<option value="SEAT">SEAT                                                                     </option>
+															<option value="SETRA">SETRA                                                                   </option>
+															<option value="SIAMOTO">SIAMOTO                                                               </option>
+															<option value="SIMATRA">SIMATRA                                                               </option>
+															<option value="SIMSON">SIMSON                                                                 </option>
+															<option value="SKODA">SKODA                                                                   </option>
+															<option value="SMART">SMART                                                                   </option>
+															<option value="SOLARIS">SOLARIS                                                               </option>
+															<option value="SOLBUS">SOLBUS                                                                 </option>
+															<option value="SOLO">SOLO                                                                     </option>
+															<option value="SOMMER">SOMMER                                                                 </option>
+															<option value="SOR">SOR                                                                       </option>
+															<option value="SORELPOL">SORELPOL                                                             </option>
+															<option value="SPITZER">SPITZER                                                               </option>
+															<option value="SSANGYONG">SSANGYONG                                                           </option>
+															<option value="STAR">STAR                                                                     </option>
+															<option value="STAS">STAS                                                                     </option>
+															<option value="STEYR">STEYR                                                                   </option>
+															<option value="STEYR (A)">STEYR (A)                                                           </option>
+															<option value="STOKOTA">STOKOTA                                                               </option>
+															<option value="SUBARU">SUBARU                                                                 </option>
+															<option value="SUNDIRO">SUNDIRO                                                               </option>
+															<option value="SUZUKI">SUZUKI                                                                 </option>
+															<option value="SYM">SYM                                                                       </option>
+															<option value="TATA">TATA                                                                     </option>
+															<option value="TATRA">TATRA                                                                   </option>
+															<option value="TEMA">TEMA                                                                     </option>
+															<option value="TGB">TGB                                                                       </option>
+															<option value="TITAN">TITAN                                                                   </option>
+															<option value="TM RACING">TM RACING                                                           </option>
+															<option value="TOMOS">TOMOS                                                                   </option>
+															<option value="TOROS">TOROS                                                                   </option>
+															<option value="TOYOTA">TOYOTA                                                                 </option>
+															<option value="TRAILIS">TRAILIS                                                               </option>
+															<option value="TRAILOR">TRAILOR                                                               </option>
+															<option value="TRAMP TRAIL">TRAMP TRAIL                                                       </option>
+															<option value="TRIUMPH">TRIUMPH                                                               </option>
+															<option value="TROUILLET">TROUILLET                                                           </option>
+															<option value="URAL">URAL                                                                     </option>
+															<option value="VALMET \/ VALTRA (FI)">VALMET \/ VALTRA (FI)                                   </option>
+															<option value="VALPADANA (I)">VALPADANA (I)                                                   </option>
+															<option value="VAN HOOL">VAN HOOL                                                             </option>
+															<option value="VANHOOL">VANHOOL                                                               </option>
+															<option value="VDL">VDL                                                                       </option>
+															<option value="VDL BERKHOF">VDL BERKHOF                                                       </option>
+															<option value="VDL BOVA">VDL BOVA                                                             </option>
+															<option value="VERTEMATI">VERTEMATI                                                           </option>
+															<option value="VIBERTI">VIBERTI                                                               </option>
+															<option value="VOLKSWAGEN">VOLKSWAGEN                                                         </option>
+															<option value="VOLVO">VOLVO                                                                   </option>
+															<option value="VOLVO - SCANTRAC">VOLVO - SCANTRAC                                             </option>
+															<option value="VOR">VOR                                                                       </option>
+															<option value="VOXAN">VOXAN                                                                   </option>
+															<option value="VW">VW                                                                         </option>
+															<option value="WACO">WACO                                                                     </option>
+															<option value="WFM">WFM                                                                       </option>
+															<option value="WIELTON">WIELTON                                                               </option>
+															<option value="WIOLA">WIOLA                                                                   </option>
+															<option value="WSK PZL-KROSNO">WSK PZL-KROSNO                                                 </option>
+															<option value="YAMAHA">YAMAHA                                                                 </option>
+															<option value="YIBEN">YIBEN                                                                   </option>
+															<option value="YORK">YORK                                                                     </option>
+															<option value="ZASLAW">ZASLAW                                                                 </option>
+															<option value="ZASTA">ZASTA                                                                   </option>
+															<option value="ZETOR (CZ)">ZETOR (CZ)                                                         </option>
+															<option value="ZICO">ZICO                                                                     </option>
+															<option value="ZIPP">ZIPP                                                                     </option>
+															<option value="ZORZI">ZORZI                                                                   </option>
+															<option value="ZPC WIDNIK">ZPC WIDNIK                                                         </option>
+															<option value="ZREMB WROCLAW">ZREMB WROCLAW                                                   </option>
+															<option value="ZUMICO">ZUMICO                                                                 </option>
+												</select>
+												</div>
+												</div>
+												<div class="form-group">
+													<input type="text" name="model" class="required form-control" placeholder="Model">
+												</div>
+												<div class="form-group add_bottom_30">
+													<div class="styled-select">
+														<select class="required" name="combustibil">
+															<option value="" selected>Combustibil</option>
+																<option value="501">Benzina</option>
+																<option value="502">Motorina</option>
+																<option value="503">Benzina si GPL</option>
+																<option value="504">Benzina si alcool</option>
+																<option value="505">Electric</option>
+																<option value="506">Alt tip de combustibil</option>
+																<option value="500">Fara combustibil</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group add_bottom_30">
+													<div class="styled-select">
+														<select class="required" name="utilizare">
+															<option value="" selected>Utilizare</option>												
+																<option value="Privat">In interes personal</option>
+																<!-- <option value="Taxi">Taxi</option>
+																<option value="Curierat">Curierat</option>
+																<option value="Rent-a-car">Rent-a-car</option>
+																<option value="Distributie">Distributie / Transport marfa</option>
+																<option value="Paza si protectie">Paza si protectie</option>
+																<option value="Transport persoane">Transport persoane</option>
+																<option value="Scoala soferi">Scoala de soferi</option>-->
+														</select>
+													</div>
+												</div>
+										</div>
+										<!-- /box_general -->
+									</div>
+								</div>
+								<!-- /row-->
+							</div>
+							<!-- /step-->
+
+							<div class="step">
+								<div class="question_title">
+									<h3>Date din talon</h3>
+									<p>Pasul 2</p>
+								</div>
+								<div class="row justify-content-center">
+									<div class="col-lg-5">
+										<div class="box_general">
+										<div class="form-group">
+											<input type="text" name="masa_maxima" class="required form-control" placeholder="Masa Maxima">
+										</div>
+										<div class="form-group">
+											<input type="text" name="cap_cil" class="required form-control" placeholder="Capacitate cilindrica">
+										</div>
+										<div class="form-group">
+											<input type="text" name="putere" class="required form-control" placeholder="Putere">
+										</div>
+										<div class="form-group">
+											<input type="text" name="nr_loc" class="required form-control" placeholder="Nr. Locuri">
+										</div>
+										<div class="form-group">
+											<input type="text" name="serie_civ" class="required form-control" placeholder="Seria CIV">
+										</div>
+										<div class="form-group">
+											<input type="text" name="sasiu" class="required form-control" placeholder="Serie sasiu">
+										</div>
+										<div class="form-group">
+											<input type="text" name="an_fab" class="required form-control" placeholder="An fabricatie">
+										</div>
+									</div>
+									</div>
+								</div>
+								<!-- /row-->
+							</div>
+							<!-- /step -->
+
+							<div class="step">
+								<div class="question_title">
+									<h3>Date proprietar</h3>
+									<p>Pasul 3</p>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="box_general">
+											<div class="form-group add_bottom_30">
+												<div class="styled-select">
+													<select class="required" name="persoana">
+															<option value="pf">Persoana Fizica</option>
+															<option value="pj">Persoana Juridica</option>
+															<option value="leasing">Leasing</option>
+													</select>
+												</div>
+											</div>
+										<div class="form-group">
+											<input type="text" name="nmume_proprietar" class="required form-control" placeholder="Nume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="cnp_proprietar" class="required form-control" placeholder="CNP">
+										</div>
+										<div class="form-group">
+											<input type="text" name="ci_proprietar" class="required form-control" placeholder="Serie CI">
+										</div>
+										<div class="form-group add_bottom_30">
+											<div class="styled-select">
+												<select class="required" id="judet" name="judet_proprietar">
+														<option value="">Judet</option>
+														<option value="ALBA">ALBA             </option>
+														<option value="ARAD">ARAD             </option>
+														<option value="ARGES">ARGES            </option>
+														<option value="BACAU">BACAU            </option>
+														<option value="BIHOR">BIHOR            </option>
+														<option value="BISTRITA-NASAUD">BISTRITA NASAUD  </option>
+														<option value="BOTOSANI">BOTOSANI         </option>
+														<option value="BRAILA">BRAILA           </option>
+														<option value="BRASOV">BRASOV           </option>
+														<option value="BUCURESTI">BUCURESTI        </option>
+														<option value="BUZAU">BUZAU            </option>
+														<option value="CALARASI">CALARASI         </option>
+														<option value="CARAS-SEVERIN">CARAS SEVERIN    </option>
+														<option value="CLUJ">CLUJ             </option>
+														<option value="CONSTANTA">CONSTANTA        </option>
+														<option value="COVASNA">COVASNA          </option>
+														<option value="DAMBOVITA">DAMBOVITA        </option>
+														<option value="DOLJ">DOLJ             </option>
+														<option value="GALATI">GALATI           </option>
+														<option value="GIURGIU">GIURGIU          </option>
+														<option value="GORJ">GORJ             </option>
+														<option value="HARGHITA">HARGHITA         </option>
+														<option value="HUNEDOARA">HUNEDOARA       </option>
+														<option value="IALOMITA">IALOMITA         </option>
+														<option value="IASI">IASI             </option>
+														<option value="ILFOV">ILFOV            </option>
+														<option value="MARAMURES">MARAMURES        </option>
+														<option value="MEHEDINTI">MEHEDINTI        </option>
+														<option value="MURES">MURES            </option>
+														<option value="NEAMT">NEAMT            </option>
+														<option value="OLT">OLT              </option>
+														<option value="PRAHOVA">PRAHOVA          </option>
+														<option value="SALAJ">SALAJ            </option>
+														<option value="SATU_MARE">SATU MARE        </option>
+														<option value="SIBIU">SIBIU            </option>
+														<option value="SUCEAVA">SUCEAVA          </option>
+														<option value="TELEORMAN">TELEORMAN        </option>
+														<option value="TIMIS">TIMIS            </option>
+														<option value="TULCEA">TULCEA           </option>
+														<option value="VILCEA">VALCEA           </option>
+														<option value="VASLUI">VASLUI           </option>
+														<option value="VRANCEA">VRANCEA          </option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<input type="text" name="strada_proprietar" class="required form-control" placeholder="Strada">
+										</div>
+										<div class="form-group">
+											<input type="text" name="bloc_proprietar" class="required form-control" placeholder="Bloc">
+										</div>
+										<div class="form-group">
+											<input type="text" name="etaj_proprietar" class="required form-control" placeholder="Etaj">
+										</div>
+									</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="box_general">
+											<div class="form-group add_bottom_30">
+												<div class="styled-select">
+													<select class="required" name="reduceri">
+															<option value="0">--Nu e cazul--</option>
+															<option value="1">Pensionar</option>
+															<option value="2">Deficiente locomotorii</option>
+													</select>
+												</div>
+											</div>
+										<div class="form-group">
+											<input type="text" name="prenume_proprietar" class="required form-control" placeholder="Prenume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="an_permis_proprietar" class="required form-control" placeholder="An obtinere permis">
+										</div>
+										<div class="form-group">
+											<input type="text" name="nr_ci_proprietar" class="required form-control" placeholder="Numar CI">
+										</div>
+										<div class="form-group add_bottom_30">
+											<div class="styled-select">
+												<select class="required" id="localitate" name="localitate_proprietar">
+													<option value="">--alege localitatea--</option>
+													<option value="da">asdad</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<input type="text" name="numar_adresa_proprietar" class="required form-control" placeholder="Numar">
+										</div>
+										<div class="form-group">
+											<input type="text" name="scara_proprietar" class="required form-control" placeholder="Scara">
+										</div>
+										<div class="form-group">
+											<input type="text" name="apartament_proprietar" class="required form-control" placeholder="Ap.">
+										</div>
+										</div>
+									</div>
+								</div>
+								<!-- /row-->
+							</div>
+							<!-- /step -->
+							
+							<!-- Last step ============================== -->
+							<div class="submit step">
+								<div class="question_title">
+									<h3>Date conducator auto</h3>
+									<p>Paul 4</p>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="box_general">
+										<h4>Date conducator auto</h4>
+										<div class="item">
+											<input id="soferul_acelasi" type="checkbox" name="soferul_acelasi" class="required" checked>
+											<label for="soferul_acelasi">Soferul principal este acelasi cu proprietarul?</label>
+										</div>
+										<div class="form-group">
+											<input type="text" name="nume_conducator" class="required form-control" placeholder="Nume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="prenume_conducator" class="required form-control" placeholder="Prenume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="ci_conducator" class="required form-control" placeholder="Serie CI">
+										</div>
+										<div class="form-group">
+											<input type="text" name="nr_ci_conducatorr" class="required form-control" placeholder="Numar CI">
+										</div>
+										<div class="form-group">
+											<input type="text" name="cnp_conducator" class="required form-control" placeholder="CNP">
+										</div>
+										<div class="form-group">
+											<input type="text" name="data_rca" class="required form-control" placeholder="Valabilitate de la">
+										</div>
+										
+									</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="box_general">
+										<h4>Date livrare</h4>
+
+										<div class="form-group">
+											<input type="text" name="nume_livrare" class="required form-control" placeholder="Nume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="prenume_livrare" class="required form-control" placeholder="Prenume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="adresa_livrare" class="required form-control" placeholder="Adresa">
+										</div>
+										<div class="form-group">
+											<input type="text" name="email_livrare" class="required form-control" placeholder="Email">
+										</div>
+										<div class="form-group">
+											<input type="text" name="telefon_livrare" class="required form-control" placeholder="Telefon">
+										</div>
+										<div class="item">
+											<input id="termeni_conditii" type="checkbox" name="termeni_conditii" class="required" checked>
+											<label for="termeni_conditii">Sunt de acord cu termenii si conditiile site-ului!</label>
+										</div>
+										</div>
+									</div>
+								</div>
+								<!-- /row -->
+							</div>
+							<!-- /Last step ============================== -->
+						</div>
+						<!-- /middle-wizard -->
+						<div id="bottom-wizard">
+							<button type="button" name="backward" class="backward">Inapoi </button>
+							<button type="button" name="forward" class="forward">Inainte</button>
+							<button type="submit" name="process" class="submit">Trimite</button>
+						</div>
+						<!-- /bottom-wizard -->
+					</form>
+				</div>
+			</div>
+			<!-- /Wizard container -->
+
+
+
 			<!-- 
 			=============================================
 				Our Service
