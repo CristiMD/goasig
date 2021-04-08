@@ -21,5 +21,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/cerere', [App\Http\Controllers\CereriController::class, 'store']);
+Route::get('/platforma/public/cerere', [App\Http\Controllers\CereriController::class, 'store']);
 
