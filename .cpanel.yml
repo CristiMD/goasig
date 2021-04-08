@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/goasig/public_html/laravel
+    - export DEPLOYPATH=/home/goasig/public_html/platforma
     - /bin/cp -R app $DEPLOYPATH
     - /bin/cp -R bootstrap $DEPLOYPATH
     - /bin/cp -R config $DEPLOYPATH
