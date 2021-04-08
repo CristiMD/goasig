@@ -2,7 +2,493 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
+
+class ComplexCredentials{
+
+    public function __construct($user, $parola) 
+    {
+        $this->user = $user;
+        $this->parola = $parola;
+    }
+    /**
+     * @var string
+     */
+    public $user;
+    /**
+     * @var string
+     */
+    public $parola;
+}
+
+class ComplexVehicle{
+
+    public function __construct($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an, $_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa) {
+        $this->nr_identificare = $_serie_sasiu;
+        $this->stadiu = $_stare_autevehicul;
+        $this->nr_auto = $_numar_inmatriculare;
+        $this->marca = $_marca;
+        $this->model = $_model;
+        $this->serie_motor = $_serie_motor;
+        $this->serie_civ = $_serie_civ;
+        $this->an_fabricatie = $_an_fabricatie;
+        $this->km = $_km_totali;
+        $this->km_an = $_km_an;
+        $this->categorie = $_tip_autovehicul;
+        $this->capacitate = $_capacitate_cilindrica;
+        $this->nr_locuri = $_nr_locuri;
+        $this->masa_maxima = $_masa_maxima;
+        $this->putere_kw = $_putere;
+        $this->tip_combustibil = $_combustibil;
+        $this->allianz_acoperiri_suplimentare = $_allianz_supl;
+        $this->allianz_comercializat_de_un_dealer = $_allianz_dealer;
+        $this->city_acc = $_city_acc;
+        $this->euroins_acc = $_euroins_acc;
+        $this->cu_decontare_directa = $_decontare_directa;
+    }
+    /**
+     * @var string
+     */
+    public $nr_identificare;
+    /**
+     * @var string
+     */
+    public $stadiu;
+    /**
+     * @var string
+     */
+    public $nr_auto;
+    /**
+     * @var string
+     */
+    public $marca;
+    /**
+     * @var string
+     */
+    public $model;
+    /**
+     * @var string
+     */
+    public $serie_motor;
+    /**
+     * @var string
+     */
+    public $serie_civ;
+    /**
+     * @var int
+     */
+    public $an_fabricatie;
+    /**
+     * @var int
+     */
+    public $km;
+    /**
+     * @var int
+     */
+    public $km_an;
+    /**
+     * @var string
+     */
+    public $categorie;
+    /**
+     * @var int
+     */
+    public $capacitate;
+    /**
+     * @var int
+     */
+    public $nr_locuri;
+    /**
+     * @var int
+     */
+    public $masa_maxima;
+    /**
+     * @var int
+     */
+    public $putere_kw;
+    /**
+     * @var string
+     */
+    public $tip_combustibil;
+    /**
+     * @var string
+     */
+    public $allianz_acoperiri_suplimentare;
+    /**
+     * @var string
+     */
+    public $allianz_comercializat_de_un_dealer;
+    /**
+     * @var string
+     */
+    public $no_young_driver;
+    /**
+     * @var string
+     */
+    public $city_acc;
+    /**
+     * @var string
+     */
+    public $euroins_acc;
+    /**
+     * @var string
+     */
+    public $cu_decontare_directa;
+    /**
+     * @var string
+     */
+    public $data_prima_inmatriculare;
+}
+
+
+/**
+         * @pw_element string $codUnic
+         * @pw_element string $nume
+         * @pw_element string $prenume
+         * @pw_element string $sex
+         * @pw_element string $judet
+         * @pw_element string $localitate
+         * @pw_element int $cod
+         * @pw_element string $strada
+         * @pw_element string $numar
+         * @pw_element string $bloc
+         * @pw_element string $scara
+         * @pw_element string $etaj
+         * @pw_element string $apartament
+         * @pw_element string $cod_postal
+         * @pw_element string $email
+         * @pw_element string $telefon
+         * @pw_element string $mobil
+         * @pw_element string $permis_data
+         * @pw_element string $serie_ci
+         * @pw_element string $numar_ci
+         * @pw_element string $companie_tip
+         * @pw_element string $companie_profil
+         * @pw_element string $companie_activitate
+         * @pw_element string $companie_caen
+         * @pw_complex ComplexOwner
+         */
+        class ComplexOwner{
+
+            public function __construct($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen) {
+                $this->codUnic = $_cod_unic;
+                $this->nume = $_nume;
+                $this->prenume = $_prenume;
+                $this->sex = $_sex_owner;
+                $this->judet = $_judet;
+                $this->localitate = $_localitate;
+                $this->cod = $_cod_siruta;
+                $this->strada = $_strada;
+                $this->numar = $_numar;
+                $this->bloc = $_bloc;
+                $this->scara = $_scara;
+                $this->etaj = $_etaj;
+                $this->apartament = $_ap;
+                $this->cod_postal = $_cod_postal;
+                $this->email = $_email;
+                $this->telefon = $_telefon;
+                $this->mobil = $_mobil;
+                $this->permis_data = $_permis_data;
+                $this->serie_ci = $_serie_ci;
+                $this->numar_ci = $_numar_ci;
+                $this->companie_tip = $_companie_tip;
+                $this->companie_profil = $_companie_profil;
+                $this->companie_activitate = $_companie_activitate;
+                $this->companie_caen = $_companie_caen;
+            }
+
+            /**
+             * @var string
+             */
+            public $codUnic;
+            /**
+             * @var string
+             */
+            public $nume;
+            /**
+             * @var string
+             */
+            public $prenume;
+            /**
+             * @var string
+             */
+            public $sex;
+            /**
+             * @var string
+             */
+            public $judet;
+            /**
+             * @var string
+             */
+            public $localitate;
+            /**
+             * @var int
+             */
+            public $cod;
+            /**
+             * @var string
+             */
+            public $strada;
+            /**
+             * @var string
+             */
+            public $numar;
+            /**
+             * @var string
+             */
+            public $bloc;
+            /**
+             * @var string
+             */
+            public $scara;
+            /**
+             * @var string
+             */
+            public $etaj;
+            /**
+             * @var string
+             */
+            public $apartament;
+            /**
+             * @var string
+             */
+            public $cod_postal;
+            /**
+             * @var string
+             */
+            public $email;
+            /**
+             * @var string
+             */
+            public $telefon;
+            /**
+             * @var string
+             */
+            public $mobil;
+            /**
+             * @var string
+             */
+            public $permis_data;
+            /**
+             * @var string
+             */
+            public $serie_ci;
+            /**
+             * @var string
+             */
+            public $numar_ci;
+            /**
+             * @var string
+             */
+            public $companie_tip;
+            /**
+             * @var string
+             */
+            public $companie_profil;
+            /**
+             * @var string
+             */
+            public $companie_activitate;
+            /**
+             * @var string
+             */
+            public $companie_caen;
+        }
+
+        /**
+         * @pw_element string $codUnic
+         * @pw_element string $nume
+         * @pw_element string $prenume
+         * @pw_element string $sex
+         * @pw_element string $judet
+         * @pw_element string $localitate
+         * @pw_element int $cod
+         * @pw_element string $strada
+         * @pw_element string $numar
+         * @pw_element string $bloc
+         * @pw_element string $scara
+         * @pw_element string $etaj
+         * @pw_element string $apartament
+         * @pw_element string $cod_postal
+         * @pw_element string $email
+         * @pw_element string $telefon
+         * @pw_element string $mobil
+         * @pw_element string $permis_data
+         * @pw_element string $serie_ci
+         * @pw_element string $numar_ci
+         * @pw_element string $companie_tip
+         * @pw_element string $companie_profil
+         * @pw_element string $companie_activitate
+         * @pw_element string $companie_caen
+         * @pw_complex ComplexUser
+         */
+        class ComplexUser{
+
+            public function __construct($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen) {
+                $this->codUnic = $_cod_unic;
+                $this->nume = $_nume;
+                $this->prenume = $_prenume;
+                $this->sex = $_sex_owner;
+                $this->judet = $_judet;
+                $this->localitate = $_localitate;
+                $this->cod = $_cod_siruta;
+                $this->strada = $_strada;
+                $this->numar = $_numar;
+                $this->bloc = $_bloc;
+                $this->scara = $_scara;
+                $this->etaj = $_etaj;
+                $this->apartament = $_ap;
+                $this->cod_postal = $_cod_postal;
+                $this->email = $_email;
+                $this->telefon = $_telefon;
+                $this->mobil = $_mobil;
+                $this->permis_data = $_permis_data;
+                $this->serie_ci = $_serie_ci;
+                $this->numar_ci = $_numar_ci;
+                $this->companie_tip = $_companie_tip;
+                $this->companie_profil = $_companie_profil;
+                $this->companie_activitate = $_companie_activitate;
+                $this->companie_caen = $_companie_caen;
+            }
+            /**
+             * @var string
+             */
+            public $codUnic;
+            /**
+             * @var string
+             */
+            public $nume;
+            /**
+             * @var string
+             */
+            public $prenume;
+            /**
+             * @var string
+             */
+            public $sex;
+            /**
+             * @var string
+             */
+            public $judet;
+            /**
+             * @var string
+             */
+            public $localitate;
+            /**
+             * @var int
+             */
+            public $cod;
+            /**
+             * @var string
+             */
+            public $strada;
+            /**
+             * @var string
+             */
+            public $numar;
+            /**
+             * @var string
+             */
+            public $bloc;
+            /**
+             * @var string
+             */
+            public $scara;
+            /**
+             * @var string
+             */
+            public $etaj;
+            /**
+             * @var string
+             */
+            public $apartament;
+            /**
+             * @var string
+             */
+            public $cod_postal;
+            /**
+             * @var string
+             */
+            public $email;
+            /**
+             * @var string
+             */
+            public $telefon;
+            /**
+             * @var string
+             */
+            public $mobil;
+            /**
+             * @var string
+             */
+            public $permis_data;
+            /**
+             * @var string
+             */
+            public $serie_ci;
+            /**
+             * @var string
+             */
+            public $numar_ci;
+            /**
+             * @var string
+             */
+            public $companie_tip;
+            /**
+             * @var string
+             */
+            public $companie_profil;
+            /**
+             * @var string
+             */
+            public $companie_activitate;
+            /**
+             * @var string
+             */
+            public $companie_caen;
+        }
+
+        /**
+         * @pw_element string $nume
+         * @pw_element string $prenume
+         * @pw_element string $cnp
+         * @pw_element string $serie
+         * @pw_element string $numar
+         * @pw_complex ComplexDriver
+         */
+        class ComplexDriver{
+
+            public function __construct($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver){
+                $this->nume = $_nume_driver;
+                $this->prenume = $_prenume_driver;
+                $this->cnp = $_cnp_driver;
+                $this->serie = $_serie_ci_driver;
+                $this->numar = $_numar_ci_driver;
+            }
+
+            
+            /**
+             * @var string
+             */
+            public $nume;
+            /**
+             * @var string
+             */
+            public $prenume;
+            /**
+             * @var string
+             */
+            public $cnp;
+            /**
+             * @var string
+             */
+            public $serie;
+            /**
+             * @var string
+             */
+            public $numar;
+        }
 
 class CereriController extends Controller
 {
@@ -142,117 +628,124 @@ class CereriController extends Controller
         'trace'    => 1,
         ));
 
-        $req_int = '<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:home="http://82.208.136.106:8888/mgb/home/">
-         <soapenv:Header/>
-         <soapenv:Body>
-         <home:CerereOfertaRCA soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-         <autentificare xsi:type="home:ComplexCredentials">
-         <user xsi:type="xsd:string">testRCA</user>
-         <parola xsi:type="xsd:string">test.1234</parola>
-         </autentificare>
-         <link_redirect_plata xsi:type="xsd:string">http://www.testrca.ro/rca/emit.php</link_redirect_plata>
-         <asigurator xsi:type="xsd:string">city</asigurator>
-         <nr_luni_valabilitate xsi:type="xsd:int">12</nr_luni_valabilitate>
-         <data_inceput_valabilitate xsi:type="xsd:string">2016-07-20</data_inceput_valabilitate>
-         <activitate xsi:type="xsd:string">Privat</activitate>
-         <leasing xsi:type="xsd:int">3</leasing>
-         <Vehicul xsi:type="home:ComplexVehicle">
-         <nr_identificare xsi:type="xsd:string">w123xy24fg32w1234</nr_identificare>
-         <stadiu xsi:type="xsd:string">Inmatriculat</stadiu>
-         <nr_auto xsi:type="xsd:string">DJ68MGV</nr_auto>
-         <marca xsi:type="xsd:string">DACIA</marca>
-         <model xsi:type="xsd:string">BERLINA</model>
-         <serie_motor xsi:type="xsd:string">?</serie_motor> <serie_civ xsi:type="xsd:string">E165491</serie_civ>
-         <an_fabricatie xsi:type="xsd:int">1998</an_fabricatie>
-         <km xsi:type="xsd:int">150000</km>
-         <km_an xsi:type="xsd:int">10000</km_an>
-         <categorie xsi:type="xsd:string">Autoturism</categorie>
-         <capacitate xsi:type="xsd:int">1350</capacitate>
-         <nr_locuri xsi:type="xsd:int">5</nr_locuri>
-         <masa_maxima xsi:type="xsd:int">1310</masa_maxima>
-         <putere_kw xsi:type="xsd:int">45</putere_kw>
-         <tip_combustibil xsi:type="xsd:string">501</tip_combustibil>
-         <allianz_acoperiri_suplimentare xsi:type="xsd:string">false</allianz_acoperiri_suplimentare>
-         <allianz_comercializat_de_un_dealer xsi:type="xsd:string">false</allianz_comercializat_de_un_dealer>
-         <no_young_driver xsi:type="xsd:string">false</no_young_driver>
-         <city_acc xsi:type="xsd:string">false</city_acc>
-         <euroins_acc xsi:type="xsd:string">false</euroins_acc>
-         <cu_decontare_directa xsi:type="xsd:string">true</cu_decontare_directa>
-         <data_prima_inmatriculare>2020-03-29</data_prima_inmatriculare>
-         </Vehicul>
-         <tip_persoana xsi:type="xsd:string">pf</tip_persoana>
-         <pensionar xsi:type="xsd:string">0</pensionar>
-         <deficiente xsi:type="xsd:string">0</deficiente>
-         <Proprietar xsi:type="home:ComplexOwner">
-         <codUnic xsi:type="xsd:string">1234567890123</codUnic>
-         <nume xsi:type="xsd:string">Danes</nume>
-         <prenume xsi:type="xsd:string">Victor</prenume>
-         <sex xsi:type="xsd:string">M</sex>
-         <judet xsi:type="xsd:string">BUCURESTI</judet>
-         <localitate xsi:type="xsd:string">BUCURESTI SECTORUL 3</localitate>
-         <cod xsi:type="xsd:int">179169</cod>
-         <strada xsi:type="xsd:string">1 Decembrie 1918</strada>
-         <numar xsi:type="xsd:string">6</numar>
-         <bloc xsi:type="xsd:string">1</bloc>
-         <scara xsi:type="xsd:string">2</scara>
-         <etaj xsi:type="xsd:string">1</etaj>
-         <apartament xsi:type="xsd:string">12</apartament>
-         <cod_postal xsi:type="xsd:string">231121</cod_postal>
-         <email xsi:type="xsd:string">test@te@.ro</email>
-         <telefon xsi:type="xsd:string">0711123123</telefon>
-         <mobil xsi:type="xsd:string">0711123123</mobil>
-         <permis_data xsi:type="xsd:string">2008-11-01</permis_data>
-         <serie_ci xsi:type="xsd:string">ds</serie_ci>
-         <numar_ci xsi:type="xsd:string">123123</numar_ci>
-         <companie_tip xsi:type="xsd:string">?</companie_tip>
-         <companie_profil xsi:type="xsd:string">?</companie_profil>
-         <companie_activitate xsi:type="xsd:string">?</companie_activitate>
-         <companie_caen xsi:type="xsd:string">?</companie_caen>
-         </Proprietar>
-         <Utilizator xsi:type="home:ComplexUser">
-         <codUnic xsi:type="xsd:string">6140410018205</codUnic>
-         <nume xsi:type="xsd:string">Danes</nume>
-         <prenume xsi:type="xsd:string">Victor</prenume>
-         <sex xsi:type="xsd:string">M</sex>
-         <judet xsi:type="xsd:string">BUCURESTI</judet>
-         <localitate xsi:type="xsd:string">BUCURESTI SECTORUL 3</localitate>
-         <cod xsi:type="xsd:int">179169</cod>
-         <strada xsi:type="xsd:string">1 Decembrie 1918</strada>
-         <numar xsi:type="xsd:string">6</numar>
-         <bloc xsi:type="xsd:string">1</bloc> <scara xsi:type="xsd:string">2</scara>
-         <etaj xsi:type="xsd:string">1</etaj>
-         <apartament xsi:type="xsd:string">12</apartament>
-         <cod_postal xsi:type="xsd:string">231121</cod_postal>
-         <email xsi:type="xsd:string">test@te.ro</email>
-         <telefon xsi:type="xsd:string">0711123123</telefon>
-         <mobil xsi:type="xsd:string">0711123123</mobil>
-         <permis_data xsi:type="xsd:string">2008-11-01</permis_data>
-         <serie_ci xsi:type="xsd:string">ds</serie_ci>
-         <numar_ci xsi:type="xsd:string">123123</numar_ci>
-         <companie_tip xsi:type="xsd:string">?</companie_tip>
-         <companie_profil xsi:type="xsd:string">?</companie_profil>
-         <companie_activitate xsi:type="xsd:string">?</companie_activitate>
-         <companie_caen xsi:type="xsd:string">?</companie_caen>
-         </Utilizator>
-         <Conducator xsi:type="home:ComplexDriver">
-         <nume xsi:type="xsd:string">test</nume>
-         <prenume xsi:type="xsd:string">test</prenume>
-         <cnp xsi:type="xsd:string">6140410018205</cnp>
-         <serie xsi:type="xsd:string">df</serie>
-         <numar xsi:type="xsd:string">321231</numar>
-         </Conducator>
-         </home:CerereOfertaRCA>
-         </soapenv:Body>
-        </soapenv:Envelope>
-        ';
+        $username = 'testRCA';
+        $password = 'test.1234';
+        $_km_totali = '120000';
+        $_km_an = '12000';
+        $_serie_motor='A123123';
+        $_allianz_supl = 'false';
+        $_allianz_dealer = 'false';
+        $_email='office@goasig.ro';
+        $_telefon='0232100100';
+        $_mobil='0763884692';
+        $_companie_tip ='?';
+        $_companie_profil='?';
+        $_companie_activitate='?';
+        $_companie_caen='?';
+        $nr_luni_valabilitate = "6";
+        $pensionar='0'; 
+        $deficiente='0';
+        $data_inceput_valabilitate='2021-05-01';
+        $activitate= 'Privat';
+        $leasing='3';  // nu este leasing
+        $tip_persoana= 'pf';
+        $_serie_sasiu = 'TMBCS21Z172152321';
+        $_stare_autevehicul =  'Inmatriculat';
+        $_numar_inmatriculare = 'IS25HAV';
+        $_marca = 'SKODA'; 
+        $_model = 'OCTAVIA';
+        $_serie_civ = 'F771864';
+        $_an_fabricatie = '2007';
+        $_tip_autovehicul = 'Autoturism';
+        $_capacitate_cilindrica ='1896';
+        $_nr_locuri = '5';
+        $_masa_maxima= '1970';
+        $_putere = '77';
+        $_combustibil = '502';
+        $_city_acc = 'false';
+        $_euroins_acc = 'false';
+        $_decontare_directa = 'false';
+
+        $link_redirect_plata='http://www.goasig.ro/rca';
+
+        $asiguratori = 'city';
+        $nr_luni = '6';
+
+
+        ///proprietar
+        $_cod_unic = '1991002070061';
+        $_nume = 'Andrei';
+        $_prenume= 'Andi'; 
+        $_serie_ci= 'XT';
+        $_numar_ci = '123123';
+        $_sex_owner='M';
+        $_judet = 'IASI';
+        $_localitate = 'PASCANI';
+        $_cod_siruta = '95408';  // default pascani
+        $_strada = 'Crinului'; 
+        $_numar = '20B'; 
+        $_bloc = '-';
+        $_scara = '-';
+        $_etaj = '-';
+        $_ap = '-';
+        $_cod_postal='705200';
+        $_permis_data='2017-01-01';  
+
+
+        $_nume_driver = 'Andrei';
+        $_prenume_driver= 'Andi'; 
+        $_cnp_driver= '1991002070061';
+        $_serie_ci_driver='XT';
+        $_numar_ci_driver= '123123';
+
+
+
+        $autentificare = new ComplexCredentials($username, $password);
+        $masina = new ComplexVehicle($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an,$_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa);
+        $proprietar = new ComplexOwner($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
+        $utilizator = new ComplexUser($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
+        $conducator = new ComplexDriver($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver);	
+
+
+        // var_dump($autentificare);
+        // echo "<br>";
+        // echo "<br>";
+        // var_dump($masina);
+        // echo "<br>";
+        // echo "<br>";
+        // var_dump($proprietar);
+        // echo "<br>";
+        // echo "<br>";
+        // var_dump($utilizator);
+        // echo "<br>";
+        // echo "<br>";
+        // var_dump($conducator);
+        // echo "<br>";
+        // echo "<br>";
 
         try {
-            $result = $client->__call('CerereOfertaRCA',array($req_int));
+            $result = $client->__call('CerereOfertaRCA',
+            array(
+                $autentificare,
+                $link_redirect_plata,
+                $asiguratori,
+                $nr_luni_valabilitate,
+                $data_inceput_valabilitate,
+                $activitate,
+                $leasing,
+                $masina,
+                $tip_persoana,
+                $pensionar,
+                $deficiente,
+                $proprietar,
+                $utilizator,
+                $conducator
+                )
+        );
             print_r($result);
             // $response= htmlentities($result);
-        } catch(all) {
-            echo 'Eroare';
+        } catch(Exception $a) {
+            echo $a;
         }
     }
 
