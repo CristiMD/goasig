@@ -668,8 +668,8 @@ class CereriController extends Controller
 
         $link_redirect_plata='http://www.goasig.ro/rca';
 
-        $asiguratori = 'city';
-        $nr_luni = '6';
+        $asiguratori = array('city', 'euroins', 'generali', 'groupama', 'omniasig', 'uniqa', 'grawe');
+        $nr_luni = array('6', '12');
 
 
         ///proprietar
@@ -722,31 +722,45 @@ class CereriController extends Controller
         // var_dump($conducator);
         // echo "<br>";
         // echo "<br>";
-
-        try {
-            $result = $client->__call('CerereOfertaRCA',
-            array(
-                $autentificare,
-                $link_redirect_plata,
-                $asiguratori,
-                $nr_luni_valabilitate,
-                $data_inceput_valabilitate,
-                $activitate,
-                $leasing,
-                $masina,
-                $tip_persoana,
-                $pensionar,
-                $deficiente,
-                $proprietar,
-                $utilizator,
-                $conducator
-                )
-        );
-            print_r($result);
-            // $response= htmlentities($result);
-        } catch(Exception $a) {
-            echo $a;
+        $oferte = array();
+        set_time_limit(0);
+        foreach ($nr_luni as $luna) {
+            foreach ($asiguratori as $asigurator) {
+                try {
+                    $result = $client->__call('CerereOfertaRCA',
+                    array(
+                        $autentificare,
+                        $link_redirect_plata,
+                        $asigurator,
+                        $luna,
+                        $data_inceput_valabilitate,
+                        $activitate,
+                        $leasing,
+                        $masina,
+                        $tip_persoana,
+                        $pensionar,
+                        $deficiente,
+                        $proprietar,
+                        $utilizator,
+                        $conducator
+                        )
+                );
+                if($result->Eroare != 1){
+                    $tmp = array('date' => $result, 'asigurator' => $asigurator);
+                    // print_r($result);
+                    // echo '<br><br>';
+                    array_push($oferte, $tmp);
+                }
+                
+                } catch(Exception $a) {
+                    echo $a;
+                }
+            }
         }
+
+        // print_r($oferte);
+
+        return view('oferte', ['oferte'=>$oferte, 'valabilitate'=>$nr_luni_valabilitate]);
     }
 
     /**
