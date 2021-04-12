@@ -85,7 +85,7 @@
 
 			<div class="container">
 				<div id="wizard_container">
-					<form name="example-1" id="wrapped" method="post" action="/cerere" enctype="multipart/form-data">
+					<form name="example-1" id="wrapped" method="get" action="/cerere" enctype="multipart/form-data">
         				{{ csrf_field() }}
 						<input id="website" name="website" type="text" value="">
 						<!-- Leave for security protection, read docs for details -->

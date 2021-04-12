@@ -1516,3 +1516,7 @@ body .theme-button {
 .cameraContents .container h1, .cameraContents .container p {
   text-shadow: #000 0.5px 0.5px 4px;
 }
+
+td:empty{
+  display: none !important;
+}

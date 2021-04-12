@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ComplexCredentials{
 
@@ -672,7 +673,7 @@ class CereriController extends Controller
 
         $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
         $asiguratori = array('city', 'groupama', 'omniasig');
-        $nr_luni = array('6');
+        $nr_luni = array('3','6');
 
 
         ///proprietar
@@ -762,9 +763,21 @@ class CereriController extends Controller
         }
 
 
-        // print_r($oferte);
 
-        return view('oferte', ['oferte'=>$oferte, 'valabilitate'=>$nr_luni_valabilitate]);
+        $collection = collect($oferte);
+        
+        $grouped = $collection->mapToGroups(function ($item, $key) {
+            return [$item['asigurator'] => $item['date']];
+        });
+        
+        print_r($grouped->all());
+
+        
+        print_r($grouped->get('city')->all());
+
+        // print_r();
+
+        return view('oferte', ['oferte'=>$grouped, 'valabilitate'=>$nr_luni_valabilitate]);
     }
 
     /**
