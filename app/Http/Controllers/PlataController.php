@@ -68,7 +68,7 @@ class PlataController extends Controller
             echo $a;
         }
 
-        return redirect('platforma/public/emite?idOferta='.$request->query('idOferta'));
+        return redirect('/emite?idOferta='.$request->query('idOferta'));
 
     }
 
