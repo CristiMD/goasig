@@ -46,6 +46,8 @@ class ComplexVehicle{
         $this->city_acc = $_city_acc;
         $this->euroins_acc = $_euroins_acc;
         $this->cu_decontare_directa = $_decontare_directa;
+        $this->data_prima_inmatriculare = '2014-09-20';
+        $this->no_young_driver = true;
     }
     /**
      * @var string
@@ -666,10 +668,11 @@ class CereriController extends Controller
         $_euroins_acc = 'false';
         $_decontare_directa = 'false';
 
-        $link_redirect_plata='http://www.goasig.ro/rca';
+        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
 
-        $asiguratori = array('city', 'euroins', 'generali', 'groupama', 'omniasig', 'uniqa', 'grawe');
-        $nr_luni = array('6', '12');
+        $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
+        $asiguratori = array('city', 'groupama', 'omniasig');
+        $nr_luni = array('6');
 
 
         ///proprietar
@@ -723,7 +726,7 @@ class CereriController extends Controller
         // echo "<br>";
         // echo "<br>";
         $oferte = array();
-        set_time_limit(0);
+        // set_time_limit(0);
         foreach ($nr_luni as $luna) {
             foreach ($asiguratori as $asigurator) {
                 try {
@@ -757,6 +760,7 @@ class CereriController extends Controller
                 }
             }
         }
+
 
         // print_r($oferte);
 

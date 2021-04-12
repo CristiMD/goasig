@@ -22,4 +22,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/cerere', [App\Http\Controllers\CereriController::class, 'store']);
-
+Route::get('/plata', [App\Http\Controllers\PlataController::class, 'index']);
+Route::get('/emite', [App\Http\Controllers\PlataController::class, 'emitere']);
