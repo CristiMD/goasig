@@ -654,7 +654,7 @@ class CereriController extends Controller
         $tip_persoana= 'pf';
         $_serie_sasiu = 'TMBCS21Z172152321';
         $_stare_autevehicul =  'Inmatriculat';
-        $_numar_inmatriculare = 'IS25HAV';
+        $_numar_inmatriculare = 'BT86ABA';
         $_marca = 'SKODA'; 
         $_model = 'OCTAVIA';
         $_serie_civ = 'F771864';
@@ -672,8 +672,8 @@ class CereriController extends Controller
         $link_redirect_plata='https://goasig.ro/platforma/public/plata';
 
         $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
-        $asiguratori = array('city', 'groupama', 'omniasig');
-        $nr_luni = array('3','6');
+        $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
+        $nr_luni = array('6', '12');
 
 
         ///proprietar
@@ -730,6 +730,7 @@ class CereriController extends Controller
         // set_time_limit(0);
         foreach ($nr_luni as $luna) {
             foreach ($asiguratori as $asigurator) {
+                
                 try {
                     $result = $client->__call('CerereOfertaRCA',
                     array(
@@ -749,6 +750,7 @@ class CereriController extends Controller
                         $conducator
                         )
                 );
+                // print_r($result);
                 if($result->Eroare != 1){
                     $tmp = array('date' => $result, 'asigurator' => $asigurator);
                     // print_r($result);
@@ -770,10 +772,10 @@ class CereriController extends Controller
             return [$item['asigurator'] => $item['date']];
         });
         
-        print_r($grouped->all());
+        // print_r($grouped->all());
 
         
-        print_r($grouped->get('city')->all());
+        // print_r($grouped->get('city')->all());
 
         // print_r();
 

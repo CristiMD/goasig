@@ -12,8 +12,8 @@
                         <tr>
                             <th>Asigurator</th>
                             <th>Beneficii</th>
-                            <th>Valabilitate (3 luni)</th>
                             <th>Valabilitate (6 luni)</th>
+                            <th>Valabilitate (12 luni)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,10 +26,10 @@
                             <div class="comision">Comision inclus {{$key}}: {{$asigurator[0]->ComisionProcent}}</div>
                         </td>
                         @foreach ($asigurator as $ceva => $oferta)
-                                <td>@if($oferta->Valabilitate == 3) 
+                                <td>@if($oferta->Valabilitate == 6) 
                                     <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}">{{$oferta->Valoare}} lei</a></div>
                                     @endif</td>
-                                <td>@if($oferta->Valabilitate == 6) 
+                                <td>@if($oferta->Valabilitate == 12) 
                                     <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}">{{$oferta->Valoare}} lei</a></div>
                                     @endif</td>
                                 @endforeach

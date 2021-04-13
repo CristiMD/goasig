@@ -58,17 +58,21 @@ class PlataController extends Controller
                 $IdOferta
                 )
         );
-        // print_r($result);
+        print_r($result);
         if($result->Eroare != 1){
-            // print_r($result);
             // echo '<br><br>';
+            return redirect('/emite?idOferta='.$request->query('idOferta'));
+        } else {
+            return view('eroareplata', ['eroare' => 1]);
         }
         
         } catch(Exception $a) {
             echo $a;
         }
 
-        return redirect('/emite?idOferta='.$request->query('idOferta'));
+        return view('eroareplata', ['eroare' =>1]);
+
+        // 
 
     }
 
@@ -101,7 +105,7 @@ class PlataController extends Controller
                 $IdOferta
                 )
         );
-        print_r($result);
+        // print_r($result);
         if($result->Eroare != 1){
             // print_r($result);
             // echo '<br><br>';

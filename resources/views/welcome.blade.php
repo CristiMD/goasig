@@ -85,12 +85,12 @@
 
 			<div class="container">
 				<div id="wizard_container">
-					<form name="example-1" id="wrapped" method="get" action="/cerere" enctype="multipart/form-data">
+					<form name="example-1" id="wrapped" method="post" action="/cerere" enctype="multipart/form-data">
         				{{ csrf_field() }}
 						<input id="website" name="website" type="text" value="">
 						<!-- Leave for security protection, read docs for details -->
 						<div id="middle-wizard">
-							<!-- <div class="step">
+							<div class="step">
 								<div class="question_title">
 									<h3>Date despre autovehicul</h3>
 									<p>Pasul 1</p>
@@ -528,10 +528,10 @@
 									</div>
 								</div>
 								<!-- /row-->
-							</div> -->
+							</div>
 							<!-- /step-->
 
-							<!-- <div class="step">
+							<div class="step">
 								<div class="question_title">
 									<h3>Date din talon</h3>
 									<p>Pasul 2</p>
@@ -564,9 +564,9 @@
 									</div>
 								</div>
 								<!-- /row-->
-							</div> -->
+							</div>
 							<!-- /step -->
-<!-- 
+ 
 							<div class="step">
 								<div class="question_title">
 									<h3>Date proprietar</h3>
@@ -694,11 +694,11 @@
 									</div>
 								</div>
 								<!-- /row-->
-							</div> -->
+							</div>
 							<!-- /step -->
 							
 							<!-- Last step ============================== -->
-							<!-- <div class="submit step">
+							<div class="submit step">
 								<div class="question_title">
 									<h3>Date conducator auto</h3>
 									<p>Paul 4</p>
@@ -759,7 +759,7 @@
 									</div>
 								</div>
 								<!-- /row -->
-							</div> -->
+							</div>
 							<!-- /Last step ============================== -->
 						</div>
 						<!-- /middle-wizard -->
