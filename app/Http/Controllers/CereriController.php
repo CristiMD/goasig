@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use File;
 
 class ComplexCredentials{
 
@@ -500,9 +501,26 @@ class CereriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $coduri =  asset('js/coduri.json');
+
+        $path = public_path() . "/js/coduri.json";
+        if (!File::exists($path)) {
+            throw new Exception("Invalid File");
+        }
+
+
+        $file = File::get($path); // string
+        $json = json_decode($file);
+        // print_r($json->records[0]);
+
+        
+        for($i = 0; $i < count($json -> records); $i++) {
+            if(strcmp($json->records[$i][2], 'ILFOV') == 0 && strcmp($json->records[$i][3], 'Copăceni') == 0){
+                print_r($json->records[$i]);
+            }
+        }
     }
 
     /**
@@ -523,6 +541,8 @@ class CereriController extends Controller
      */
     public function store(Request $request)
     {
+
+        
         //Pas 1
         // $stare_inmatriculare = request('stare_inmatriculare');
         // $numar_inmatriculare = request('numar_inmatriculare');
@@ -619,6 +639,8 @@ class CereriController extends Controller
         // echo $telefon_livrare.'</br>';
         // echo $termeni_conditii.'</br>';
 
+        
+
         $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
         $action_URL ="https://ubuntuphptest.maxygo-online.ro";
 
@@ -638,9 +660,9 @@ class CereriController extends Controller
         $_serie_motor='A123123';
         $_allianz_supl = 'false';
         $_allianz_dealer = 'false';
-        $_email='office@goasig.ro';
-        $_telefon='0232100100';
-        $_mobil='0763884692';
+        $_email= request('email_livrare');
+        $_telefon= request('telefon_livrare');
+        $_mobil= request('telefon_livrare');
         $_companie_tip ='?';
         $_companie_profil='?';
         $_companie_activitate='?';
@@ -648,28 +670,28 @@ class CereriController extends Controller
         $nr_luni_valabilitate = "6";
         $pensionar='0'; 
         $deficiente='0';
-        $data_inceput_valabilitate='2021-05-01';
+        $data_inceput_valabilitate=request('data_rca');
         $activitate= 'Privat';
         $leasing='3';  // nu este leasing
-        $tip_persoana= 'pf';
-        $_serie_sasiu = 'TMBCS21Z172152321';
-        $_stare_autevehicul =  'Inmatriculat';
-        $_numar_inmatriculare = 'BT86ABA';
-        $_marca = 'SKODA'; 
-        $_model = 'OCTAVIA';
-        $_serie_civ = 'F771864';
-        $_an_fabricatie = '2007';
-        $_tip_autovehicul = 'Autoturism';
-        $_capacitate_cilindrica ='1896';
-        $_nr_locuri = '5';
-        $_masa_maxima= '1970';
-        $_putere = '77';
-        $_combustibil = '502';
+        $tip_persoana= request('persoana');
+        $_serie_sasiu = request('sasiu');
+        $_stare_autevehicul =  request('stare_inmatriculare');
+        $_numar_inmatriculare = request('numar_inmatriculare');
+        $_marca = request('marca');
+        $_model = request('model');
+        $_serie_civ = request('serie_civ');
+        $_an_fabricatie = request('an_fab');
+        $_tip_autovehicul = request('tip_vehicul');
+        $_capacitate_cilindrica = request('cap_cil');
+        $_nr_locuri = request('nr_loc');
+        $_masa_maxima= request('masa_maxima');
+        $_putere = request('putere');
+        $_combustibil = request('combustibil');
         $_city_acc = 'false';
         $_euroins_acc = 'false';
         $_decontare_directa = 'false';
 
-        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+        $link_redirect_plata='http://127.0.0.1:8000/plata';
 
         $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
         $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
@@ -677,30 +699,122 @@ class CereriController extends Controller
 
 
         ///proprietar
-        $_cod_unic = '1991002070061';
-        $_nume = 'Andrei';
-        $_prenume= 'Andi'; 
-        $_serie_ci= 'XT';
-        $_numar_ci = '123123';
+        $_cod_unic = request('cnp_proprietar');
+        $_nume = request('nmume_proprietar');
+        $_prenume= request('prenume_proprietar');
+        $_serie_ci= request('ci_proprietar');
+        $_numar_ci = request('nr_ci_proprietar');
         $_sex_owner='M';
-        $_judet = 'IASI';
-        $_localitate = 'PASCANI';
+        $_judet = request('judet');
+        $_localitate = request('localitate_proprietar');
         $_cod_siruta = '95408';  // default pascani
-        $_strada = 'Crinului'; 
-        $_numar = '20B'; 
-        $_bloc = '-';
-        $_scara = '-';
-        $_etaj = '-';
-        $_ap = '-';
+        $_strada = request('strada_proprietar');
+        $_numar = request('numar_adresa_proprietar');
+        $_bloc = request('bloc_proprietar');
+        $_scara = request('scara_proprietar');
+        $_etaj = request('etaj_proprietar');
+        $_ap = request('apartament_proprietar');
         $_cod_postal='705200';
-        $_permis_data='2017-01-01';  
+        $_permis_data=request('an_permis_proprietar');  
 
 
-        $_nume_driver = 'Andrei';
-        $_prenume_driver= 'Andi'; 
-        $_cnp_driver= '1991002070061';
-        $_serie_ci_driver='XT';
-        $_numar_ci_driver= '123123';
+        $_nume_driver = request('nume_conducator');
+        $_prenume_driver= request('prenume_conducator');
+        $_cnp_driver = request('cnp_conducator');
+        $_serie_ci_driver= request('ci_conducator');
+        $_numar_ci_driver= request('nr_ci_conducatorr');
+
+
+        ///coduri
+
+        $coduri =  asset('js/coduri.json');
+
+        $path = public_path() . "/js/coduri.json";
+        if (!File::exists($path)) {
+            throw new Exception("Invalid File");
+        }
+
+
+        $file = File::get($path); // string
+        $json = json_decode($file);
+        // print_r($json->records[0]);
+
+        
+        for($i = 0; $i < count($json -> records); $i++) {
+            if(strcmp($json->records[$i][2], $_judet) == 0 && strcmp($json->records[$i][3], $_localitate) == 0){
+                $_cod_siruta = $json->records[$i][5];
+                $_cod_postal=$json->records[$i][4];
+            }
+        }
+
+        // $_km_totali = '120000';
+        // $_km_an = '12000';
+        // $_serie_motor='A123123';
+        // $_allianz_supl = 'false';
+        // $_allianz_dealer = 'false';
+        // $_email='office@goasig.ro';
+        // $_telefon='0232100100';
+        // $_mobil='0763884692';
+        // $_companie_tip ='?';
+        // $_companie_profil='?';
+        // $_companie_activitate='?';
+        // $_companie_caen='?';
+        // $nr_luni_valabilitate = "6";
+        // $pensionar='0'; 
+        // $deficiente='0';
+        // $data_inceput_valabilitate='2021-05-01';
+        // $activitate= 'Privat';
+        // $leasing='3';  // nu este leasing
+        // $tip_persoana= 'pf';
+        // $_serie_sasiu = 'TMBCS21Z172152321';
+        // $_stare_autevehicul =  'Inmatriculat';
+        // $_numar_inmatriculare = 'BT86ABA';
+        // $_marca = 'SKODA'; 
+        // $_model = 'OCTAVIA';
+        // $_serie_civ = 'F771864';
+        // $_an_fabricatie = '2007';
+        // $_tip_autovehicul = 'Autoturism';
+        // $_capacitate_cilindrica ='1896';
+        // $_nr_locuri = '5';
+        // $_masa_maxima= '1970';
+        // $_putere = '77';
+        // $_combustibil = '502';
+        // $_city_acc = 'false';
+        // $_euroins_acc = 'false';
+        // $_decontare_directa = 'false';
+
+        // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+
+        // $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
+        // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
+        // $nr_luni = array('6', '12');
+
+
+        // ///proprietar
+        // $_cod_unic = '1991002070061';
+        // $_nume = 'Andrei';
+        // $_prenume= 'Andi'; 
+        // $_serie_ci= 'XT';
+        // $_numar_ci = '123123';
+        // $_sex_owner='M';
+        // $_judet = 'IASI';
+        // $_localitate = 'PASCANI';
+        // $_cod_siruta = '95408';  // default pascani
+        // $_strada = 'Crinului'; 
+        // $_numar = '20B'; 
+        // $_bloc = '-';
+        // $_scara = '-';
+        // $_etaj = '-';
+        // $_ap = '-';
+        // $_cod_postal='705200';
+        // $_permis_data='2017-01-01';  
+
+
+        // $_nume_driver = 'Andrei';
+        // $_prenume_driver= 'Andi'; 
+        // $_cnp_driver= '1991002070061';
+        // $_serie_ci_driver='XT';
+        // $_numar_ci_driver= '123123';
 
 
 
@@ -779,7 +893,9 @@ class CereriController extends Controller
 
         // print_r();
 
-        return view('oferte', ['oferte'=>$grouped, 'valabilitate'=>$nr_luni_valabilitate]);
+        return response()->json([
+             'view' => view('oferte', ['oferte'=>$grouped, 'valabilitate'=>$nr_luni_valabilitate])->render(),
+        ]);
     }
 
     /**

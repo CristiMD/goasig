@@ -19,7 +19,6 @@
 		<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 		<!-- Camera Slider -->
 	    <script src="{{ asset('vendor/Camera-master/scripts/jquery.easing.1.3.js') }}"></script>
-
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

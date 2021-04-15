@@ -344,8 +344,73 @@
                     e.stopPropagation();
                 }
             });
+          }
+
+
+
+        $("#wrapped").on('submit', function (event) {
+          $("#full-overlay").css('display', 'flex');
+          var formData = {
+            stare_inmatriculare: $("#stare_inmatriculare").val(),
+            numar_inmatriculare: $("#numar_inmatriculare").val(),
+            tip_vehicul: $("#tip_vehicul").val(),
+            marca: $("#marca").val(),
+            model: $("#model").val(),
+            combustibil: $("#combustibil").val(),
+            utilizare: $("#utilizare").val(),
+            masa_maxima: $("#masa_maxima").val(),
+            cap_cil: $("#cap_cil").val(),
+            putere: $("#putere").val(),
+            nr_loc: $("#nr_loc").val(),
+            serie_civ: $("#serie_civ").val(),
+            sasiu: $("#sasiu").val(),
+            an_fab: $("#an_fab").val(),
+            persoana: $("#persoana").val(),
+            nmume_proprietar: $("#nmume_proprietar").val(),
+            cnp_proprietar: $("#cnp_proprietar").val(),
+            ci_proprietar: $("#ci_proprietar").val(),
+            judet: $("#judet").val(),
+            strada_proprietar: $("#strada_proprietar").val(),
+            bloc_proprietar: $("#bloc_proprietar").val(),
+            etaj_proprietar: $("#etaj_proprietar").val(),
+            reduceri: $("#reduceri").val(),
+            prenume_proprietar: $("#prenume_proprietar").val(),
+            an_permis_proprietar: $("#an_permis_proprietar").val(),
+            nr_ci_proprietar: $("#nr_ci_proprietar").val(),
+            localitate: $("#localitate").val(),
+            numar_adresa_proprietar: $("#numar_adresa_proprietar").val(),
+            scara_proprietar: $("#scara_proprietar").val(),
+            apartament_proprietar: $("#apartament_proprietar").val(),
+            soferul_acelasi: $("#soferul_acelasi").val(),
+            nume_conducator: $("#nume_conducator").val(),
+            prenume_conducator: $("#prenume_conducator").val(),
+            ci_conducator: $("#ci_conducator").val(),
+            nr_ci_conducatorr: $("#nr_ci_conducatorr").val(),
+            cnp_conducator: $("#cnp_conducator").val(),
+            data_rca: $("#data_rca").val(),
+            nume_livrare: $("#nume_livrare").val(),
+            prenume_livrare: $("#prenume_livrare").val(),
+            adresa_livrare: $("#adresa_livrare").val(),
+            email_livrare: $("#email_livrare").val(),
+            telefon_livrare: $("#telefon_livrare").val(),
+            termeni_conditii: $("#termeni_conditii").val(),
           };
-        
+
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: "/cerere",
+            data: formData,
+            encode: true,
+          }).done(function (data) {
+            console.log(data);
+            $("#full-overlay").css('display', 'none');
+            $("#replaceble").empty().append(data.view);
+          });
+          event.preventDefault();
+        });
 
         
     });

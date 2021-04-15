@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<div id="replaceble">
 <!-- 
 			=============================================
 				Theme Main Banner
 			============================================== 
 			-->
+			<div id="full-overlay"><div id="loading-overlay"><div id="loader"></div><div class="text">Asteapta o secunda, acum incarcam ofertele pentru tine</div></div></div>
 			<div id="theme-main-banner" class="banner-one">
 				<div data-src="images/home/slide-1.jpg">
 					<div class="camera_caption">
@@ -86,7 +88,7 @@
 			<div class="container">
 				<div id="wizard_container">
 					<form name="example-1" id="wrapped" method="post" action="/cerere" enctype="multipart/form-data">
-        				{{ csrf_field() }}
+        				<meta name="csrf-token" content="{{ csrf_token() }}">
 						<input id="website" name="website" type="text" value="">
 						<!-- Leave for security protection, read docs for details -->
 						<div id="middle-wizard">
@@ -100,7 +102,7 @@
 										<div class="box_general">
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
-													<select class="required" name="stare_inmatriculare">
+													<select class="required" id="stare_inmatriculare" name="stare_inmatriculare">
 														<option value="" selected>Stare inmatriculare</option>
 														<option value="Inmatriculat">Inmatriculat</option>
 														<option value="InVedereInmatriculare">In vederea inmatricularii</option>
@@ -110,11 +112,11 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<input type="text" name="numar_inmatriculare" class="required form-control" placeholder="Numar Inmatriculare">
+												<input type="text" id="numar_inmatriculare" name="numar_inmatriculare" class="required form-control" placeholder="Numar Inmatriculare">
 											</div>
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
-													<select class="required" name="tip_vehicul">
+													<select class="required" id="tip_vehicul" name="tip_vehicul">
 														<option value="" selected>Tip vehicul</option>
 															<option value="Autoturism">Autoturism</option>
 															<option value="Autobuz">Autobuz</option>
@@ -153,7 +155,7 @@
 											</div>
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
-													<select class="required" name="marca">
+													<select class="required" name="marca" id="marca">
 															<option value="" selected>Marca</option>
 															<option value="ACERBI">ACERBI                                                                 </option>
 															<option value="ACHLEITNER">ACHLEITNER                                                         </option>
@@ -492,11 +494,11 @@
 												</div>
 												</div>
 												<div class="form-group">
-													<input type="text" name="model" class="required form-control" placeholder="Model">
+													<input type="text" name="model" id="model" class="required form-control" placeholder="Model">
 												</div>
 												<div class="form-group add_bottom_30">
 													<div class="styled-select">
-														<select class="required" name="combustibil">
+														<select class="required" name="combustibil"  id="combustibil">
 															<option value="" selected>Combustibil</option>
 																<option value="501">Benzina</option>
 																<option value="502">Motorina</option>
@@ -510,7 +512,7 @@
 												</div>
 												<div class="form-group add_bottom_30">
 													<div class="styled-select">
-														<select class="required" name="utilizare">
+														<select class="required" name="utilizare"  id="utilizare">
 															<option value="" selected>Utilizare</option>												
 																<option value="Privat">In interes personal</option>
 																<!-- <option value="Taxi">Taxi</option>
@@ -540,25 +542,25 @@
 									<div class="col-lg-5">
 										<div class="box_general">
 										<div class="form-group">
-											<input type="text" name="masa_maxima" class="required form-control" placeholder="Masa Maxima">
+											<input type="text" name="masa_maxima" id="masa_maxima" class="required form-control" placeholder="Masa Maxima">
 										</div>
 										<div class="form-group">
-											<input type="text" name="cap_cil" class="required form-control" placeholder="Capacitate cilindrica">
+											<input type="text" name="cap_cil" id="cap_cil" class="required form-control" placeholder="Capacitate cilindrica">
 										</div>
 										<div class="form-group">
-											<input type="text" name="putere" class="required form-control" placeholder="Putere">
+											<input type="text" name="putere" id="putere" class="required form-control" placeholder="Putere">
 										</div>
 										<div class="form-group">
-											<input type="text" name="nr_loc" class="required form-control" placeholder="Nr. Locuri">
+											<input type="text" name="nr_loc" id="nr_loc" class="required form-control" placeholder="Nr. Locuri">
 										</div>
 										<div class="form-group">
-											<input type="text" name="serie_civ" class="required form-control" placeholder="Seria CIV">
+											<input type="text" name="serie_civ" id="serie_civ" class="required form-control" placeholder="Seria CIV">
 										</div>
 										<div class="form-group">
-											<input type="text" name="sasiu" class="required form-control" placeholder="Serie sasiu">
+											<input type="text" name="sasiu" id="sasiu" class="required form-control" placeholder="Serie sasiu">
 										</div>
 										<div class="form-group">
-											<input type="text" name="an_fab" class="required form-control" placeholder="An fabricatie">
+											<input type="text" name="an_fab" name="an_fab" id="an_fab" class="required form-control" placeholder="An fabricatie">
 										</div>
 									</div>
 									</div>
@@ -577,7 +579,7 @@
 										<div class="box_general">
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
-													<select class="required" name="persoana">
+													<select class="required" name="persoana" id="persoana">
 															<option value="pf">Persoana Fizica</option>
 															<option value="pj">Persoana Juridica</option>
 															<option value="leasing">Leasing</option>
@@ -585,13 +587,13 @@
 												</div>
 											</div>
 										<div class="form-group">
-											<input type="text" name="nmume_proprietar" class="required form-control" placeholder="Nume">
+											<input type="text" name="nmume_proprietar" id="nmume_proprietar" class="required form-control" placeholder="Nume">
 										</div>
 										<div class="form-group">
-											<input type="text" name="cnp_proprietar" class="required form-control" placeholder="CNP">
+											<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="required form-control" placeholder="CNP">
 										</div>
 										<div class="form-group">
-											<input type="text" name="ci_proprietar" class="required form-control" placeholder="Serie CI">
+											<input type="text" name="ci_proprietar" id="ci_proprietar" class="required form-control" placeholder="Serie CI">
 										</div>
 										<div class="form-group add_bottom_30">
 											<div class="styled-select">
@@ -643,13 +645,13 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="text" name="strada_proprietar" class="required form-control" placeholder="Strada">
+											<input type="text" name="strada_proprietar" id="strada_proprietar" class="required form-control" placeholder="Strada">
 										</div>
 										<div class="form-group">
-											<input type="text" name="bloc_proprietar" class="required form-control" placeholder="Bloc">
+											<input type="text" name="bloc_proprietar"  id="bloc_proprietar" class="required form-control" placeholder="Bloc">
 										</div>
 										<div class="form-group">
-											<input type="text" name="etaj_proprietar" class="required form-control" placeholder="Etaj">
+											<input type="text" name="etaj_proprietar" id="etaj_proprietar" class="required form-control" placeholder="Etaj">
 										</div>
 									</div>
 									</div>
@@ -657,7 +659,7 @@
 										<div class="box_general">
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
-													<select class="required" name="reduceri">
+													<select class="required" name="reduceri"  id="reduceri">
 															<option value="0">--Nu e cazul--</option>
 															<option value="1">Pensionar</option>
 															<option value="2">Deficiente locomotorii</option>
@@ -665,30 +667,29 @@
 												</div>
 											</div>
 										<div class="form-group">
-											<input type="text" name="prenume_proprietar" class="required form-control" placeholder="Prenume">
+											<input type="text" name="prenume_proprietar" id="prenume_proprietar" class="required form-control" placeholder="Prenume">
 										</div>
 										<div class="form-group">
-											<input type="text" name="an_permis_proprietar" class="required form-control" placeholder="An obtinere permis">
+											<input type="date" name="an_permis_proprietar" id="an_permis_proprietar" class="required form-control" placeholder="Data obtinere permis">
 										</div>
 										<div class="form-group">
-											<input type="text" name="nr_ci_proprietar" class="required form-control" placeholder="Numar CI">
+											<input type="text" name="nr_ci_proprietar" id="nr_ci_proprietar" class="required form-control" placeholder="Numar CI">
 										</div>
 										<div class="form-group add_bottom_30">
 											<div class="styled-select">
 												<select class="required" id="localitate" name="localitate_proprietar">
 													<option value="">--alege localitatea--</option>
-													<option value="da">asdad</option>
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="text" name="numar_adresa_proprietar" class="required form-control" placeholder="Numar">
+											<input type="text" name="numar_adresa_proprietar" id="numar_adresa_proprietar" class="required form-control" placeholder="Numar">
 										</div>
 										<div class="form-group">
-											<input type="text" name="scara_proprietar" class="required form-control" placeholder="Scara">
+											<input type="text" name="scara_proprietar" id="scara_proprietar" class="required form-control" placeholder="Scara">
 										</div>
 										<div class="form-group">
-											<input type="text" name="apartament_proprietar" class="required form-control" placeholder="Ap.">
+											<input type="text" name="apartament_proprietar" id="apartament_proprietar" class="required form-control" placeholder="Ap.">
 										</div>
 										</div>
 									</div>
@@ -712,22 +713,22 @@
 											<label for="soferul_acelasi">Soferul principal este acelasi cu proprietarul?</label>
 										</div>
 										<div class="form-group">
-											<input type="text" name="nume_conducator" class="required form-control" placeholder="Nume">
+											<input type="text" name="nume_conducator" id="nume_conducator" class="required form-control" placeholder="Nume">
 										</div>
 										<div class="form-group">
-											<input type="text" name="prenume_conducator" class="required form-control" placeholder="Prenume">
+											<input type="text" name="prenume_conducator" id="prenume_conducator" class="required form-control" placeholder="Prenume">
 										</div>
 										<div class="form-group">
-											<input type="text" name="ci_conducator" class="required form-control" placeholder="Serie CI">
+											<input type="text" name="ci_conducator" id="ci_conducator" class="required form-control" placeholder="Serie CI">
 										</div>
 										<div class="form-group">
-											<input type="text" name="nr_ci_conducatorr" class="required form-control" placeholder="Numar CI">
+											<input type="text" name="nr_ci_conducatorr"  id="nr_ci_conducatorr" class="required form-control" placeholder="Numar CI">
 										</div>
 										<div class="form-group">
-											<input type="text" name="cnp_conducator" class="required form-control" placeholder="CNP">
+											<input type="text" name="cnp_conducator" id="cnp_conducator" class="required form-control" placeholder="CNP">
 										</div>
 										<div class="form-group">
-											<input type="text" name="data_rca" class="required form-control" placeholder="Valabilitate de la">
+											<input type="date" name="data_rca"  id="data_rca" class="required form-control" placeholder="Valabilitate de la">
 										</div>
 										
 									</div>
@@ -737,19 +738,19 @@
 										<h4>Date livrare</h4>
 
 										<div class="form-group">
-											<input type="text" name="nume_livrare" class="required form-control" placeholder="Nume">
+											<input type="text" name="nume_livrare" id="nume_livrare" class="required form-control" placeholder="Nume">
 										</div>
 										<div class="form-group">
-											<input type="text" name="prenume_livrare" class="required form-control" placeholder="Prenume">
+											<input type="text" name="prenume_livrare"  id="prenume_livrare" class="required form-control" placeholder="Prenume">
 										</div>
 										<div class="form-group">
-											<input type="text" name="adresa_livrare" class="required form-control" placeholder="Adresa">
+											<input type="text" name="adresa_livrare" id="adresa_livrare" class="required form-control" placeholder="Adresa">
 										</div>
 										<div class="form-group">
-											<input type="text" name="email_livrare" class="required form-control" placeholder="Email">
+											<input type="text" name="email_livrare"  id="email_livrare" class="required form-control" placeholder="Email">
 										</div>
 										<div class="form-group">
-											<input type="text" name="telefon_livrare" class="required form-control" placeholder="Telefon">
+											<input type="text" name="telefon_livrare"  id="telefon_livrare" class="required form-control" placeholder="Telefon">
 										</div>
 										<div class="item">
 											<input id="termeni_conditii" type="checkbox" name="termeni_conditii" class="required" checked>
@@ -1179,4 +1180,5 @@
 					</div> <!-- /.row -->
 				</div> <!-- /.container -->
 			</div> <!-- /.latest-update -->
+</div>
             @endsection
