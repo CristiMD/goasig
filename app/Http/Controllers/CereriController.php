@@ -706,7 +706,7 @@ class CereriController extends Controller
         $_numar_ci = request('nr_ci_proprietar');
         $_sex_owner='M';
         $_judet = request('judet');
-        $_localitate = request('localitate_proprietar');
+        $_localitate = request('localitate');
         $_cod_siruta = '95408';  // default pascani
         $_strada = request('strada_proprietar');
         $_numar = request('numar_adresa_proprietar');
@@ -741,6 +741,9 @@ class CereriController extends Controller
 
         
         for($i = 0; $i < count($json -> records); $i++) {
+            // print_r($_judet);
+            // print_r($_localitate);
+
             if(strcmp($json->records[$i][2], $_judet) == 0 && strcmp($json->records[$i][3], $_localitate) == 0){
                 $_cod_siruta = $json->records[$i][5];
                 $_cod_postal=$json->records[$i][4];

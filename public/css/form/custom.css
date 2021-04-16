@@ -1,3 +1,119 @@
 /*============================================================================================*/
 /* Your custom styles below */
 /*============================================================================================*/
+
+
+.card.custom-card-view {
+    width: 100%;
+    margin-top: 100px;
+}
+
+.card.custom-card-view .card-header {
+    text-align: center;
+    background: #365d4e;
+    color: #fff;
+    border: none;
+}
+
+.card.custom-card-view .card-header.eroare {
+    background-color: #dc3545;
+}
+
+.vezi-polita {
+    background: #fbe3b7;
+    padding: 15px 20px;
+    color: #010101;
+    margin-top: 20px;
+}
+
+.vezi-polita:hover {
+    background: #365d4e;
+    padding: 15px 20px;
+    color: #fff;
+    margin-top: 20px;
+}
+
+button.backward, button.forward, button.submit {
+    background: #365d4e;
+}
+
+.backward:hover, .forward:hover {
+    background: #fbe3b7;
+    color: #010101;
+}
+
+#full-overlay #loader {
+    background: url(../../images/loader.gif);
+    width: auto;
+    height: 120px;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 30%;
+    margin: 0;
+    background-position: center;
+    background-size: contain;
+}
+
+#loading-overlay .text {
+    position: relative;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    color: #000;
+}
+
+#loading-overlay {
+    padding: 0 50px;
+    border-radius: 5px;
+}
+
+.card-oferte table {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.card-oferte th {
+    padding-bottom: 30px;
+}
+
+.card-oferte tbody tr {
+    border-top: 1px solid #000;
+}
+
+.actiuni .buton {
+    display: flex;
+    width: fit-content;
+    margin: auto;
+    padding: 15px;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    background: #365d4e;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.actiuni .buton:hover {
+    background: #fbe3b7;
+    color: #010101;
+}
+
+.actiuni .buton i {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.actiuni .buton:hover i{
+    color: #010101;
+}
+
+img.logo-asigurator {
+    width: 200px;
+    margin: auto;
+}

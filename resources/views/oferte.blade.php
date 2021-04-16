@@ -1,8 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+            <div class="card card-oferte  custom-card-view">
+                <div class="card-header ">{{ __('Oferte disponibile') }}</div>
                 <div class="card-body">
                 <table>
                     <thead>
@@ -16,7 +15,7 @@
                     <tbody>
                     @foreach ($oferte as $key => $asigurator)
                         <tr>
-                        <td><div class="logo-asigurator">{{$key}}</div></td>
+                        <td><img class="logo-asigurator" src="{{URL::asset('/images/'.$key.'.png')}}" /></td>
                         <td><div class="clasa-bonus">Clasa BM: {{$asigurator[0]->ClasaBM}}</div>
                             <div class="valabilitate">Valabilitate: {{$asigurator[0]->Valabilitate}} luni</div>
                             <div class="carte-verde">Tari excluse carte verde: {{$asigurator[0]->CarteaVerde}}</div>
@@ -24,10 +23,10 @@
                         </td>
                         @foreach ($asigurator as $ceva => $oferta)
                                 <td>@if($oferta->Valabilitate == 6) 
-                                    <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}">{{$oferta->Valoare}} lei</a></div>
+                                    <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span>{{$oferta->Valoare}} lei</span></a></div>
                                     @endif</td>
                                 <td>@if($oferta->Valabilitate == 12) 
-                                    <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}">{{$oferta->Valoare}} lei</a></div>
+                                    <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span>{{$oferta->Valoare}} lei</span></a></div>
                                     @endif</td>
                                 @endforeach
                             </tr>
@@ -35,7 +34,6 @@
                     </tbody>
                  </table>
                 </div>
-            </div>
         </div>
     </div>
 </div>

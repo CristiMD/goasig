@@ -58,7 +58,6 @@ class PlataController extends Controller
                 $IdOferta
                 )
         );
-        print_r($result);
         if($result->Eroare != 1){
             // echo '<br><br>';
             return redirect('/emite?idOferta='.$request->query('idOferta'));

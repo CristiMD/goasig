@@ -23,10 +23,7 @@
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
 		<!-- For IE -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -56,6 +53,11 @@
 
 		<!-- YOUR CUSTOM CSS -->
 		<link href="{{ asset('css/form/custom.css') }}" rel="stylesheet">
+
+		<!-- Styles -->
+		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
 		<script src="{{ asset('js/form/modernizr.js') }}"></script>
 		<!-- Modernizr -->
@@ -112,7 +114,7 @@
 				<div class="main-menu-wrapper clearfix">
 					<div class="container clearfix">
 						<!-- Logo -->
-						<div class="logo float-left"><a href="index.html"><img src="images/logo/logo.png" alt="Logo"></a></div>
+						<div class="logo float-left"><a href="{{ URL::route('landing') }}"><img src="images/logo/logo.png" alt="Logo"></a></div>
 
 
 						<!-- ============================ Theme Menu ========================= -->
@@ -122,7 +124,7 @@
 					    	</button>
 					    	<div class="collapse navbar-collapse clearfix" id="navbarNav">
 					    	  <ul class="navbar-nav nav">
-					    	    <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+					    	    <li class="nav-item active"><a class="nav-link" href="{{ URL::route('landing') }}">Home</a></li>
 					    	    <li class="nav-item dropdown-holder">
 					    	    	<a class="nav-link" href="#">Feature</a>
 					    	    	<ul class="sub-menu">
