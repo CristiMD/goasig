@@ -426,7 +426,7 @@
 
     $("#judet").on('change', function() {
       let val = $("#judet").val();
-      $.getJSON("/public/js/localitati.json", function(obiect) {
+      $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
           // console.log(obiect); // this will show the info it in firebug console
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
         if(selectat){
