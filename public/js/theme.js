@@ -401,7 +401,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "POST",
-            url: "/cerere",
+            url: "/platforma/public/cerere",
             data: formData,
             encode: true,
           }).done(function (data) {
