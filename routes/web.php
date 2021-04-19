@@ -22,6 +22,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/test', [App\Http\Controllers\CereriController::class, 'index']);
+Route::get('/marci', [App\Http\Controllers\CereriController::class, 'marci']);
+Route::get('/activitati', [App\Http\Controllers\CereriController::class, 'activitati']);
+Route::get('/categorii', [App\Http\Controllers\CereriController::class, 'categorii']);
+Route::get('/caen', [App\Http\Controllers\CereriController::class, 'caen']);
 Route::post('/cerere', [App\Http\Controllers\CereriController::class, 'store']);
 Route::get('/plata', [App\Http\Controllers\PlataController::class, 'index']);
 Route::get('/emite', [App\Http\Controllers\PlataController::class, 'emitere']);

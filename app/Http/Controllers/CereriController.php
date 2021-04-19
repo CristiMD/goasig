@@ -503,23 +503,189 @@ class CereriController extends Controller
      */
     public function index(Request $request)
     {
-        $coduri =  asset('js/coduri.json');
 
-        $path = public_path() . "/js/coduri.json";
-        if (!File::exists($path)) {
-            throw new Exception("Invalid File");
+        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        'soap_version' => SOAP_1_1,
+        'location' => $location_URL,
+        'uri'      => $action_URL,
+        'style'    => SOAP_RPC,
+        'use'      => SOAP_ENCODED,
+        'trace'    => 1,
+        ));
+
+        $username = 'testRCA';
+        $password = 'test.1234';
+
+        $autentificare = new ComplexCredentials($username, $password);
+
+        $IdOferta = 1234;
+
+        try {
+            $result = $client->__call('GetCAENList',
+            array(
+                $autentificare
+                )
+        );
+        // print_r($result);
+        return $result->Lista;
+        // if($result->Eroare != 1){
+        //     // echo '<br><br>';
+        //     return redirect('/emite?idOferta='.$request->query('idOferta'));
+        // } else {
+        //     return view('eroareplata', ['eroare' => 1]);
+        // }
+        
+        } catch(Exception $a) {
+            echo $a;
         }
 
+        
+        // $coduri =  asset('js/coduri.json');
 
-        $file = File::get($path); // string
-        $json = json_decode($file);
-        // print_r($json->records[0]);
+        // $path = public_path() . "/js/coduri.json";
+        // if (!File::exists($path)) {
+        //     throw new Exception("Invalid File");
+        // }
+
+
+        // $file = File::get($path); // string
+        // $json = json_decode($file);
+        // // print_r($json->records[0]);
 
         
-        for($i = 0; $i < count($json -> records); $i++) {
-            if(strcmp($json->records[$i][2], 'ILFOV') == 0 && strcmp($json->records[$i][3], 'Copăceni') == 0){
-                print_r($json->records[$i]);
-            }
+        // for($i = 0; $i < count($json -> records); $i++) {
+        //     if(strcmp($json->records[$i][2], 'ILFOV') == 0 && strcmp($json->records[$i][3], 'Copăceni') == 0){
+        //         print_r($json->records[$i]);
+        //     }
+        // }
+
+
+    }
+
+    public function marci(Request $request)
+    {
+
+        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        'soap_version' => SOAP_1_1,
+        'location' => $location_URL,
+        'uri'      => $action_URL,
+        'style'    => SOAP_RPC,
+        'use'      => SOAP_ENCODED,
+        'trace'    => 1,
+        ));
+
+        $username = 'testRCA';
+        $password = 'test.1234';
+        $autentificare = new ComplexCredentials($username, $password);
+
+        try {
+            $result = $client->__call('GetVehicleBrandsList',
+            array(
+                $autentificare
+            )
+        );
+        return $result->Lista;
+        } catch(Exception $a) {
+            echo $a;
+        }
+    }
+
+    public function activitati(Request $request)
+    {
+
+        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        'soap_version' => SOAP_1_1,
+        'location' => $location_URL,
+        'uri'      => $action_URL,
+        'style'    => SOAP_RPC,
+        'use'      => SOAP_ENCODED,
+        'trace'    => 1,
+        ));
+
+        $username = 'testRCA';
+        $password = 'test.1234';
+        $autentificare = new ComplexCredentials($username, $password);
+
+        try {
+            $result = $client->__call('GetVehicleActivitiesList',
+            array(
+                $autentificare
+            )
+        );
+        return $result->Lista;
+        } catch(Exception $a) {
+            echo $a;
+        }
+    }
+
+    public function categorii(Request $request)
+    {
+
+        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        'soap_version' => SOAP_1_1,
+        'location' => $location_URL,
+        'uri'      => $action_URL,
+        'style'    => SOAP_RPC,
+        'use'      => SOAP_ENCODED,
+        'trace'    => 1,
+        ));
+
+        $username = 'testRCA';
+        $password = 'test.1234';
+        $autentificare = new ComplexCredentials($username, $password);
+
+        try {
+            $result = $client->__call('GetVehicleCategoriesList',
+            array(
+                $autentificare
+            )
+        );
+        return $result->Lista;
+        } catch(Exception $a) {
+            echo $a;
+        }
+    }
+
+    public function caen(Request $request)
+    {
+
+        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        'soap_version' => SOAP_1_1,
+        'location' => $location_URL,
+        'uri'      => $action_URL,
+        'style'    => SOAP_RPC,
+        'use'      => SOAP_ENCODED,
+        'trace'    => 1,
+        ));
+
+        $username = 'testRCA';
+        $password = 'test.1234';
+        $autentificare = new ComplexCredentials($username, $password);
+
+        try {
+            $result = $client->__call('GetCAENList',
+            array(
+                $autentificare
+            )
+        );
+        return $result->Lista;
+        } catch(Exception $a) {
+            echo $a;
         }
     }
 
@@ -661,7 +827,7 @@ class CereriController extends Controller
         $_allianz_supl = 'false';
         $_allianz_dealer = 'false';
         $_email= request('email_livrare');
-        $_telefon= request('telefon_livrare');
+        $_telefon= request('telefon_fix');
         $_mobil= request('telefon_livrare');
         $_companie_tip ='?';
         $_companie_profil='?';
@@ -692,6 +858,7 @@ class CereriController extends Controller
         $_decontare_directa = 'false';
 
         $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+        // $link_redirect_plata='http://127.0.0.1:8000/plata';
 
         $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
         $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
@@ -725,6 +892,25 @@ class CereriController extends Controller
         $_numar_ci_driver= request('nr_ci_conducatorr');
 
 
+
+        ///inlocuiri variabile
+
+        if(strcmp($tip_persoana, "pf") != 0) {
+            $_nume = request('societate');
+            $_companie_tip ='?';
+            $_companie_profil='?';
+            $_companie_activitate='?';
+            $_companie_caen= request('caen');
+            $_cod_unic = request('cui');
+        }
+
+        $diac = array('â','Â','î','Î','ş','Ş','ţ','Ţ');
+        $cor = array('a','A','i','I','s','S','t' ,'T');
+
+        $_strada = str_replace($diac,$cor,$_strada);
+        $_nume = str_replace($diac,$cor,$_nume);
+        $_prenume = str_replace($diac,$cor,$_prenume);
+
         ///coduri
 
         $coduri =  asset('js/coduri.json');
@@ -745,6 +931,9 @@ class CereriController extends Controller
             // print_r($_localitate);
 
             if(strcmp($json->records[$i][2], $_judet) == 0 && strcmp($json->records[$i][3], $_localitate) == 0){
+                $_cod_siruta = $json->records[$i][5];
+                $_cod_postal=$json->records[$i][4];
+            } elseif (strcmp($json->records[$i][2], $_judet) == 0) {
                 $_cod_siruta = $json->records[$i][5];
                 $_cod_postal=$json->records[$i][4];
             }

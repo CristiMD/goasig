@@ -1551,3 +1551,40 @@ td:empty{
   padding: 20px 45px;
   margin-bottom: 20px;
 }
+
+
+/* #societate, #cui, #caen-wrapper {
+  display: none
+} */
+
+.cst-error {
+  font-size: 12px;
+  position: absolute;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  left: -5px;
+  top: -35px;
+  z-index: 2;
+  height: 25px;
+  line-height: 1;
+  background-color: #e34f4f;
+  color: #fff;
+  font-weight: normal;
+  display: inline-block;
+  padding: 6px 8px;
+}
+
+
+span.cst-error:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 6px 6px 0;
+  border-color: transparent #e34f4f;
+  display: block;
+  width: 0;
+  z-index: 1;
+  bottom: -6px;
+  left: 20%;
+}

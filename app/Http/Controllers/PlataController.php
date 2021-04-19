@@ -104,7 +104,7 @@ class PlataController extends Controller
                 $IdOferta
                 )
         );
-        // print_r($result);
+        print_r($result);
         if($result->Eroare != 1){
             // print_r($result);
             // echo '<br><br>';

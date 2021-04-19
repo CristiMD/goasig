@@ -394,6 +394,9 @@
             email_livrare: $("#email_livrare").val(),
             telefon_livrare: $("#telefon_livrare").val(),
             termeni_conditii: $("#termeni_conditii").val(),
+            societate: $("#societate").val(),
+            cui: $("#cui").val(),
+            caen: $("#caen").val(),
           };
 
           $.ajax({
@@ -401,6 +404,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "POST",
+            // url: "/cerere",
             url: "/platforma/public/cerere",
             data: formData,
             encode: true,
@@ -422,12 +426,181 @@
         $('#loader').fadeOut(); // will first fade out the loading animation
         $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         $('body').delay(350).css({'overflow':'visible'});
+        getVehicleBrands();
+        getVehicleActivities();
+        getVehicleCategories();
+        getCompanyCAEN();
     })
+
+    function getVehicleBrands() {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/marci",
+        encode: true,
+      }).done(function (data) {
+        let parsed = JSON.parse(data);
+        let brands = Object.entries(parsed)
+        if(brands.length){
+          $('#marca').empty();
+          $('#marca').append(new Option("Marca", ""));
+          brands.map(brand => {
+            $('#marca').append(new Option(brand[0], brand[1]));
+          });
+        }
+      });
+    }
+
+    function getVehicleActivities() {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/activitati",
+        encode: true,
+      }).done(function (data) {
+        let parsed = JSON.parse(data);
+        let activitati = Object.entries(parsed)
+        if(activitati.length){
+          $('#utilizare').empty();
+          $('#utilizare').append(new Option("Utilizare", ""));
+          activitati.map(activitate => {
+            $('#utilizare').append(new Option(activitate[0], activitate[1]));
+          });
+        }
+      });
+    }
+
+    function getVehicleCategories() {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/categorii",
+        encode: true,
+      }).done(function (data) {
+        let parsed = JSON.parse(data);
+        let categorii = Object.entries(parsed)
+        if(categorii.length){
+          $('#tip_vehicul').empty();
+          $('#tip_vehicul').append(new Option("Tip vehicul", ""));
+          categorii.map(categorie => {
+            $('#tip_vehicul').append(new Option(categorie[0], categorie[1]));
+          });
+        }
+      });
+    }
+
+    function getCompanyCAEN() {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/caen",
+        encode: true,
+      }).done(function (data) {
+        let parsed = JSON.parse(data);
+        let coduri = Object.entries(parsed)
+        if(coduri.length){
+          $('#caen').empty();
+          $('#caen').append(new Option("Cod CAEN", ""));
+          coduri.map(cod => {
+            $('#caen').append(new Option(cod[1], cod[0]));
+          });
+        }
+      });
+    }
+
+
+    $("#sasiu").on('change', function() {
+      checkRegex("#sasiu", /^([a-zA-Z0-9]{13,17})$/, "Seria sasiu trebuie sa contina 17 caractere")
+    });
+
+    function checkRegex(element, regex, error_message) {
+      let val = $(element).val();
+      // console.log(regex.test(val));
+      if(!regex.test(val)){
+        $(element).removeClass('valid');
+        $(element).addClass('error');
+        if(!$(element).parent().has( ".cst-error" ).length)
+        $(element).parent().append('<span for="sasiu" class="cst-error" style="display: block;">'+ error_message + '</span>')
+      } else {
+        $(".cst-error").remove();
+        $(element).removeClass('error');
+        $(element).addClass('valid');
+        console.log("inlaturam")
+      }
+    }
+
+    $("#persoana").on('change', function() {
+      let val = $("#persoana").val();
+      if(val === "pj" || val === "leasing") {
+        $("#nmume_proprietar").remove();
+        $("#cnp_proprietar").remove();
+        $("#ci_proprietar").remove();
+        $("#prenume_proprietar").remove();
+        $("#an_permis_proprietar").remove();
+        $("#nr_ci_proprietar").remove();
+        $("#societate").remove();
+        $("#caen").remove();
+        $("#cui").remove();
+        $("#telefon_fix").remove();
+        
+        getCompanyCAEN();
+
+        $("#societate-wrapper").append('<input type="text" name="societate" id="societate" class="required form-control" placeholder="Denumire societate">');
+        $("#cui-wrapper").append('<input type="text" name="cui" id="cui" class="required form-control" placeholder="CUI">');
+        $("#caen-wrapper").append('<div class="styled-select"><select class="required" name="caen" id="caen"><option value="" selected>Cod CAEN</option></select></div>');
+        $("#telefon_fix-wrapper").append('<input type="text" name="telefon_fix" id="telefon_fix" class="required form-control" placeholder="Telefon Fix">');
+      } else {
+        $("#nmume_proprietar").remove();
+        $("#cnp_proprietar").remove();
+        $("#ci_proprietar").remove();
+        $("#prenume_proprietar").remove();
+        $("#an_permis_proprietar").remove();
+        $("#nr_ci_proprietar").remove();
+        $("#societate").remove();
+        $("#caen").remove();
+        $("#cui").remove();
+
+
+        $("#nmume_proprietar-wrapper").append('<input type="text" name="nmume_proprietar" id="nmume_proprietar" class="required form-control" placeholder="Nume">');
+        $("#cnp_proprietar-wrapper").append('<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="required form-control" placeholder="CNP">');
+        $("#ci_proprietar-wrapper").append('<input type="text" name="ci_proprietar" id="ci_proprietar" class="required form-control" placeholder="Serie CI">');
+        $("#prenume_proprietar-wrapper").append('<input type="text" name="prenume_proprietar" id="prenume_proprietar" class="required form-control" placeholder="Prenume">');
+        $("#an_permis_proprietar-wrapper").append('<input type="date" name="an_permis_proprietar" id="an_permis_proprietar" class="required form-control" placeholder="Data obtinere permis">');
+        $("#nr_ci_proprietar-wrapper").append('<input type="text" name="nr_ci_proprietar" id="nr_ci_proprietar" class="required form-control" placeholder="Numar CI">');
+      }
+      console.log(val)
+    });
+
+    
+
+    $("#soferul_acelasi").on('change', function() { 
+      if($("#soferul_acelasi").is(':checked')){
+        $("#nume_conducator").val($('#nmume_proprietar').val());
+        $("#prenume_conducator").val($('#prenume_proprietar').val());
+        $("#ci_conducator").val($('#ci_proprietar').val());
+        $("#nr_ci_conducatorr").val($('#nr_ci_proprietar').val());
+        $("#cnp_conducator").val($('#cnp_proprietar').val());
+      } else {
+        $("#nume_conducator").val('');
+        $("#prenume_conducator").val('');
+        $("#ci_conducator").val('');
+        $("#nr_ci_conducatorr").val('');
+        $("#cnp_conducator").val('');
+      }
+    });
 
     $("#judet").on('change', function() {
       let val = $("#judet").val();
+      // $.getJSON("/js/localitati.json", function(obiect) {
       $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
-          // console.log(obiect); // this will show the info it in firebug console
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
         if(selectat){
           $('#localitate').empty();
