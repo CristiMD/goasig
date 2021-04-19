@@ -438,7 +438,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/marci",
+        url: "/platforma/public/marci",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -459,7 +459,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/activitati",
+        url: "/platforma/public/activitati",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -480,7 +480,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/categorii",
+        url: "/platforma/public/categorii",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -501,7 +501,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/caen",
+        url: "/platforma/public/caen",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
