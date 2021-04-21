@@ -8,7 +8,7 @@
                         <tr>
                             <th>Asigurator</th>
                             <th>Beneficii</th>
-                            <th>Valabilitate (6 luni)</th>
+                            <th>Valabilitate ({{$valabilitate}} luni)</th>
                             <th>Valabilitate (12 luni)</th>
                         </tr>
                     </thead>
@@ -17,12 +17,11 @@
                         <tr>
                         <td><img class="logo-asigurator" src="{{URL::asset('/images/'.$key.'.png')}}" /></td>
                         <td><div class="clasa-bonus">Clasa BM: {{$asigurator[0]->ClasaBM}}</div>
-                            <div class="valabilitate">Valabilitate: {{$asigurator[0]->Valabilitate}} luni</div>
                             <div class="carte-verde">Tari excluse carte verde: {{$asigurator[0]->CarteaVerde}}</div>
                             <div class="comision">Comision inclus {{$key}}: {{$asigurator[0]->ComisionProcent}}</div>
                         </td>
                         @foreach ($asigurator as $ceva => $oferta)
-                                <td>@if($oferta->Valabilitate == 6) 
+                                <td>@if($oferta->Valabilitate == $valabilitate) 
                                     <div class="actiuni"><a class="buton" href="{{$oferta->LinkPlata}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span>{{$oferta->Valoare}} lei</span></a></div>
                                     @endif</td>
                                 <td>@if($oferta->Valabilitate == 12) 

@@ -395,7 +395,9 @@
             telefon_livrare: $("#telefon_livrare").val(),
             termeni_conditii: $("#termeni_conditii").val(),
             societate: $("#societate").val(),
+            valabilitate: $("#valabilitate").val(),
             cui: $("#cui").val(),
+            asigurator: $("#asigurator").val(),
             caen: $("#caen").val(),
           };
 
@@ -439,6 +441,7 @@
         },
         type: "GET",
         url: "/platforma/public/marci",
+        // url: "/marci",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -460,6 +463,7 @@
         },
         type: "GET",
         url: "/platforma/public/activitati",
+        // url: "/activitati",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -481,6 +485,7 @@
         },
         type: "GET",
         url: "/platforma/public/categorii",
+        // url: "/categorii",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -502,6 +507,7 @@
         },
         type: "GET",
         url: "/platforma/public/caen",
+        // url: "/caen",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -611,5 +617,42 @@
         }
       });
     });
-    
+
+
+    $("#fara-revenire").on('click', function() {
+      $("#revenire").css('display', 'none');
+      $("#wizard_container").css('display', 'block');
+    });
+
+    $("#test-revenire").on('click', function() {
+      $("#revenire").css('display', 'none');
+      $("#wizard_container").css('display', 'block');
+      let nr_mat = $('#nr_mat').val();
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/platforma/public/vehicul/"+nr_mat,
+        // url: "/vehicul/"+nr_mat,
+        encode: true,
+      }).done(function (data) {
+        // console.log(data);
+        $("#stare_inmatriculare").val("Inmatriculat");
+        $("#an_fab").val(data.an_fabricatie);
+        $("#cap_cil").val(data.capacitatea_cilindrica);
+        $("#combustibil").val(data.carburant);
+        $("#marca").val(data.marca);
+        $("#masa_maxima").val(data.masa_admia);
+        $("#model").val(data.model);
+        $("#numar_inmatriculare").val(data.nr_inmatriculare);
+        $("#nr_loc").val(data.nr_locuri);
+        $("#putere").val(data.putere_motor);
+        $("#serie_civ").val(data.serie_civ);
+        $("#sasiu").val(data.serie_sasiu);
+        $("#tip_vehicul").val(data.tip_vehicul);
+        $("#utilizare").val(data.utilizare);
+        // let parsed = JSON.parse(data);
+      });
+    });
 })(jQuery)

@@ -10002,3 +10002,42 @@ h3 {
     border-color: #dee2e6;
   }
 }
+
+
+#revenire {
+  text-align: center;
+  padding: 100px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#nr_mat {
+  margin: 30px 0;
+  padding: 10px;
+  font-size: 35px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid;
+}
+
+#test-revenire {
+  background: green;
+  padding: 15px;
+  width: 300px;
+  color: #fff;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+#fara-revenire {
+  background: red;
+  padding: 15px;
+  width: 250px;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}

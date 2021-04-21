@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use File;
 
+
+///async SOAP
+use GuzzleHttp\Client;
+use Meng\AsyncSoap\Guzzle\Factory;
+use Laminas\Diactoros\RequestFactory;
+use Laminas\Diactoros\StreamFactory;
+////
+
+use App\Models\Vehicul;
+
+
 class ComplexCredentials{
 
     public function __construct($user, $parola) 
@@ -504,64 +515,137 @@ class CereriController extends Controller
     public function index(Request $request)
     {
 
-        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
-        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
-
-        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
-        'soap_version' => SOAP_1_1,
-        'location' => $location_URL,
-        'uri'      => $action_URL,
-        'style'    => SOAP_RPC,
-        'use'      => SOAP_ENCODED,
-        'trace'    => 1,
-        ));
-
         $username = 'testRCA';
         $password = 'test.1234';
+        $_km_totali = '120000';
+        $_km_an = '12000';
+        $_serie_motor='A123123';
+        $_allianz_supl = 'false';
+        $_allianz_dealer = 'false';
+        $_email='office@goasig.ro';
+        $_telefon='0232100100';
+        $_mobil='0763884692';
+        $_companie_tip ='?';
+        $_companie_profil='?';
+        $_companie_activitate='?';
+        $_companie_caen='?';
+        $nr_luni_valabilitate = "6";
+        $pensionar='0'; 
+        $deficiente='0';
+        $data_inceput_valabilitate='2021-05-01';
+        $activitate= 'Privat';
+        $leasing='3';  // nu este leasing
+        $tip_persoana= 'pf';
+        $_serie_sasiu = 'TMBCS21Z172152321';
+        $_stare_autevehicul =  'Inmatriculat';
+        $_numar_inmatriculare = 'BT86ABA';
+        $_marca = 'SKODA'; 
+        $_model = 'OCTAVIA';
+        $_serie_civ = 'F771864';
+        $_an_fabricatie = '2007';
+        $_tip_autovehicul = 'Autoturism';
+        $_capacitate_cilindrica ='1896';
+        $_nr_locuri = '5';
+        $_masa_maxima= '1970';
+        $_putere = '77';
+        $_combustibil = '502';
+        $_city_acc = 'false';
+        $_euroins_acc = 'false';
+        $_decontare_directa = 'false';
+
+        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+
+        $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
+        $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe', 'uniqa');
+        $nr_luni = array('6', '12');
+
+
+        ///proprietar
+        $_cod_unic = '1991002070061';
+        $_nume = 'Andrei';
+        $_prenume= 'Andi'; 
+        $_serie_ci= 'XT';
+        $_numar_ci = '123123';
+        $_sex_owner='M';
+        $_judet = 'IASI';
+        $_localitate = 'PASCANI';
+        $_cod_siruta = '95408';  // default pascani
+        $_strada = 'Crinului'; 
+        $_numar = '20B'; 
+        $_bloc = '-';
+        $_scara = '-';
+        $_etaj = '-';
+        $_ap = '-';
+        $_cod_postal='705200';
+        $_permis_data='2017-01-01';  
+
+
+        $_nume_driver = 'Andrei';
+        $_prenume_driver= 'Andi'; 
+        $_cnp_driver= '1991002070061';
+        $_serie_ci_driver='XT';
+        $_numar_ci_driver= '123123';
+
+
 
         $autentificare = new ComplexCredentials($username, $password);
+        $masina = new ComplexVehicle($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an,$_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa);
+        $proprietar = new ComplexOwner($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
+        $utilizator = new ComplexUser($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
+        $conducator = new ComplexDriver($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver);
 
-        $IdOferta = 1234;
+        $factory = new Factory();
+        $client = $factory->create(new Client(), new StreamFactory(), new RequestFactory(), 'https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl');
 
-        try {
-            $result = $client->__call('GetCAENList',
-            array(
-                $autentificare
-                )
-        );
-        // print_r($result);
-        return $result->Lista;
-        // if($result->Eroare != 1){
-        //     // echo '<br><br>';
-        //     return redirect('/emite?idOferta='.$request->query('idOferta'));
-        // } else {
-        //     return view('eroareplata', ['eroare' => 1]);
-        // }
-        
-        } catch(Exception $a) {
-            echo $a;
+        $cereri = [];
+        $oferte = [];
+        // async call
+        foreach ($nr_luni as $luna) {
+            foreach ($asiguratori as $asigurator) {
+                $promise = $client->callAsync('CerereOfertaRCA', array(
+                    $autentificare,
+                                $link_redirect_plata,
+                                $asigurator,
+                                $luna,
+                                $data_inceput_valabilitate,
+                                $activitate,
+                                $leasing,
+                                $masina,
+                                $tip_persoana,
+                                $pensionar,
+                                $deficiente,
+                                $proprietar,
+                                $utilizator,
+                                $conducator
+                ));
+                // $result = $promise->wait();
+                array_push($cereri, [$promise,$asigurator]);
+            }
         }
 
+        for ($i=0; $i < count($cereri); $i++) {
+            $cereri[$i][0]->wait();
+            $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
+                    // print_r($result);
+                    // echo '<br><br>';
+            array_push($oferte, $tmp);
+        }
+
+        $collection = collect($oferte);
         
-        // $coduri =  asset('js/coduri.json');
-
-        // $path = public_path() . "/js/coduri.json";
-        // if (!File::exists($path)) {
-        //     throw new Exception("Invalid File");
-        // }
-
-
-        // $file = File::get($path); // string
-        // $json = json_decode($file);
-        // // print_r($json->records[0]);
-
+        $grouped = $collection->mapToGroups(function ($item, $key) {
+            return [$item['asigurator'] => $item['date']];
+        });
         
-        // for($i = 0; $i < count($json -> records); $i++) {
-        //     if(strcmp($json->records[$i][2], 'ILFOV') == 0 && strcmp($json->records[$i][3], 'Copăceni') == 0){
-        //         print_r($json->records[$i]);
-        //     }
+        print_r($grouped);
+        // $arr = (array)$cereri[0][0];
+        
+        // var_dump($cereri[0][0]);
+        // foreach($arr as $i => $item) {
+            // print_r($cereri[0][0]->display()->result);
+            // echo($i);
+            // print_r("<br>");
         // }
-
 
     }
 
@@ -707,117 +791,21 @@ class CereriController extends Controller
      */
     public function store(Request $request)
     {
+        // $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        // $action_URL ="https://ubuntuphptest.maxygo-online.ro";
 
-        
-        //Pas 1
-        // $stare_inmatriculare = request('stare_inmatriculare');
-        // $numar_inmatriculare = request('numar_inmatriculare');
-        // $tip_vehicul = request('tip_vehicul');
-        // $marca = request('marca');
-        // $model = request('model');
-        // $combustibil = request('combustibil');
-        // $utilizare = request('utilizare');
-
-        // //Pas 2
-        // $masa_maxima = request('masa_maxima');
-        // $cap_cil = request('cap_cil');
-        // $putere = request('putere');
-        // $nr_loc = request('nr_loc');
-        // $serie_civ = request('serie_civ');
-        // $sasiu = request('sasiu');
-        // $an_fab = request('an_fab');
-
-        // //Pas 3
-        // $persoana = request('persoana');
-        // $nmume_proprietar = request('nmume_proprietar');
-        // $cnp_proprietar = request('cnp_proprietar');
-        // $ci_proprietar = request('ci_proprietar');
-        // $judet = request('judet');
-        // $strada_proprietar = request('strada_proprietar');
-        // $bloc_proprietar = request('bloc_proprietar');
-        // $etaj_proprietar = request('etaj_proprietar');
-        // $reduceri = request('reduceri');
-        // $prenume_proprietar = request('prenume_proprietar');
-        // $an_permis_proprietar = request('an_permis_proprietar');
-        // $nr_ci_proprietar = request('nr_ci_proprietar');
-        // $localitate_proprietar = request('localitate_proprietar');
-        // $numar_adresa_proprietar = request('numar_adresa_proprietar');
-        // $scara_proprietar = request('scara_proprietar');
-        // $apartament_proprietar = request('apartament_proprietar');
-
-        // //Pas 4
-        // $soferul_acelasi = request('soferul_acelasi');
-        // $nume_conducator = request('nume_conducator');
-        // $prenume_conducator = request('prenume_conducator');
-        // $ci_conducator = request('ci_conducator');
-        // $nr_ci_conducatorr = request('nr_ci_conducatorr');
-        // $cnp_conducator = request('cnp_conducator');
-        // $data_rca = request('data_rca');
-        // $nume_livrare = request('nume_livrare');
-        // $prenume_livrare = request('prenume_livrare');
-        // $adresa_livrare = request('adresa_livrare');
-        // $email_livrare = request('email_livrare');
-        // $telefon_livrare = request('telefon_livrare');
-        // $termeni_conditii = request('termeni_conditii');
-
-
-        // echo $stare_inmatriculare.'</br>';
-        // echo $numar_inmatriculare.'</br>';
-        // echo $tip_vehicul.'</br>';
-        // echo $marca.'</br>';
-        // echo $model.'</br>';
-        // echo $combustibil.'</br>';
-        // echo $utilizare.'</br>';
-        // echo $masa_maxima.'</br>';
-        // echo $cap_cil.'</br>';
-        // echo $putere.'</br>';
-        // echo $nr_loc.'</br>';
-        // echo $serie_civ.'</br>';
-        // echo $sasiu.'</br>';
-        // echo $an_fab.'</br>';
-        // echo $persoana.'</br>';
-        // echo $nmume_proprietar.'</br>';
-        // echo $cnp_proprietar.'</br>';
-        // echo $ci_proprietar.'</br>';
-        // echo $judet.'</br>';
-        // echo $strada_proprietar.'</br>';
-        // echo $bloc_proprietar.'</br>';
-        // echo $etaj_proprietar.'</br>';
-        // echo $reduceri.'</br>';
-        // echo $prenume_proprietar.'</br>';
-        // echo $an_permis_proprietar.'</br>';
-        // echo $nr_ci_proprietar.'</br>';
-        // echo $localitate_proprietar.'</br>';
-        // echo $numar_adresa_proprietar.'</br>';
-        // echo $scara_proprietar.'</br>';
-        // echo $apartament_proprietar.'</br>';
-        // echo $soferul_acelasi.'</br>';
-        // echo $nume_conducator.'</br>';
-        // echo $prenume_conducator.'</br>';
-        // echo $ci_conducator.'</br>';
-        // echo $nr_ci_conducatorr.'</br>';
-        // echo $cnp_conducator.'</br>';
-        // echo $data_rca.'</br>';
-        // echo $nume_livrare.'</br>';
-        // echo $prenume_livrare.'</br>';
-        // echo $adresa_livrare.'</br>';
-        // echo $email_livrare.'</br>';
-        // echo $telefon_livrare.'</br>';
-        // echo $termeni_conditii.'</br>';
-
-        
-
-        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
-        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
-
-        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
-        'soap_version' => SOAP_1_1,
-        'location' => $location_URL,
-        'uri'      => $action_URL,
-        'style'    => SOAP_RPC,
-        'use'      => SOAP_ENCODED,
-        'trace'    => 1,
-        ));
+        // $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        // 'soap_version' => SOAP_1_1,
+        // 'location' => $location_URL,
+        // 'uri'      => $action_URL,
+        // 'style'    => SOAP_RPC,
+        // 'use'      => SOAP_ENCODED,
+        // 'trace'    => 1,
+        // 'keep_alive' => true,
+        // 'connection_timeout' => 5000,
+        // 'cache_wsdl' => WSDL_CACHE_NONE,
+        // 'compression'   => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE,
+        // ));
 
         $username = 'testRCA';
         $password = 'test.1234';
@@ -834,6 +822,7 @@ class CereriController extends Controller
         $_companie_activitate='?';
         $_companie_caen='?';
         $nr_luni_valabilitate = "6";
+        $valabilitate = request('valabilitate');
         $pensionar='0'; 
         $deficiente='0';
         $data_inceput_valabilitate=request('data_rca');
@@ -853,16 +842,20 @@ class CereriController extends Controller
         $_masa_maxima= request('masa_maxima');
         $_putere = request('putere');
         $_combustibil = request('combustibil');
+        $asigurator = request('asigurator');
         $_city_acc = 'false';
         $_euroins_acc = 'false';
         $_decontare_directa = 'false';
 
-        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
-        // $link_redirect_plata='http://127.0.0.1:8000/plata';
+        // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+        $link_redirect_plata='http://127.0.0.1:8000/plata';
 
-        $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
-        $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
-        $nr_luni = array('6', '12');
+        $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
+        // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
+        $asiguratori = array($asigurator);
+        
+        $nr_luni = array('12');
+        array_unshift($nr_luni,$valabilitate);
 
 
         ///proprietar
@@ -891,8 +884,6 @@ class CereriController extends Controller
         $_serie_ci_driver= request('ci_conducator');
         $_numar_ci_driver= request('nr_ci_conducatorr');
 
-
-
         ///inlocuiri variabile
 
         if(strcmp($tip_persoana, "pf") != 0) {
@@ -910,6 +901,8 @@ class CereriController extends Controller
         $_strada = str_replace($diac,$cor,$_strada);
         $_nume = str_replace($diac,$cor,$_nume);
         $_prenume = str_replace($diac,$cor,$_prenume);
+        $_judet = str_replace($diac,$cor,$_judet);
+        $_localitate = str_replace($diac,$cor,$_localitate);
 
         ///coduri
 
@@ -919,96 +912,18 @@ class CereriController extends Controller
         if (!File::exists($path)) {
             throw new Exception("Invalid File");
         }
-
-
         $file = File::get($path); // string
         $json = json_decode($file);
-        // print_r($json->records[0]);
-
         
         for($i = 0; $i < count($json -> records); $i++) {
-            // print_r($_judet);
-            // print_r($_localitate);
-
             if(strcmp($json->records[$i][2], $_judet) == 0 && strcmp($json->records[$i][3], $_localitate) == 0){
                 $_cod_siruta = $json->records[$i][5];
                 $_cod_postal=$json->records[$i][4];
-            } elseif (strcmp($json->records[$i][2], $_judet) == 0) {
-                $_cod_siruta = $json->records[$i][5];
-                $_cod_postal=$json->records[$i][4];
+                break;
             }
         }
 
-        // $_km_totali = '120000';
-        // $_km_an = '12000';
-        // $_serie_motor='A123123';
-        // $_allianz_supl = 'false';
-        // $_allianz_dealer = 'false';
-        // $_email='office@goasig.ro';
-        // $_telefon='0232100100';
-        // $_mobil='0763884692';
-        // $_companie_tip ='?';
-        // $_companie_profil='?';
-        // $_companie_activitate='?';
-        // $_companie_caen='?';
-        // $nr_luni_valabilitate = "6";
-        // $pensionar='0'; 
-        // $deficiente='0';
-        // $data_inceput_valabilitate='2021-05-01';
-        // $activitate= 'Privat';
-        // $leasing='3';  // nu este leasing
-        // $tip_persoana= 'pf';
-        // $_serie_sasiu = 'TMBCS21Z172152321';
-        // $_stare_autevehicul =  'Inmatriculat';
-        // $_numar_inmatriculare = 'BT86ABA';
-        // $_marca = 'SKODA'; 
-        // $_model = 'OCTAVIA';
-        // $_serie_civ = 'F771864';
-        // $_an_fabricatie = '2007';
-        // $_tip_autovehicul = 'Autoturism';
-        // $_capacitate_cilindrica ='1896';
-        // $_nr_locuri = '5';
-        // $_masa_maxima= '1970';
-        // $_putere = '77';
-        // $_combustibil = '502';
-        // $_city_acc = 'false';
-        // $_euroins_acc = 'false';
-        // $_decontare_directa = 'false';
-
-        // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
-
-        // $asg_rm = array('euroins','generali', 'uniqa', 'grawe');
-        // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
-        // $nr_luni = array('6', '12');
-
-
-        // ///proprietar
-        // $_cod_unic = '1991002070061';
-        // $_nume = 'Andrei';
-        // $_prenume= 'Andi'; 
-        // $_serie_ci= 'XT';
-        // $_numar_ci = '123123';
-        // $_sex_owner='M';
-        // $_judet = 'IASI';
-        // $_localitate = 'PASCANI';
-        // $_cod_siruta = '95408';  // default pascani
-        // $_strada = 'Crinului'; 
-        // $_numar = '20B'; 
-        // $_bloc = '-';
-        // $_scara = '-';
-        // $_etaj = '-';
-        // $_ap = '-';
-        // $_cod_postal='705200';
-        // $_permis_data='2017-01-01';  
-
-
-        // $_nume_driver = 'Andrei';
-        // $_prenume_driver= 'Andi'; 
-        // $_cnp_driver= '1991002070061';
-        // $_serie_ci_driver='XT';
-        // $_numar_ci_driver= '123123';
-
-
+        $this->testORM($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie);
 
         $autentificare = new ComplexCredentials($username, $password);
         $masina = new ComplexVehicle($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an,$_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa);
@@ -1016,122 +931,126 @@ class CereriController extends Controller
         $utilizator = new ComplexUser($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
         $conducator = new ComplexDriver($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver);	
 
-
-        // var_dump($autentificare);
-        // echo "<br>";
-        // echo "<br>";
-        // var_dump($masina);
-        // echo "<br>";
-        // echo "<br>";
-        // var_dump($proprietar);
-        // echo "<br>";
-        // echo "<br>";
-        // var_dump($utilizator);
-        // echo "<br>";
-        // echo "<br>";
-        // var_dump($conducator);
-        // echo "<br>";
-        // echo "<br>";
-        $oferte = array();
+        ////syncronous way
+        // $oferte = array();
         // set_time_limit(0);
+        // foreach ($nr_luni as $luna) {
+        //     foreach ($asiguratori as $asigurator) {
+                
+        //         try {
+        //             $result = $client->__call('CerereOfertaRCA',
+        //             array(
+        //                 $autentificare,
+        //                 $link_redirect_plata,
+        //                 $asigurator,
+        //                 $luna,
+        //                 $data_inceput_valabilitate,
+        //                 $activitate,
+        //                 $leasing,
+        //                 $masina,
+        //                 $tip_persoana,
+        //                 $pensionar,
+        //                 $deficiente,
+        //                 $proprietar,
+        //                 $utilizator,
+        //                 $conducator
+        //                 )
+        //         );
+        //         if($result->Eroare != 1){
+        //             $tmp = array('date' => $result, 'asigurator' => $asigurator);
+        //             array_push($oferte, $tmp);
+        //         }
+                
+        //         } catch(Exception $a) {
+        //             echo $a;
+        //         }
+        //     }
+        // }
+
+
+        // $collection = collect($oferte);
+        
+        // $grouped = $collection->mapToGroups(function ($item, $key) {
+        //     return [$item['asigurator'] => $item['date']];
+        // });
+
+        //////sync
+
+
+        ////async way
+
+
+        $factory = new Factory();
+        $client = $factory->create(new Client(), new StreamFactory(), new RequestFactory(), 'https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl');
+
+        $cereri = [];
+        $oferte = [];
+        // async call
         foreach ($nr_luni as $luna) {
             foreach ($asiguratori as $asigurator) {
-                
-                try {
-                    $result = $client->__call('CerereOfertaRCA',
-                    array(
-                        $autentificare,
-                        $link_redirect_plata,
-                        $asigurator,
-                        $luna,
-                        $data_inceput_valabilitate,
-                        $activitate,
-                        $leasing,
-                        $masina,
-                        $tip_persoana,
-                        $pensionar,
-                        $deficiente,
-                        $proprietar,
-                        $utilizator,
-                        $conducator
-                        )
-                );
-                // print_r($result);
-                if($result->Eroare != 1){
-                    $tmp = array('date' => $result, 'asigurator' => $asigurator);
-                    // print_r($result);
-                    // echo '<br><br>';
-                    array_push($oferte, $tmp);
-                }
-                
-                } catch(Exception $a) {
-                    echo $a;
-                }
+                $promise = $client->callAsync('CerereOfertaRCA', array(
+                    $autentificare,
+                                $link_redirect_plata,
+                                $asigurator,
+                                $luna,
+                                $data_inceput_valabilitate,
+                                $activitate,
+                                $leasing,
+                                $masina,
+                                $tip_persoana,
+                                $pensionar,
+                                $deficiente,
+                                $proprietar,
+                                $utilizator,
+                                $conducator
+                ));
+                // $result = $promise->wait();
+                array_push($cereri, [$promise,$asigurator]);
             }
         }
 
-
+        for ($i=0; $i < count($cereri); $i++) {
+            $cereri[$i][0]->wait();
+            $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
+            array_push($oferte, $tmp);
+        }
 
         $collection = collect($oferte);
         
         $grouped = $collection->mapToGroups(function ($item, $key) {
             return [$item['asigurator'] => $item['date']];
         });
-        
-        // print_r($grouped->all());
 
-        
-        // print_r($grouped->get('city')->all());
+        print_r($grouped);
 
-        // print_r();
+        ////async
 
         return response()->json([
-             'view' => view('oferte', ['oferte'=>$grouped, 'valabilitate'=>$nr_luni_valabilitate])->render(),
+             'view' => view('oferte', ['oferte'=>$grouped, 'valabilitate'=>$valabilitate])->render(),
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function testORM($nr_inmatriculare,$tip_vehicul, $marca, $model,$carburant,$utilizare,$masa_admisa,$capacitatea_cilindrica,$putere_motor,$nr_locuri,$serie_civ,$serie_sasiu,$an_fabricatie)
     {
-        //
+
+        $vehicul = new Vehicul(array(
+            'nr_inmatriculare' => $nr_inmatriculare,
+            'tip_vehicul' => $tip_vehicul,
+            'marca' => $marca,
+            'model' => $model,
+            'carburant' => $carburant,
+            'utilizare' => $utilizare,
+            'masa_admia' => $masa_admisa,
+            'capacitatea_cilindrica' => $capacitatea_cilindrica,
+            'putere_motor' => $putere_motor,
+            'nr_locuri' => $nr_locuri,
+            'serie_civ' => $serie_civ,
+            'serie_sasiu' => $serie_sasiu,
+            'an_fabricatie' => $an_fabricatie
+        ));
+    
+        $vehicul->timestamps = false;
+        $vehicul->save();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

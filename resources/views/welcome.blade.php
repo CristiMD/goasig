@@ -86,7 +86,13 @@
 
 
 			<div class="container">
-				<div id="wizard_container">
+				<div id="revenire">
+					<h2>Ai mai facut asigurare la noi?</h2>
+					<input type="text" id="nr_mat" name="nr_mat"  placeholder="Numar Inmatriculare">
+					<button id="test-revenire" class="test-revenire">Da</button>
+					<button id="fara-revenire" class="fara-revenire">Nu</button>
+				</div>
+				<div id="wizard_container" style="display: none;">
 					<form name="example-1" id="wrapped" method="post" action="/cerere" enctype="multipart/form-data">
         				<meta name="csrf-token" content="{{ csrf_token() }}">
 						<input id="website" name="website" type="text" value="">
@@ -363,6 +369,25 @@
 										</div>
 										<div class="form-group">
 											<input type="text" name="cnp_conducator" id="cnp_conducator" class="form-control" placeholder="CNP">
+										</div>
+										<div class="form-group">
+											<input type="number" name="valabilitate" id="valabilitate" class="form-control" placeholder="Valabilitate">
+										</div>
+										<div class="form-group add_bottom_30">
+											<div class="styled-select">
+												<select class="required" id="asigurator" name="asigurator">
+													<option value="">--alege asiguratorul--</option>
+													<option value="allianz">Allianz</option>
+													<option value="asirom">Asirom</option>
+													<option value="euroins">Euroins</option>
+													<option value="city">City</option>
+													<option value="groupama">Groupama</option>
+													<option value="omniasig">Omniasig</option>
+													<option value="generali">Generali</option>
+													<option value="grawe">Grawe</option>
+													<option value="uniqa">Uniqa</option>
+												</select>
+											</div>
 										</div>
 										<div class="form-group">
 											<input type="date" name="data_rca"  id="data_rca" class=" form-control" placeholder="Valabilitate de la">
