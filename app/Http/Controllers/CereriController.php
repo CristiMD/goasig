@@ -847,8 +847,8 @@ class CereriController extends Controller
         $_euroins_acc = 'false';
         $_decontare_directa = 'false';
 
-        // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
-        $link_redirect_plata='http://127.0.0.1:8000/plata';
+        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+        // $link_redirect_plata='http://127.0.0.1:8000/plata';
 
         $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
         // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
@@ -1021,7 +1021,7 @@ class CereriController extends Controller
             return [$item['asigurator'] => $item['date']];
         });
 
-        print_r($grouped);
+        // print_r($grouped);
 
         ////async
 
@@ -1033,24 +1033,29 @@ class CereriController extends Controller
     public function testORM($nr_inmatriculare,$tip_vehicul, $marca, $model,$carburant,$utilizare,$masa_admisa,$capacitatea_cilindrica,$putere_motor,$nr_locuri,$serie_civ,$serie_sasiu,$an_fabricatie)
     {
 
-        $vehicul = new Vehicul(array(
-            'nr_inmatriculare' => $nr_inmatriculare,
-            'tip_vehicul' => $tip_vehicul,
-            'marca' => $marca,
-            'model' => $model,
-            'carburant' => $carburant,
-            'utilizare' => $utilizare,
-            'masa_admia' => $masa_admisa,
-            'capacitatea_cilindrica' => $capacitatea_cilindrica,
-            'putere_motor' => $putere_motor,
-            'nr_locuri' => $nr_locuri,
-            'serie_civ' => $serie_civ,
-            'serie_sasiu' => $serie_sasiu,
-            'an_fabricatie' => $an_fabricatie
-        ));
-    
-        $vehicul->timestamps = false;
-        $vehicul->save();
+        $check = Vehicul::where('nr_inmatriculare', $nr_inmatriculare)->first();
+
+        if(!$check){
+            $vehicul = new Vehicul(array(
+                'nr_inmatriculare' => $nr_inmatriculare,
+                'tip_vehicul' => $tip_vehicul,
+                'marca' => $marca,
+                'model' => $model,
+                'carburant' => $carburant,
+                'utilizare' => $utilizare,
+                'masa_admia' => $masa_admisa,
+                'capacitatea_cilindrica' => $capacitatea_cilindrica,
+                'putere_motor' => $putere_motor,
+                'nr_locuri' => $nr_locuri,
+                'serie_civ' => $serie_civ,
+                'serie_sasiu' => $serie_sasiu,
+                'an_fabricatie' => $an_fabricatie
+            ));
+        
+            $vehicul->timestamps = false;
+            $vehicul->save();
+        }
+        
     }
 
 }
