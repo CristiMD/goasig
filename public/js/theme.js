@@ -599,7 +599,9 @@
       }
     });
 
-    $("#judet").on('change', incarcaLocalitati());
+    $("#judet").on('change', function() {
+      incarcaLocalitati($("#judet").val());
+    });
 
     function incarcaLocalitati(judet = '') {
       let val;
