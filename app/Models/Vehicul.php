@@ -30,4 +30,8 @@ class Vehicul extends Model
         'an_fabricatie',
         'id_utilizator'
     ];
+
+    function user() {
+        return $this->belongsTo('App\Models\User', 'id');
+    }
 }

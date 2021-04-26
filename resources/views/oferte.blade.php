@@ -30,6 +30,13 @@
                                 @endforeach
                             </tr>
                         @endforeach
+                    @foreach ($oferte as $key => $asigurator)
+                        @foreach ($asigurator as $ceva => $oferta)
+                            @if($oferta->Eroare) 
+                                <span>{{$oferta->Mesaj}}</span>
+                            @endif
+                        @endforeach
+                    @endforeach
                     </tbody>
                  </table>
                 </div>

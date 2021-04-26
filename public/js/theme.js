@@ -11,7 +11,6 @@
 (function($) {
     "use strict";
     
-    
     $(document).on ('ready', function (){
         
         // -------------------- Navigation Scroll
@@ -399,6 +398,7 @@
             cui: $("#cui").val(),
             asigurator: $("#asigurator").val(),
             caen: $("#caen").val(),
+            parola : $("#parola").val()
           };
 
           $.ajax({
@@ -428,9 +428,9 @@
         $('#loader').fadeOut(); // will first fade out the loading animation
         $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         $('body').delay(350).css({'overflow':'visible'});
+        getVehicleCategories();
         getVehicleBrands();
         getVehicleActivities();
-        getVehicleCategories();
         getCompanyCAEN();
     })
 
@@ -529,7 +529,6 @@
 
     function checkRegex(element, regex, error_message) {
       let val = $(element).val();
-      // console.log(regex.test(val));
       if(!regex.test(val)){
         $(element).removeClass('valid');
         $(element).addClass('error');
@@ -574,7 +573,6 @@
         $("#caen").remove();
         $("#cui").remove();
 
-
         $("#nmume_proprietar-wrapper").append('<input type="text" name="nmume_proprietar" id="nmume_proprietar" class="required form-control" placeholder="Nume">');
         $("#cnp_proprietar-wrapper").append('<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="required form-control" placeholder="CNP">');
         $("#ci_proprietar-wrapper").append('<input type="text" name="ci_proprietar" id="ci_proprietar" class="required form-control" placeholder="Serie CI">');
@@ -582,10 +580,8 @@
         $("#an_permis_proprietar-wrapper").append('<input type="date" name="an_permis_proprietar" id="an_permis_proprietar" class="required form-control" placeholder="Data obtinere permis">');
         $("#nr_ci_proprietar-wrapper").append('<input type="text" name="nr_ci_proprietar" id="nr_ci_proprietar" class="required form-control" placeholder="Numar CI">');
       }
-      console.log(val)
     });
 
-    
 
     $("#soferul_acelasi").on('change', function() { 
       if($("#soferul_acelasi").is(':checked')){
@@ -603,8 +599,16 @@
       }
     });
 
-    $("#judet").on('change', function() {
-      let val = $("#judet").val();
+    $("#judet").on('change', incarcaLocalitati());
+
+    function incarcaLocalitati(judet = '') {
+      let val;
+      if(judet.length) {
+        val = judet
+      } else {
+        $("#judet").val();
+
+      }
       // $.getJSON("/js/localitati.json", function(obiect) {
       $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
@@ -616,7 +620,7 @@
           });
         }
       });
-    });
+    }
 
 
     $("#fara-revenire").on('click', function() {
@@ -655,4 +659,121 @@
         // let parsed = JSON.parse(data);
       });
     });
+
+    $("#creaza_cont").on('click', function() {
+      if($("#creaza_cont").is(':checked')){
+        $("#parola-wrapper").css('display', 'block');
+      } else {
+        $("#parola-wrapper").css('display', 'none');
+        $("#parola-wrapper").val('');
+      }
+    });
+
+    $("#vehicule-salvate").on('change', function() {
+      $(".user-initial-select").css('display', 'none');
+      $("#wizard_container").css('display', 'block');
+      let nr_mat = $('#vehicule-salvate').val();
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/platforma/public/vehicul/"+nr_mat,
+        // url: "/vehicul/"+nr_mat,
+        encode: true,
+      }).done(function (data) {
+        // console.log(data);
+        $("#stare_inmatriculare").val("Inmatriculat");
+        $("#an_fab").val(data.an_fabricatie);
+        $("#cap_cil").val(data.capacitatea_cilindrica);
+        $("#combustibil").val(data.carburant);
+        $("#marca").val(data.marca);
+        $("#masa_maxima").val(data.masa_admia);
+        $("#model").val(data.model);
+        $("#numar_inmatriculare").val(data.nr_inmatriculare);
+        $("#nr_loc").val(data.nr_locuri);
+        $("#putere").val(data.putere_motor);
+        $("#serie_civ").val(data.serie_civ);
+        $("#sasiu").val(data.serie_sasiu);
+        $("#tip_vehicul").val(data.tip_vehicul);
+        $("#utilizare").val(data.utilizare);
+        // let parsed = JSON.parse(data);
+      });
+    });
+
+    $('#vehicul-nou').on('click', function(){
+      $(".user-initial-select").css('display', 'none');
+      $("#wizard_container").css('display', 'block');
+      $("#stare_inmatriculare").val('');
+      $("#an_fab").val('');
+      $("#cap_cil").val('');
+      $("#combustibil").val('');
+      $("#marca").val('');
+      $("#masa_maxima").val('');
+      $("#model").val('');
+      $("#numar_inmatriculare").val('');
+      $("#nr_loc").val('');
+      $("#putere").val('');
+      $("#serie_civ").val('');
+      $("#sasiu").val('');
+      $("#tip_vehicul").val('');
+      $("#utilizare").val('');
+    });
+
+
+    $("#proprietari-salvati").on('change', function() {
+      $(".user-initial-select").css('display', 'none');
+      $("#wizard_container").css('display', 'block');
+      let cod_unic = $('#proprietari-salvati').val();
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/platforma/public/proprietar/"+cod_unic,
+        // url: "/proprietar/"+cod_unic,
+        encode: true,
+      }).done(function (data) {
+        // console.log(data);
+        $("#persoana").val(data.tip_persoana);
+        $("#cnp_proprietar").val(data.cod_unic);
+        $("#ci_proprietar").val(data.serie_ci);
+        $("#judet").val(data.judet);
+        incarcaLocalitati(data.judet);
+        $("#strada_proprietar").val(data.strada);
+        $("#bloc_proprietar").val(data.bloc);
+        $("#etaj_proprietar").val(data.etaj);
+        $("#reduceri").val(data.reduceri);
+        $("#nmume_proprietar").val(data.nume);
+        $("#prenume_proprietar").val(data.prenume);
+        $("#an_permis_proprietar").val(data.data_permis);
+        $("#nr_ci_proprietar").val(data.nr_ci);
+        $("#localitate").val(data.localitate);
+        $("#numar_adresa_proprietar").val(data.numar);
+        $("#scara_proprietar").val(data.scara);
+        $("#apartament_proprietar").val(data.apartament);
+        // let parsed = JSON.parse(data);
+      });
+    });
+
+    $('#proprietar-nou').on('click', function(){
+      $("#persoana").val('');
+        $("#cnp_proprietar").val('');
+        $("#ci_proprietar").val('');
+        $("#judet").val('');
+        $("#strada_proprietar").val('');
+        $("#bloc_proprietar").val('');
+        $("#etaj_proprietar").val('');
+        $("#reduceri").val('');
+        $("#nmume_proprietar").val('');
+        $("#prenume_proprietar").val('');
+        $("#an_permis_proprietar").val('');
+        $("#nr_ci_proprietar").val('');
+        $("#localitate").val('');
+        $("#numar_adresa_proprietar").val('');
+        $("#scara_proprietar").val('');
+        $("#apartament_proprietar").val('');
+    });
+
+
 })(jQuery)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vehicul;
+use App\Models\User;
 
 class VehiculController extends Controller
 {
@@ -14,7 +15,9 @@ class VehiculController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $vehicule = Vehicul::with('user')->get();
+        return $vehicule;
     }
 
     /**

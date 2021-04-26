@@ -1588,3 +1588,7 @@ span.cst-error:after {
   bottom: -6px;
   left: 20%;
 }
+
+#parola-wrapper {
+  display: none;
+}

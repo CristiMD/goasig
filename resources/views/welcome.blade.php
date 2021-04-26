@@ -86,12 +86,48 @@
 
 
 			<div class="container">
-				<div id="revenire">
-					<h2>Ai mai facut asigurare la noi?</h2>
-					<input type="text" id="nr_mat" name="nr_mat"  placeholder="Numar Inmatriculare">
-					<button id="test-revenire" class="test-revenire">Da</button>
-					<button id="fara-revenire" class="fara-revenire">Nu</button>
-				</div>
+				@auth
+					<script>
+						$(function() {
+							$.ajax({
+							headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							},
+							type: "GET",
+							url: "/platforma/public/vehicul",
+							// url: "/vehicul",
+							encode: true,
+						}).done(function (data) {
+							console.log(data);
+							$('#vehicule-salvate').empty();
+							$('#vehicule-salvate').append(new Option('--alege vehicul--', ''));
+							if(data.length) {
+								data.map(vehicul => {
+									$('#vehicule-salvate').append(new Option(vehicul.nr_inmatriculare, vehicul.nr_inmatriculare));
+								});
+							}
+						});
+						});
+				  	</script>
+					  <div class="user-initial-select">
+						<h2 style="text-align: center;">Salutare {{Auth::user()->nume}}</h2>
+						<p>Alege una din masinile salvate din lista </p>
+						<select id="vehicule-salvate" name="vehicule-salvate">
+							<option>--alege vehicul--<option>
+						</select>
+						<p class="centru-sau"> sau </p>
+						<button class="test-revenire" id="vehicul-nou">Adauga o masina noua</button>
+					  </div>
+				@endauth
+				@guest
+					<div id="revenire">
+						<h2>Ai mai facut asigurare la noi?</h2>
+						<input type="text" id="nr_mat" name="nr_mat"  placeholder="Numar Inmatriculare">
+						<button id="test-revenire" class="test-revenire">Da</button>
+						<button id="fara-revenire" class="fara-revenire">Nu</button>
+					</div>
+				@endguest
+				
 				<div id="wizard_container" style="display: none;">
 					<form name="example-1" id="wrapped" method="post" action="/cerere" enctype="multipart/form-data">
         				<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -201,6 +237,45 @@
 								<!-- /row-->
 							</div>
 							<!-- /step -->
+
+							@auth
+							<script>
+								$(function() {
+									$.ajax({
+									headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+									},
+									type: "GET",
+									url: "/platforma/public/proprietar",
+									// url: "/proprietar",
+									encode: true,
+								}).done(function (data) {
+									// console.log(data);
+									$('#proprietari-salvati').empty();
+									$('#proprietari-salvati').append(new Option('--alege proprietar--', ''));
+									if(data.length) {
+										data.map(proprietar => {
+											$('#proprietari-salvati').append(new Option(proprietar.nume + " " + proprietar.prenume , proprietar.cod_unic));
+										});
+									} else {
+										$('#step-select-proprietar').remove();
+									}	
+								}).fail(function() {
+									$('#step-select-proprietar').remove();
+								})
+								});
+							</script>
+							<div class="step" id="step-select-proprietar">
+								 <div class="user-proprietar-select">
+									<p>Alege unul din proprietarii salvati din lista </p>
+									<select id="proprietari-salvati" name="proprietari-salvati">
+										<option>--alege proprietar--<option>
+									</select>
+									<p class="centru-sau"> sau </p>
+									<button type="button" class="test-revenire" id="proprietar-nou" >Adauga un proprietar nou</button>
+								 </div>
+							</div>
+							@endauth
  
 							<div class="step">
 								<div class="question_title">
@@ -410,6 +485,13 @@
 										</div>
 										<div class="form-group">
 											<input type="text" name="email_livrare"  id="email_livrare" class="required form-control" placeholder="Email">
+										</div>
+										<div class="item">
+											<input id="creaza_cont" type="checkbox" name="creaza_cont" class="required">
+											<label for="creaza_cont">Vrei sa iti creezi un cont pentru a salva detaliile?</label>
+										</div>
+										<div class="form-group" id="parola-wrapper">
+											<input type="password" name="parola"  id="parola" class="required form-control" placeholder="Parola" autocomplete="off">
 										</div>
 										<div class="form-group">
 											<input type="text" name="telefon_livrare"  id="telefon_livrare" class="required form-control" placeholder="Telefon">

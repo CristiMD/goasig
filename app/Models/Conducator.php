@@ -12,4 +12,13 @@ class Conducator extends Model
     protected $primaryKey = 'cod_unic';
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'cod_unic',
+        'nume',
+        'prenume',
+        'serie_ci',
+        'nr_ci',
+        'id_utilizator'
+    ];
 }

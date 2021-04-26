@@ -20,6 +20,7 @@ class User extends Authenticatable
         'nume',
         'email',
         'parola',
+        'telefon',
     ];
 
     /**
@@ -43,6 +44,10 @@ class User extends Authenticatable
 
     public function getAuthPassword() {
         return $this->parola;
+    }
+
+    function vehicule() {
+        return $this->hasMany('App\Models\Vehicul', 'nr_inmatriculare');
     }
 
 }
