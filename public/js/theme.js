@@ -345,76 +345,154 @@
             });
           }
 
+        replaceOcr('Albeşti');
 
+        function replaceOcr(str) {
+          var tmp = str;
+          var diac = ['â','Â','î','Î','ş','Ş','ţ','Ţ'];
+          var cor = ['a','A','i','I','s','S','t' ,'T'];
+          diac.map((caracter, index) => {
+            tmp = tmp.replace(caracter, cor[index]);
+          })
+          return tmp;
+        }
 
-        $("#wrapped").on('submit', function (event) {
+        $("#wrapped").on('submit', async function (event) {
           $("#full-overlay").css('display', 'flex');
-          var formData = {
-            stare_inmatriculare: $("#stare_inmatriculare").val(),
-            numar_inmatriculare: $("#numar_inmatriculare").val(),
-            tip_vehicul: $("#tip_vehicul").val(),
-            marca: $("#marca").val(),
-            model: $("#model").val(),
-            combustibil: $("#combustibil").val(),
-            utilizare: $("#utilizare").val(),
-            masa_maxima: $("#masa_maxima").val(),
-            cap_cil: $("#cap_cil").val(),
-            putere: $("#putere").val(),
-            nr_loc: $("#nr_loc").val(),
-            serie_civ: $("#serie_civ").val(),
-            sasiu: $("#sasiu").val(),
-            an_fab: $("#an_fab").val(),
-            persoana: $("#persoana").val(),
-            nmume_proprietar: $("#nmume_proprietar").val(),
-            cnp_proprietar: $("#cnp_proprietar").val(),
-            ci_proprietar: $("#ci_proprietar").val(),
-            judet: $("#judet").val(),
-            strada_proprietar: $("#strada_proprietar").val(),
-            bloc_proprietar: $("#bloc_proprietar").val(),
-            etaj_proprietar: $("#etaj_proprietar").val(),
-            reduceri: $("#reduceri").val(),
-            prenume_proprietar: $("#prenume_proprietar").val(),
-            an_permis_proprietar: $("#an_permis_proprietar").val(),
-            nr_ci_proprietar: $("#nr_ci_proprietar").val(),
-            localitate: $("#localitate").val(),
-            numar_adresa_proprietar: $("#numar_adresa_proprietar").val(),
-            scara_proprietar: $("#scara_proprietar").val(),
-            apartament_proprietar: $("#apartament_proprietar").val(),
-            soferul_acelasi: $("#soferul_acelasi").val(),
-            nume_conducator: $("#nume_conducator").val(),
-            prenume_conducator: $("#prenume_conducator").val(),
-            ci_conducator: $("#ci_conducator").val(),
-            nr_ci_conducatorr: $("#nr_ci_conducatorr").val(),
-            cnp_conducator: $("#cnp_conducator").val(),
-            data_rca: $("#data_rca").val(),
-            nume_livrare: $("#nume_livrare").val(),
-            prenume_livrare: $("#prenume_livrare").val(),
-            adresa_livrare: $("#adresa_livrare").val(),
-            email_livrare: $("#email_livrare").val(),
-            telefon_livrare: $("#telefon_livrare").val(),
-            termeni_conditii: $("#termeni_conditii").val(),
-            societate: $("#societate").val(),
-            valabilitate: $("#valabilitate").val(),
-            cui: $("#cui").val(),
-            asigurator: $("#asigurator").val(),
-            caen: $("#caen").val(),
-            parola : $("#parola").val()
-          };
+          var cont;
+          if($("#creaza_cont").is(':checked')){
+            cont = 1;
+          } else {
+            cont = 0;
+          }
+
+          var judet= replaceOcr($("#judet").val());
+          var localitate= replaceOcr($("#localitate").val());
+          var valabilitate = $("#valabilitate").val();
 
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: "POST",
-            // url: "/cerere",
-            url: "/platforma/public/cerere",
-            data: formData,
+            type: "GET",
+            url: "/platforma/public/coduri/"+judet+"/"+localitate,
+            // url: "/coduri/"+judet+"/"+localitate,
             encode: true,
-          }).done(function (data) {
-            console.log(data);
-            $("#full-overlay").css('display', 'none');
-            $("#replaceble").empty().append(data.view);
+          }).done(function (coduri) {
+            console.log(coduri);
+            var formData = {
+              stare_inmatriculare: $("#stare_inmatriculare").val(),
+              numar_inmatriculare: $("#numar_inmatriculare").val(),
+              tip_vehicul: $("#tip_vehicul").val(),
+              marca: $("#marca").val(),
+              model: $("#model").val(),
+              combustibil: $("#combustibil").val(),
+              utilizare: $("#utilizare").val(),
+              masa_maxima: $("#masa_maxima").val(),
+              cap_cil: $("#cap_cil").val(),
+              putere: $("#putere").val(),
+              nr_loc: $("#nr_loc").val(),
+              serie_civ: $("#serie_civ").val(),
+              sasiu: $("#sasiu").val(),
+              an_fab: $("#an_fab").val(),
+              persoana: $("#persoana").val(),
+              nmume_proprietar: $("#nmume_proprietar").val(),
+              cnp_proprietar: $("#cnp_proprietar").val(),
+              ci_proprietar: $("#ci_proprietar").val(),
+              judet: $("#judet").val(),
+              strada_proprietar: $("#strada_proprietar").val(),
+              bloc_proprietar: $("#bloc_proprietar").val(),
+              etaj_proprietar: $("#etaj_proprietar").val(),
+              reduceri: $("#reduceri").val(),
+              prenume_proprietar: $("#prenume_proprietar").val(),
+              an_permis_proprietar: $("#an_permis_proprietar").val(),
+              nr_ci_proprietar: $("#nr_ci_proprietar").val(),
+              localitate: $("#localitate").val(),
+              numar_adresa_proprietar: $("#numar_adresa_proprietar").val(),
+              scara_proprietar: $("#scara_proprietar").val(),
+              apartament_proprietar: $("#apartament_proprietar").val(),
+              soferul_acelasi: $("#soferul_acelasi").val(),
+              nume_conducator: $("#nume_conducator").val(),
+              prenume_conducator: $("#prenume_conducator").val(),
+              ci_conducator: $("#ci_conducator").val(),
+              nr_ci_conducatorr: $("#nr_ci_conducatorr").val(),
+              cnp_conducator: $("#cnp_conducator").val(),
+              data_rca: $("#data_rca").val(),
+              nume_livrare: $("#nume_livrare").val(),
+              prenume_livrare: $("#prenume_livrare").val(),
+              adresa_livrare: $("#adresa_livrare").val(),
+              email_livrare: $("#email_livrare").val(),
+              telefon_livrare: $("#telefon_livrare").val(),
+              termeni_conditii: $("#termeni_conditii").val(),
+              societate: $("#societate").val(),
+              valabilitate: $("#valabilitate").val(),
+              cui: $("#cui").val(),
+              asigurator: $("#asigurator").val(),
+              caen: $("#caen").val(),
+              parola : $("#parola").val(),
+              creaza_cont: cont,
+              cod_postal: coduri.cod_postal,
+              cod_siruta: coduri.cod_siruta
+            };
+  
+            $("#replaceble").empty();
+            $("#replaceble").append('<div class="container">\
+                <div class="row justify-content-center">\
+                        <div class="card card-oferte  custom-card-view">\
+                            <div class="card-header ">Oferte disponibile</div>\
+                            <div class="card-body">\
+                            <table>\
+                                <thead>\
+                                    <tr>\
+                                        <th>Asigurator</th>\
+                                        <th>Beneficii</th>\
+                                        <th>Valabilitate ('+valabilitate+' luni)</th>\
+                                        <th>Valabilitate (12 luni)</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody id="to-append"><tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
+  
+            var asiguratori = ['city', 'groupama', 'omniasig','generali', 'grawe'];
+            asiguratori.map((asigurator, index) => {
+              formData.asigurator = asigurator;
+              $.ajax({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                // url: "/ajaxify",
+                url: "/platforma/public/ajaxify",
+                data: formData,
+                encode: true,
+              }).done(function (data) {
+                console.log(asigurator, ' = ',data);
+                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                </td><td>\
+                  <div class="clasa-bonus">Clasa BM: </div>\
+                  <div class="carte-verde">Tari excluse carte verde: ' + data.oferte[0].CarteaVerde +'</div>\
+                  <div class="comision">Comision inclus '+ asigurator +': '+ data.oferte[0].ComisionProcent +'</div>\
+                </td>';
+                data.oferte.map(oferta=> {
+                  html +='<td><div class="actiuni"><a class="buton" href="'+ oferta.LinkPlata+'">\
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>\
+                    <span>'+oferta.Valoare+' lei</span>\
+                    </a></div>\
+                  </td>'
+                });
+                html += '</tr>';
+                console.log(html)
+                $("#plc").empty();
+                $("#plc").remove();
+                $("#full-overlay").css('display', 'none');
+                $("#to-append").append(html);
+                $("#to-append").append('<tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
+                if(index == asiguratori.length-1) {
+                  $("#plc").remove();
+                }
+              });
+            });
           });
+          $("#replaceble").append('</tbody></table></div></div></div></div>');
           event.preventDefault();
         });
 
@@ -433,6 +511,10 @@
         getVehicleActivities();
         getCompanyCAEN();
     })
+
+    function getCodes(judet, localitate) {
+      
+    }
 
     function getVehicleBrands() {
       $.ajax({
@@ -775,6 +857,37 @@
         $("#numar_adresa_proprietar").val('');
         $("#scara_proprietar").val('');
         $("#apartament_proprietar").val('');
+    });
+
+    $("#coducatori-salvati").on('change', function() {
+      $(".user-initial-select").css('display', 'none');
+      $("#wizard_container").css('display', 'block');
+      let cod_unic = $('#coducatori-salvati').val();
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "GET",
+        url: "/platforma/public/proprietar/"+cod_unic,
+        // url: "/conducator/"+cod_unic,
+        encode: true,
+      }).done(function (data) {
+        console.log(data);
+        // let parsed = JSON.parse(data);
+        $("#nume_conducator").val(data.nume);
+        $("#prenume_conducator").val(data.prenume);
+        $("#ci_conducator").val(data.serie_ci);
+        $("#nr_ci_conducatorr").val(data.nr_ci);
+        $("#cnp_conducator").val(data.cod_unic);
+      });
+    });
+
+    $('#coducator-nou').on('click', function(){
+        $("#nume_conducator").val('');
+        $("#prenume_conducator").val('');
+        $("#ci_conducator").val('');
+        $("#nr_ci_conducatorr").val('');
+        $("#cnp_conducator").val('');
     });
 
 

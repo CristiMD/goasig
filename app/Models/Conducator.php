@@ -21,4 +21,8 @@ class Conducator extends Model
         'nr_ci',
         'id_utilizator'
     ];
+
+    function user() {
+        return $this->belongsTo('App\Models\User', 'id');
+    }
 }

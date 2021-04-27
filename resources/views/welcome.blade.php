@@ -415,6 +415,45 @@
 								<!-- /row-->
 							</div>
 							<!-- /step -->
+
+							@auth
+							<script>
+								$(function() {
+									$.ajax({
+									headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+									},
+									type: "GET",
+									url: "/platforma/public/conducator",
+									// url: "/conducator",
+									encode: true,
+								}).done(function (data) {
+									console.log(data);
+									$('#conducatori-salvati').empty();
+									$('#conducatori-salvati').append(new Option('--alege proprietar--', ''));
+									if(data.length) {
+										data.map(conducator => {
+											$('#conducatori-salvati').append(new Option(conducator.nume + " " + conducator.prenume , conducator.cod_unic));
+										});
+									} else {
+										$('#step-select-conducator').remove();
+									}	
+								}).fail(function() {
+									$('#step-select-conducator').remove();
+								})
+								});
+							</script>
+							<div class="step" id="step-select-conducator">
+								 <div class="user-conducatori-select">
+									<p>Alege unul din conducatorii salvati din lista </p>
+									<select id="conducatori-salvati" name="conducatori-salvati">
+										<option>--alege proprietar--<option>
+									</select>
+									<p class="centru-sau"> sau </p>
+									<button type="button" class="test-revenire" id="conducator-nou" >Adauga un conducator nou</button>
+								 </div>
+							</div>
+							@endauth
 							
 							<!-- Last step ============================== -->
 							<div class="submit step">
@@ -445,6 +484,23 @@
 										<div class="form-group">
 											<input type="text" name="cnp_conducator" id="cnp_conducator" class="form-control" placeholder="CNP">
 										</div>
+										
+										
+									</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="box_general">
+										{{-- <h4>Date livrare</h4> --}}
+{{-- 
+										<div class="form-group">
+											<input type="text" name="nume_livrare" id="nume_livrare" class="required form-control" placeholder="Nume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="prenume_livrare"  id="prenume_livrare" class="required form-control" placeholder="Prenume">
+										</div>
+										<div class="form-group">
+											<input type="text" name="adresa_livrare" id="adresa_livrare" class="required form-control" placeholder="Adresa">
+										</div> --}}
 										<div class="form-group">
 											<input type="number" name="valabilitate" id="valabilitate" class="form-control" placeholder="Valabilitate">
 										</div>
@@ -466,22 +522,6 @@
 										</div>
 										<div class="form-group">
 											<input type="date" name="data_rca"  id="data_rca" class=" form-control" placeholder="Valabilitate de la">
-										</div>
-										
-									</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="box_general">
-										<h4>Date livrare</h4>
-
-										<div class="form-group">
-											<input type="text" name="nume_livrare" id="nume_livrare" class="required form-control" placeholder="Nume">
-										</div>
-										<div class="form-group">
-											<input type="text" name="prenume_livrare"  id="prenume_livrare" class="required form-control" placeholder="Prenume">
-										</div>
-										<div class="form-group">
-											<input type="text" name="adresa_livrare" id="adresa_livrare" class="required form-control" placeholder="Adresa">
 										</div>
 										<div class="form-group">
 											<input type="text" name="email_livrare"  id="email_livrare" class="required form-control" placeholder="Email">

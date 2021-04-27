@@ -32,3 +32,6 @@ Route::get('/emite', [App\Http\Controllers\PlataController::class, 'emitere']);
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
 Route::resource('vehicul', App\Http\Controllers\VehiculController::class);
 Route::resource('proprietar', App\Http\Controllers\ProprietarController::class);
+Route::resource('conducator', App\Http\Controllers\ConducatorController::class);
+Route::post('/ajaxify', [App\Http\Controllers\CereriController::class, 'ajaxify']);
+Route::get('/coduri/{judet}/{localitate}', [App\Http\Controllers\CereriController::class, 'getCodes']);
