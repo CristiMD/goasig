@@ -1233,7 +1233,7 @@ class CereriController extends Controller
         $asigurator = request('asigurator');
         $_city_acc = 'false';
         $_euroins_acc = 'false';
-        $_decontare_directa = 'false';
+        $_decontare_directa = request('decontare_directa');
 
         // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
         $link_redirect_plata='http://127.0.0.1:8000/plata';

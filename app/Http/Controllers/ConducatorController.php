@@ -48,9 +48,11 @@ class ConducatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($cod_unic)
     {
-        //
+        $conducator = Conducator::where('cod_unic', $cod_unic)->first();
+        // print_r($vehicul);
+        return $conducator;
     }
 
     /**
