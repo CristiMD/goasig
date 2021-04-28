@@ -374,8 +374,8 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "GET",
-            // url: "/platforma/public/coduri/"+judet+"/"+localitate,
-            url: "/coduri/"+judet+"/"+localitate,
+            url: "/platforma/public/coduri/"+judet+"/"+localitate,
+            // url: "/coduri/"+judet+"/"+localitate,
             encode: true,
           }).done(function (coduri) {
             console.log(coduri);
@@ -437,6 +437,7 @@
   
             $("#replaceble").empty();
             $("#replaceble").append('<div class="switch-dd">\
+            <h2>Decontare directa?</h2>\
             <label class="switch" id="switch-dd-slider">\
             <input type="checkbox" id="switch-dd" name="switch-dd" />\
               <span class="slider round"></span>\
@@ -466,8 +467,8 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "/ajaxify",
-                // url: "/platforma/public/ajaxify",
+                // url: "/ajaxify",
+                url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
@@ -479,11 +480,16 @@
                   <div class="comision">Comision inclus '+ asigurator +': '+ data.oferte[0].ComisionProcent +'</div>\
                 </td>';
                 data.oferte.map(oferta=> {
-                  html +='<td><div class="actiuni"><a class="buton" href="'+ oferta.LinkPlata+'">\
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>\
-                    <span>'+oferta.Valoare+' lei</span>\
-                    </a></div>\
-                  </td>'
+                  if(oferta.Eroare) {
+                    html +='<td>  </td>';
+                  } else {
+                    html +='<td><div class="actiuni"><a class="buton" href="'+ oferta.LinkPlata+'">\
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>\
+                        <span>'+oferta.Valoare+' lei</span>\
+                        </a></div>\
+                      </td>';
+                  }
+                  
                 });
                 html += '</tr>';
                 console.log(html)
@@ -491,7 +497,7 @@
                 $("#plc").remove();
                 $("#full-overlay").css('display', 'none');
                 $("#to-append").append(html);
-                $("#to-append").append('<tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
+                $("#to-append").append('<tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
                 if(index == asiguratori.length-1) {
                   $("#plc").remove();
                 }
@@ -503,7 +509,7 @@
             $("#replaceble").append('<div class="container container-dd" style="display: none;">\
                 <div class="row justify-content-center">\
                         <div class="card card-oferte  custom-card-view">\
-                            <div class="card-header ">Oferte disponibile</div>\
+                            <div class="card-header ">Oferte disponibile - decontare directa</div>\
                             <div class="card-body">\
                             <table>\
                                 <thead>\
@@ -514,7 +520,7 @@
                                         <th>Valabilitate (12 luni)</th>\
                                     </tr>\
                                 </thead>\
-                                <tbody id="to-appenddd"><tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
+                                <tbody id="to-appenddd"><tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
 
             formData.decontare_directa = 'true';
             asiguratori.map((asigurator, index) => {
@@ -523,10 +529,9 @@
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                async: false,
                 type: "POST",
-                url: "/ajaxify",
-                // url: "/platforma/public/ajaxify",
+                // url: "/ajaxify",
+                url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
@@ -548,7 +553,7 @@
                 console.log(html)
                 $("#plcdd").empty();
                 $("#plcdd").remove();
-                $("#full-overlay").css('display', 'none');
+                // $("#full-overlay").css('display', 'none');
                 $("#to-appenddd").append(html);
                 $("#to-appenddd").append('<tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
                 if(index == asiguratori.length-1) {
@@ -586,8 +591,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/marci",
-        url: "/marci",
+        url: "/platforma/public/marci",
+        // url: "/marci",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -608,8 +613,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/activitati",
-        url: "/activitati",
+        url: "/platforma/public/activitati",
+        // url: "/activitati",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -630,8 +635,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/categorii",
-        url: "/categorii",
+        url: "/platforma/public/categorii",
+        // url: "/categorii",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -652,8 +657,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/caen",
-        url: "/caen",
+        url: "/platforma/public/caen",
+        // url: "/caen",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -757,8 +762,8 @@
         $("#judet").val();
 
       }
-      $.getJSON("/js/localitati.json", function(obiect) {
-      // $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
+      // $.getJSON("/js/localitati.json", function(obiect) {
+      $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
         if(selectat){
           $('#localitate').empty();
@@ -785,8 +790,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/vehicul/"+nr_mat,
-        url: "/vehicul/"+nr_mat,
+        url: "/platforma/public/vehicul/"+nr_mat,
+        // url: "/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -826,8 +831,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/vehicul/"+nr_mat,
-        url: "/vehicul/"+nr_mat,
+        url: "/platforma/public/vehicul/"+nr_mat,
+        // url: "/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -878,8 +883,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/proprietar/"+cod_unic,
-        url: "/proprietar/"+cod_unic,
+        url: "/platforma/public/proprietar/"+cod_unic,
+        // url: "/proprietar/"+cod_unic,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -932,8 +937,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/proprietar/"+cod_unic,
-        url: "/conducator/"+cod_unic,
+        url: "/platforma/public/proprietar/"+cod_unic,
+        // url: "/conducator/"+cod_unic,
         encode: true,
       }).done(function (data) {
         console.log(data,'conducator');
@@ -955,7 +960,7 @@
     });
 
 
-    $(".switch-dd").on('click', "#switch-dd-slider", function() {
+    $("#replaceble").on('click', "#switch-dd-slider", function() {
       console.log('ceva?');
       if($("#switch-dd").is(':checked')){
         $(".container-dd").css('display', 'block');
