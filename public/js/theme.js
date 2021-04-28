@@ -472,8 +472,9 @@
                 data: formData,
                 encode: true,
               }).done(function (data) {
-                console.log(asigurator, ' = ',data);
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                // console.log(asigurator, ' = ',data);
+                // var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td>\
                   <div class="clasa-bonus">Clasa BM: </div>\
                   <div class="carte-verde">Tari excluse carte verde: ' + data.oferte[0].CarteaVerde +'</div>\
@@ -492,7 +493,7 @@
                   
                 });
                 html += '</tr>';
-                console.log(html)
+                // console.log(html)
                 $("#plc").empty();
                 $("#plc").remove();
                 $("#full-overlay").css('display', 'none');
@@ -535,7 +536,7 @@
                 data: formData,
                 encode: true,
               }).done(function (data) {
-                console.log(asigurator, ' = ',data);
+                // console.log(asigurator, ' = ',data);
                 // var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
                 var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td>\
@@ -551,7 +552,7 @@
                   </td>'
                 });
                 html += '</tr>';
-                console.log(html)
+                // console.log(html)
                 $("#plcdd").empty();
                 $("#plcdd").remove();
                 // $("#full-overlay").css('display', 'none');
