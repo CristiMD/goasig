@@ -1195,7 +1195,7 @@ class CereriController extends Controller
 
     public function ajaxify(Request $request)
     {
-        $time_start = microtime(true); 
+        // $time_start = microtime(true); 
 
 
         $username = 'testRCA';
@@ -1382,7 +1382,7 @@ class CereriController extends Controller
             // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
             array_push($oferte, $cereri[$i][0]->display()->result);
         }
-        echo 'Total execution time in seconds: ' . (microtime(true) - $time_start);
+        // echo 'Total execution time in seconds: ' . (microtime(true) - $time_start);
 
         // $collection = collect($oferte);
         
