@@ -432,7 +432,9 @@
               decontare_directa: 'false',
               creaza_cont: cont,
               cod_postal: coduri.cod_postal,
-              cod_siruta: coduri.cod_siruta
+              cod_siruta: coduri.cod_siruta,
+              companie_tip: $("#companie-tip").val(),
+              companie_activitate: $("#companie-activitate").val(),
             };
   
             $("#replaceble").empty();
@@ -551,7 +553,7 @@
                     </tr>\
                 </thead>\
                 <tbody id="to-appenddd"><tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
-            var asiguratori = ['city', 'groupama', 'omniasig','generali', 'grawe'];
+            var asiguratori = ['groupama', 'city', 'grawe', 'generali', 'omniasig'];
             asiguratori.map((asigurator, index) => {
               formData.asigurator = asigurator;
               var t0 = performance.now()
@@ -566,7 +568,7 @@
                 data: formData,
                 encode: true,
               }).done(function (data) {
-                // console.log(asigurator, ' = ',data);
+                console.log(asigurator, ' = ',data);
                 // var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
@@ -611,7 +613,7 @@
     }
 
     function getDecontareDirecta(formData, valabilitate) {
-      var asiguratori = ['city', 'groupama', 'omniasig','generali', 'grawe'];
+      var asiguratori = ['groupama', 'city', 'grawe', 'generali', 'omniasig'];
       
 
             formData.decontare_directa = 'true';
@@ -670,10 +672,10 @@
         $('#loader').fadeOut(); // will first fade out the loading animation
         $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         $('body').delay(350).css({'overflow':'visible'});
-        getVehicleCategories();
-        getVehicleBrands();
-        getVehicleActivities();
-        getCompanyCAEN();
+        // getVehicleCategories();
+        // getVehicleBrands();
+        // getVehicleActivities();
+        // getCompanyCAEN();
     })
 
     function getVehicleBrands() {
@@ -803,6 +805,17 @@
         $("#societate-wrapper").append('<input type="text" name="societate" id="societate" class="required form-control" placeholder="Denumire societate">');
         $("#cui-wrapper").append('<input type="text" name="cui" id="cui" class="required form-control" placeholder="CUI">');
         $("#caen-wrapper").append('<div class="styled-select"><select class="required" name="caen" id="caen"><option value="" selected>Cod CAEN</option></select></div>');
+        $("#companie-tip-wrapper").append('<div class="styled-select"><select class="required" name="companie-tip" id="companie-tip"><option value="">Tip companie</option><option value="1">SC nefinanciare – SA</option>\
+        <option value="2">SC nefinanciare – SRL</option>\
+        <option value="3">SC nefinanciare – PFA</option>\
+        <option value="4">SC nefinanciare – PFI</option>\
+        <option value="5">Alte SC nefinanciare</option>\
+        <option value="6">Banci si cooperative de credit</option>\
+        <option value="7">Intermediari financiari – Leasing</option>\
+        <option value="8">Alti intermediari financiari</option>\
+        <option value="9">Institutii Guvernamentale</option>\
+        <option value="1">Regii autonome</option></select></div>');
+        $("#companie-activitate-wrapper").append('<div class="styled-select"><select class="required" name="companie-activitate" id="companie-activitate"><option value="">Activitate companie</option><option value="1">Agricultura/silvicultura/zootehnie</option><option value="2">Comert</option><option value="3">Ind. Alimentara, Morarit si Panificatie</option><option value="4">Ind. Materiale de constructii</option><option value="5">Ind. Textila</option><option value="6">Ind. Chimica</option><option value="7">Ind. Energetica</option><option value="8">Ind Transporturilor</option><option value="9">Media - Presa, TV</option><option value="10">Ind prelucrare lemn</option><option value="11">Curierarat, Distributie,</option><option value="12">Turism</option><option value="13">Arta, Cultura, religie</option><option value="14">Servicii Financiar-bancare, Asigurari</option><option value="15">Justitie</option><option value="16">Armata, Ordine Publica, Servicii speciale</option><option value="17">Asistenta Medicala, Sanatate, Servicii Sociale</option><option value="18">Industrie IT</option><option value="19">Sport</option><option value="20">Aviatie, transport aerian</option><option value="22">Industria extractiva</option><option value="23">Industria prelucratoare</option><option value="24">Prod. energie, gaze, apa</option><option value="25">Distrib.apei, salubritate</option><option value="26">Tranzactii imobiliare</option><option value="27">Invatamant</option><option value="28">Activ.stiintifice/tehnice</option><option value="29">Servicii admin. si suport</option><option value="30">Serv.pt. gospod. private</option><option value="31">Organiz.extrateritoriale</option><option value="32">Transp. marfa intern</option><option value="33">Transp. marfa int/extern</option><option value="34">Transp. pers. intern</option><option value="35">Transp. pers. urban</option><option value="36">Transp. pers. int/extern</option><option value="37">Transp. taxi/maxi-taxi</option><option value="38">Serv. de interv. si paza</option><option value="999">Altul</option></select></div>');
         $("#telefon_fix-wrapper").append('<input type="text" name="telefon_fix" id="telefon_fix" class="required form-control" placeholder="Telefon Fix">');
       } else {
         $("#nmume_proprietar").remove();
@@ -814,6 +827,7 @@
         $("#societate").remove();
         $("#caen").remove();
         $("#cui").remove();
+        $("#companie-tip").remove();
 
         $("#nmume_proprietar-wrapper").append('<input type="text" name="nmume_proprietar" id="nmume_proprietar" class="required form-control" placeholder="Nume">');
         $("#cnp_proprietar-wrapper").append('<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="required form-control" placeholder="CNP">');

@@ -1195,7 +1195,23 @@ class CereriController extends Controller
 
     public function ajaxify(Request $request)
     {
-        // $time_start = microtime(true); 
+        $time_start = microtime(true); 
+
+        //  $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+        // $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+        // $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+        // 'soap_version' => SOAP_1_1,
+        // 'location' => $location_URL,
+        // 'uri'      => $action_URL,
+        // 'style'    => SOAP_RPC,
+        // 'use'      => SOAP_ENCODED,
+        // 'trace'    => 1,
+        // 'keep_alive' => true,
+        // 'connection_timeout' => 5000,
+        // 'cache_wsdl' => WSDL_CACHE_NONE,
+        // 'compression'   => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE,
+        // ));
 
 
         $username = 'testRCA';
@@ -1281,9 +1297,9 @@ class CereriController extends Controller
 
         if(strcmp($tip_persoana, "pf") != 0) {
             $_nume = request('societate');
-            $_companie_tip ='?';
+            $_companie_tip = request('companie_tip');
             $_companie_profil='?';
-            $_companie_activitate='?';
+            $_companie_activitate=request('companie_activitate');
             $_companie_caen= request('caen');
             $_cod_unic = request('cui');
         }
@@ -1341,6 +1357,48 @@ class CereriController extends Controller
         $conducator = new ComplexDriver($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver);	
 
 
+        ////syncronous way
+        // $oferte = array();
+        // foreach ($nr_luni as $luna) {
+        //     foreach ($asiguratori as $asigurator) {
+                
+        //         try {
+        //             $result = $client->__call('CerereOfertaRCA',
+        //             array(
+        //                 $autentificare,
+        //                 $link_redirect_plata,
+        //                 $asigurator,
+        //                 $luna,
+        //                 $data_inceput_valabilitate,
+        //                 $activitate,
+        //                 $leasing,
+        //                 $masina,
+        //                 $tip_persoana,
+        //                 $pensionar,
+        //                 $deficiente,
+        //                 $proprietar,
+        //                 $utilizator,
+        //                 $conducator
+        //                 )
+        //         );
+        //         if($result->Eroare != 1){
+        //             $tmp = array('date' => $result, 'asigurator' => $asigurator);
+        //             array_push($oferte, $tmp);
+        //         }
+                
+        //         } catch(Exception $a) {
+        //             echo $a;
+        //         }
+        //     }
+        // }
+
+
+        // $collection = collect($oferte);
+        
+        // $grouped = $collection->mapToGroups(function ($item, $key) {
+        //     return [$item['asigurator'] => $item['date']];
+        // });
+
 
         ////async way
 
@@ -1382,7 +1440,7 @@ class CereriController extends Controller
             // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
             array_push($oferte, $cereri[$i][0]->display()->result);
         }
-        // echo 'Total execution time in seconds: ' . (microtime(true) - $time_start);
+        $end_time = microtime(true) - $time_start;
 
         // $collection = collect($oferte);
         
@@ -1396,8 +1454,8 @@ class CereriController extends Controller
 
         return response()->json([
             'oferte'=>$oferte,
-            'valabilitate'=>$valabilitate
+            'valabilitate'=>$valabilitate,
+            'time'=>$end_time,
         ]);
     }
-
 }
