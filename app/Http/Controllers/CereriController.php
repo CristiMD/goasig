@@ -1195,6 +1195,9 @@ class CereriController extends Controller
 
     public function ajaxify(Request $request)
     {
+        $time_start = microtime(true); 
+
+
         $username = 'testRCA';
         $password = 'test.1234';
         $_km_totali = '120000';
@@ -1350,6 +1353,7 @@ class CereriController extends Controller
         // async call
         foreach ($nr_luni as $luna) {
             foreach ($asiguratori as $asigurator) {
+
                 $promise = $client->callAsync('CerereOfertaRCA', array(
                     $autentificare,
                     $link_redirect_plata,
@@ -1367,6 +1371,8 @@ class CereriController extends Controller
                     $conducator
                 ));
                 // $result = $promise->wait();
+                
+
                 array_push($cereri, [$promise,$asigurator]);
             }
         }
@@ -1376,6 +1382,7 @@ class CereriController extends Controller
             // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
             array_push($oferte, $cereri[$i][0]->display()->result);
         }
+        echo 'Total execution time in seconds: ' . (microtime(true) - $time_start);
 
         // $collection = collect($oferte);
         

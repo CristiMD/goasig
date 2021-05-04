@@ -378,7 +378,7 @@
             // url: "/coduri/"+judet+"/"+localitate,
             encode: true,
           }).done(function (coduri) {
-            console.log(coduri);
+            // console.log(coduri);
             var formData = {
               stare_inmatriculare: $("#stare_inmatriculare").val(),
               numar_inmatriculare: $("#numar_inmatriculare").val(),
@@ -443,25 +443,119 @@
               <span class="slider round"></span>\
             </label>\
             </div>');
-            $("#replaceble").append('<div class="container container-ndd">\
-                <div class="row justify-content-center">\
-                        <div class="card card-oferte  custom-card-view">\
-                            <div class="card-header ">Oferte disponibile</div>\
-                            <div class="card-body">\
-                            <table>\
-                                <thead>\
-                                    <tr>\
-                                        <th>Asigurator</th>\
-                                        <th>Beneficii</th>\
-                                        <th>Valabilitate ('+valabilitate+' luni)</th>\
-                                        <th>Valabilitate (12 luni)</th>\
-                                    </tr>\
-                                </thead>\
-                                <tbody id="to-append"><tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
+            getFaraDecontare(formData, valabilitate);
+            // $("#replaceble").append('<div class="container container-ndd">\
+            //     <div class="row justify-content-center">\
+            //             <div class="card card-oferte  custom-card-view">\
+            //                 <div class="card-header ">Oferte disponibile</div>\
+            //                 <div class="card-body">\
+            //                 <table>\
+            //                     <thead>\
+            //                         <tr>\
+            //                             <th>Asigurator</th>\
+            //                             <th>Beneficii</th>\
+            //                             <th>Valabilitate ('+valabilitate+' luni)</th>\
+            //                             <th>Valabilitate (12 luni)</th>\
+            //                         </tr>\
+            //                     </thead>\
+            //                     <tbody id="to-append"><tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
   
+            // var asiguratori = ['city', 'groupama', 'omniasig','generali', 'grawe'];
+            // asiguratori.map((asigurator, index) => {
+            //   formData.asigurator = asigurator;
+            //   var t0 = performance.now()
+
+            //   $.ajax({
+            //     headers: {
+            //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     },
+            //     type: "POST",
+            //     url: "/ajaxify",
+            //     // url: "/platforma/public/ajaxify",
+            //     data: formData,
+            //     encode: true,
+            //   }).done(function (data) {
+            //     // console.log(asigurator, ' = ',data);
+            //     // var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
+            //     var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+            //     </td><td>\
+            //       <div class="clasa-bonus">Clasa BM: </div>\
+            //       <div class="carte-verde">Tari excluse carte verde: ' + data.oferte[0].CarteaVerde +'</div>\
+            //       <div class="comision">Comision inclus '+ asigurator +': '+ data.oferte[0].ComisionProcent +'</div>\
+            //     </td>';
+            //     data.oferte.map(oferta=> {
+            //       if(oferta.Eroare) {
+            //         html +='<td>  </td>';
+            //       } else {
+            //         html +='<td><div class="actiuni"><a class="buton" href="'+ oferta.LinkPlata+'">\
+            //             <i class="fa fa-shopping-cart" aria-hidden="true"></i>\
+            //             <span>'+oferta.Valoare+' lei</span>\
+            //             </a></div>\
+            //           </td>';
+            //       }
+            //       var t1 = performance.now()
+            //     console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+                  
+            //     });
+            //     html += '</tr>';
+            //     // console.log(html)
+            //     $("#plc").empty();
+            //     $("#plc").remove();
+            //     $("#full-overlay").css('display', 'none');
+            //     $("#to-append").append(html);
+            //     $("#to-append").append('<tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
+            //     if(index == asiguratori.length-1) {
+            //       $("#plc").remove();
+            //       getDecontareDirecta(formData, valabilitate);
+            //     }
+            //   });
+            // })
+            //decontare directa
+
+          });
+          
+          event.preventDefault();
+        });
+
+        
+    });
+
+    function getFaraDecontare(formData, valabilitate) {
+      $("#replaceble").append('<div class="container container-ndd">\
+          <div class="row justify-content-center">\
+            <div class="card card-oferte  custom-card-view">\
+                <div class="card-header ">Oferte disponibile</div>\
+                <div class="card-body">\
+                <table>\
+                    <thead>\
+                        <tr>\
+                            <th>Asigurator</th>\
+                            <th>Beneficii</th>\
+                            <th>Valabilitate ('+valabilitate+' luni)</th>\
+                            <th>Valabilitate (12 luni)</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody id="to-append"><tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
+        $("#replaceble").append('<div class="container container-dd" style="display: none;">\
+        <div class="row justify-content-center">\
+          <div class="card card-oferte  custom-card-view">\
+            <div class="card-header ">Oferte disponibile - decontare directa</div>\
+            <div class="card-body">\
+            <table>\
+                <thead>\
+                    <tr>\
+                        <th>Asigurator</th>\
+                        <th>Beneficii</th>\
+                        <th>Valabilitate ('+valabilitate+' luni)</th>\
+                        <th>Valabilitate (12 luni)</th>\
+                    </tr>\
+                </thead>\
+                <tbody id="to-appenddd"><tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
             var asiguratori = ['city', 'groupama', 'omniasig','generali', 'grawe'];
             asiguratori.map((asigurator, index) => {
               formData.asigurator = asigurator;
+              var t0 = performance.now()
+
               $.ajax({
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -473,13 +567,20 @@
                 encode: true,
               }).done(function (data) {
                 // console.log(asigurator, ' = ',data);
-                // var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                </td><td>\
-                  <div class="clasa-bonus">Clasa BM: </div>\
+                // var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                </td><td class="detalii">\
+                <div class="tooltip-wrapper">\
+                  <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
+                  <div class="cst-tooltip-trigger">\
+                  <i class="fa fa-info" aria-hidden="true"></i>\
+                  <div class="cust-tooltip">\
                   <div class="carte-verde">Tari excluse carte verde: ' + data.oferte[0].CarteaVerde +'</div>\
                   <div class="comision">Comision inclus '+ asigurator +': '+ data.oferte[0].ComisionProcent +'</div>\
-                </td>';
+                  </div>\
+                  </div>\
+                  </div>\
+                  </td>';
                 data.oferte.map(oferta=> {
                   if(oferta.Eroare) {
                     html +='<td>  </td>';
@@ -490,6 +591,8 @@
                         </a></div>\
                       </td>';
                   }
+                  var t1 = performance.now()
+                console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
                   
                 });
                 html += '</tr>';
@@ -501,27 +604,15 @@
                 $("#to-append").append('<tr id="plc"><td colspan=4><div class="placeholder"></div></td></tr>');
                 if(index == asiguratori.length-1) {
                   $("#plc").remove();
+                  getDecontareDirecta(formData, valabilitate);
                 }
               });
-            });
+            })
+    }
 
-            //decontare directa
-
-            $("#replaceble").append('<div class="container container-dd" style="display: none;">\
-                <div class="row justify-content-center">\
-                        <div class="card card-oferte  custom-card-view">\
-                            <div class="card-header ">Oferte disponibile - decontare directa</div>\
-                            <div class="card-body">\
-                            <table>\
-                                <thead>\
-                                    <tr>\
-                                        <th>Asigurator</th>\
-                                        <th>Beneficii</th>\
-                                        <th>Valabilitate ('+valabilitate+' luni)</th>\
-                                        <th>Valabilitate (12 luni)</th>\
-                                    </tr>\
-                                </thead>\
-                                <tbody id="to-appenddd"><tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
+    function getDecontareDirecta(formData, valabilitate) {
+      var asiguratori = ['city', 'groupama', 'omniasig','generali', 'grawe'];
+      
 
             formData.decontare_directa = 'true';
             asiguratori.map((asigurator, index) => {
@@ -536,14 +627,21 @@
                 data: formData,
                 encode: true,
               }).done(function (data) {
-                // console.log(asigurator, ' = ',data);
-                // var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                </td><td>\
-                  <div class="clasa-bonus">Clasa BM: </div>\
+                console.log(asigurator, ' = ',data);
+                //var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                </td><td class="detalii">\
+                <div class="tooltip-wrapper">\
+                  <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
+                  <div class="cst-tooltip-trigger">\
+                  <i class="fa fa-info" aria-hidden="true"></i>\
+                  <div class="cust-tooltip">\
                   <div class="carte-verde">Tari excluse carte verde: ' + data.oferte[0].CarteaVerde +'</div>\
                   <div class="comision">Comision inclus '+ asigurator +': '+ data.oferte[0].ComisionProcent +'</div>\
-                </td>';
+                  </div>\
+                  </div>\
+                  </div>\
+                  </td>';
                 data.oferte.map(oferta=> {
                   html +='<td><div class="actiuni"><a class="buton" href="'+ oferta.LinkPlata+'">\
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>\
@@ -555,7 +653,6 @@
                 // console.log(html)
                 $("#plcdd").empty();
                 $("#plcdd").remove();
-                // $("#full-overlay").css('display', 'none');
                 $("#to-appenddd").append(html);
                 $("#to-appenddd").append('<tr id="plcdd"><td colspan=4><div class="placeholder"></div></td></tr>');
                 if(index == asiguratori.length-1) {
@@ -563,16 +660,8 @@
                 }
               });
             });
-
-
-
-          });
-          $("#replaceble").append('</tbody></table></div></div></div></div>');
-          event.preventDefault();
-        });
-
-        
-    });
+            $("#replaceble").append('</tbody></table></div></div></div></div>');
+    }
 
     
     $(window).on ('load', function (){ // makes sure the whole site is loaded
@@ -939,7 +1028,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/platforma/public/proprietar/"+cod_unic,
+        url: "/platforma/public/conducator/"+cod_unic,
         // url: "/conducator/"+cod_unic,
         encode: true,
       }).done(function (data) {
@@ -972,6 +1061,5 @@
         $(".container-ndd").css('display', 'block');
       }
     });
-
 
 })(jQuery)

@@ -116,4 +116,6 @@ button.backward, button.forward, button.submit {
 img.logo-asigurator {
     width: 200px;
     margin: auto;
+    height: 100px;
+    object-fit: contain;
 }

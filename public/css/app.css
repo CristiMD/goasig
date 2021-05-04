@@ -10172,3 +10172,41 @@ h3 {
 .card-oferte {
   margin-top: 0 !important;
 }
+
+/* Tooltip asigurare */
+
+
+.cst-tooltip-trigger {
+  position: relative;
+}
+
+.tooltip-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cust-tooltip {
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 200px;
+  border: 1px solid;
+  bottom: -50%;
+  left: 30px;
+  display: none;
+}
+
+.cst-tooltip-trigger:hover .cust-tooltip {
+  display: block;
+}
+
+.cst-tooltip-trigger i {
+  margin: 10px;
+  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
