@@ -119,3 +119,172 @@ img.logo-asigurator {
     height: 100px;
     object-fit: contain;
 }
+
+#revenire {
+    text-align: center;
+    padding: 100px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #nr_mat {
+    margin: 30px 0;
+    padding: 10px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid;
+  }
+  
+  .test-revenire {
+    background: green;
+    padding: 15px;
+    width: 300px;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+  
+  .fara-revenire {
+    background: red;
+    padding: 15px;
+    width: 250px;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+  
+  #vehicule-salvate, #proprietari-salvati, #conducatori-salvati {
+    background: transparent;
+    padding: 5px 5px 5px 15px;
+    border: 0;
+    height: 50px;
+    color: #999;
+    margin: 0;
+    font-weight: 400;
+    -moz-appearance: window;
+    -webkit-appearance: none;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  
+  .user-initial-select, .user-proprietar-select, .user-conducatori-select {
+    text-align: center;
+    padding: 100px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .user-initial-select p, .user-proprietar-select p, .user-conducatori-select p{
+    margin: 30px 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  
+  
+  /* placeholder */
+  
+  @keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+  }
+  .placeholder {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 1000px 104px;
+    height: 85px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  
+  /* The switch - the box around the slider */
+  .switch-dd .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch-dd .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .switch-dd .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .switch-dd .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .switch-dd input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  .switch-dd input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  .switch-dd input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .switch-dd .slider.round {
+    border-radius: 34px;
+  }
+  
+  .switch-dd .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  .switch-dd {
+    text-align: center;
+      margin: 50px;
+  }
+  
+  .card-oferte {
+    margin-top: 0 !important;
+  }
