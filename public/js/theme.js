@@ -568,7 +568,7 @@
               }).done(function (data) {
                 // console.log(asigurator, ' = ',data);
                 // var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
                 <div class="tooltip-wrapper">\
                   <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
@@ -629,7 +629,7 @@
               }).done(function (data) {
                 console.log(asigurator, ' = ',data);
                 //var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
                 <div class="tooltip-wrapper">\
                   <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
