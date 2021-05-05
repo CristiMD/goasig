@@ -35,3 +35,8 @@ Route::resource('proprietar', App\Http\Controllers\ProprietarController::class);
 Route::resource('conducator', App\Http\Controllers\ConducatorController::class);
 Route::post('/ajaxify', [App\Http\Controllers\CereriController::class, 'ajaxify']);
 Route::get('/coduri/{judet}/{localitate}', [App\Http\Controllers\CereriController::class, 'getCodes']);
+Route::get('/users', [App\Http\Controllers\UsersController::class, 'numara']);
+Route::get('/vehicule', [App\Http\Controllers\VehiculController::class, 'numara']);
+Route::get('/polite', [App\Http\Controllers\PoliteController::class, 'numara']);
+Route::get('/vanzari', [App\Http\Controllers\PoliteController::class, 'vanzari']);
+Route::get('/users/all', [App\Http\Controllers\UsersController::class, 'index']);

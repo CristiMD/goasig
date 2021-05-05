@@ -7,13 +7,16 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <link href="{{ asset('css/react.css') }}" rel="stylesheet">
+
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Scripts -->
     </head>
     <body>
-        <div id="react-admin"></div>
+        <div class="react-wrapper" id="index"></div>
         <script src="{{ asset('js/app.js') }}"></script>
 
     </body>

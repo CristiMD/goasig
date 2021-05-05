@@ -60,9 +60,10 @@ class VehiculController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function numara()
     {
-        //
+        $vehicule = Vehicul::count();
+        return $vehicule;
     }
 
     /**
