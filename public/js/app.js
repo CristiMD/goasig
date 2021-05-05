@@ -2089,7 +2089,7 @@ function Example() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "logo",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-        src: _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__.default
+        src: "https://goasig.ro/platforma/public/images/logo/logo.png"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "side-links",
