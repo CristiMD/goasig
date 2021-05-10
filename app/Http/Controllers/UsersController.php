@@ -24,4 +24,9 @@ class UsersController extends Controller
         return $users;
     }
 
+    public function cont()
+    {
+        return view('contul-meu');
+    }
+
 }

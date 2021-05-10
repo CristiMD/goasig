@@ -20,6 +20,12 @@ use App\Models\Vehicul;
 use App\Models\User;
 use App\Models\Proprietar;
 use App\Models\Conducator;
+use App\Models\Oferta;
+
+
+use Carbon\Carbon;
+
+
 
 
 class ComplexCredentials{
@@ -1193,6 +1199,53 @@ class CereriController extends Controller
         ]);
     }
 
+    public function createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $id_oferta, $nr_inmatriculare, $decontare_directa, $link_plata, $suma_oferta, $perioada_oferta, $asigurator, $data_incepere)
+    {
+
+        date_default_timezone_set('UTC');
+
+        if($decontare_directa == true) {
+            $decontare_directa = 1;
+        } else {
+            $decontare_directa = 0;
+        }
+
+        $check = Oferta::where('id', $id_oferta)->first();
+        // $duplicate = Oferta::where('nr_inmatriculare', $nr_inmatriculare)->first();
+        // if($duplicate) {
+        //     Oferta::where('nr_inmatriculare', $nr_inmatriculare)->delete();
+        // }
+
+        if(!$check && $suma_oferta > 0){
+            $oferta = new Oferta(array(
+                'id' => $id_oferta,
+                'id_utilizator'  => $user_id,
+                'nr_inmatriculare' => $nr_inmatriculare,
+                'link-plata' => $link_plata,
+                'suma' => $suma_oferta,
+                'perioada' => $perioada_oferta,
+                'decontare_directa' => $decontare_directa,
+                'asigurator' => $asigurator,
+                'cod_unic_proprietar' => $_cod_unic,
+                'tip_persoana'  => $tip_persoana,
+                'nume_proprietar' => $_nume,
+                'prenume_proprietar' => $_prenume,
+                'serie_ci_proprietar' => $_serie_ci,
+                'nr_ci_proprietar' => $_numar_ci,
+                'cod_unic_conducator' => $_cnp_driver,
+                'nume_conducator' => $_nume_driver,
+                'prenume_conducator' => $_prenume_driver,
+                'serie_ci_conducator' => $_serie_ci_driver,
+                'nr_ci_conducator' => $_numar_ci_driver,
+                'data-generare' => Carbon::now()->isoFormat('YYYY-MM-D'),
+                'data-expirare' => Carbon::createFromIsoFormat('YYYY-MM-D', $data_incepere, 'UTC')->addMonths($perioada_oferta)->isoFormat('YYYY-MM-D'),
+                'data-incepere' => $data_incepere
+            ));
+            $oferta->timestamps = false;
+            $oferta->save();
+        }
+    }
+
     public function ajaxify(Request $request)
     {
         $time_start = microtime(true); 
@@ -1254,8 +1307,8 @@ class CereriController extends Controller
         $_euroins_acc = 'false';
         $_decontare_directa = request('decontare_directa');
 
-        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
-        // $link_redirect_plata='http://127.0.0.1:8000/plata';
+        // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+        $link_redirect_plata='http://127.0.0.1:8000/plata';
 
         // $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
         // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
@@ -1401,6 +1454,10 @@ class CereriController extends Controller
 
 
         ////async way
+        $user = auth()->user();
+        if($user) {
+            $user_id = $user->id;
+        }
 
 
         $factory = new Factory();
@@ -1437,8 +1494,11 @@ class CereriController extends Controller
 
         for ($i=0; $i < count($cereri); $i++) {
             $cereri[$i][0]->wait();
+            $res = $cereri[$i][0]->display()->result;
             // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
-            array_push($oferte, $cereri[$i][0]->display()->result);
+            array_push($oferte, $res);
+            // print_r($cereri[$i][0]->display()->result);
+            $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate);
         }
         $end_time = microtime(true) - $time_start;
 
@@ -1458,4 +1518,6 @@ class CereriController extends Controller
             'time'=>$end_time,
         ]);
     }
+
+
 }

@@ -7,6 +7,12 @@ use App\Models\Polita;
 
 class PoliteController extends Controller
 {
+
+    public function index()
+    {
+        $polite = Polita::all();
+        return $polite;
+    }
     /**
      * Display a listing of the resource.
      *

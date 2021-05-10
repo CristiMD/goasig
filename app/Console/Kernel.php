@@ -4,6 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Models\Oferta;
+use Carbon\Carbon;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -25,6 +28,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            Oferta::where('data-incepere', '<', Carbon::now()->isoFormat('YYYY-MM-D'))->delete();
+        })->dailyAt('07:00');
     }
 
     /**

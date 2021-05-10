@@ -40,3 +40,5 @@ Route::get('/vehicule', [App\Http\Controllers\VehiculController::class, 'numara'
 Route::get('/polite', [App\Http\Controllers\PoliteController::class, 'numara']);
 Route::get('/vanzari', [App\Http\Controllers\PoliteController::class, 'vanzari']);
 Route::get('/users/all', [App\Http\Controllers\UsersController::class, 'index']);
+Route::get('/polite/all', [App\Http\Controllers\PoliteController::class, 'index']);
+Route::get('/contul-meu', [App\Http\Controllers\UsersController::class, 'cont']);
