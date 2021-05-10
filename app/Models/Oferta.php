@@ -41,4 +41,8 @@ class Oferta extends Model
         'data-incepere'
     ];
 
+    function user() {
+        return $this->belongsTo('App\Models\User', 'id');
+    }
+
 }

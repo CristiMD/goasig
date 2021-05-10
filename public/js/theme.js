@@ -374,8 +374,8 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "GET",
-            url: "/platforma/public/coduri/"+judet+"/"+localitate,
-            // url: "/coduri/"+judet+"/"+localitate,
+            // url: "/platforma/public/coduri/"+judet+"/"+localitate,
+            url: "/coduri/"+judet+"/"+localitate,
             encode: true,
           }).done(function (coduri) {
             // console.log(coduri);
@@ -563,8 +563,8 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                // url: "/ajaxify",
-                url: "/platforma/public/ajaxify",
+                url: "/ajaxify",
+                // url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
@@ -624,8 +624,8 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                // url: "/ajaxify",
-                url: "/platforma/public/ajaxify",
+                url: "/ajaxify",
+                // url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
@@ -750,8 +750,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/platforma/public/caen",
-        // url: "/caen",
+        // url: "/platforma/public/caen",
+        url: "/caen",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -867,8 +867,8 @@
         $("#judet").val();
 
       }
-      // $.getJSON("/js/localitati.json", function(obiect) {
-      $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
+      $.getJSON("/js/localitati.json", function(obiect) {
+      // $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
         if(selectat){
           $('#localitate').empty();
@@ -895,8 +895,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/platforma/public/vehicul/"+nr_mat,
-        // url: "/vehicul/"+nr_mat,
+        // url: "/platforma/public/vehicul/"+nr_mat,
+        url: "/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -936,8 +936,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/platforma/public/vehicul/"+nr_mat,
-        // url: "/vehicul/"+nr_mat,
+        // url: "/platforma/public/vehicul/"+nr_mat,
+        url: "/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -988,8 +988,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/platforma/public/proprietar/"+cod_unic,
-        // url: "/proprietar/"+cod_unic,
+        // url: "/platforma/public/proprietar/"+cod_unic,
+        url: "/proprietar/"+cod_unic,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -1042,8 +1042,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        url: "/platforma/public/conducator/"+cod_unic,
-        // url: "/conducator/"+cod_unic,
+        // url: "/platforma/public/conducator/"+cod_unic,
+        url: "/conducator/"+cod_unic,
         encode: true,
       }).done(function (data) {
         console.log(data,'conducator');

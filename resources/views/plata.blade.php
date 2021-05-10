@@ -16,7 +16,9 @@
         @else
             <div class="card-header eroare">{{ __('A aparut o eroare!') }}</div>
             <div class="card-body"> 
-                A aparut o eroare la generarea politei
+                A aparut o eroare la generarea politei: 
+                <br>
+                {{$eroare}}
                 <div class="wrapper-polita"><a class="vezi-polita" href="{{ URL::route('landing') }}">Inapoi</a> </div>  
             </div>
         @endif

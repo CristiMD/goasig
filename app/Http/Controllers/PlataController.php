@@ -118,7 +118,7 @@ class PlataController extends Controller
             echo $a;
         }
 
-        return view('plata', ['pdf' => $result->PolitaPDF]);
+        return view('plata', ['pdf' => $result->PolitaPDF, 'eroare' => $result->Mesaj]);
 
     }
 
@@ -129,7 +129,7 @@ class PlataController extends Controller
         date_default_timezone_set('UTC');
 
         $selected_offer = Oferta::where('id', $id_oferta)->first();
-        print_r($selected_offer);
+        // print_r($selected_offer);
         $duplicate = Oferta::where('nr_inmatriculare', $selected_offer->nr_inmatriculare)->first();
         if($duplicate) {
             Oferta::where('nr_inmatriculare', $selected_offer->nr_inmatriculare)->delete();

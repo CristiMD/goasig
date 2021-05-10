@@ -9,6 +9,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+		<base href="http://127.0.0.1:8000/">
+
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
@@ -125,40 +127,22 @@
 					    	<div class="collapse navbar-collapse clearfix" id="navbarNav">
 					    	  <ul class="navbar-nav nav">
 					    	    <li class="nav-item active"><a class="nav-link" href="{{ URL::route('landing') }}">Home</a></li>
-					    	    <li class="nav-item dropdown-holder">
-					    	    	<a class="nav-link" href="#">Feature</a>
-					    	    	<ul class="sub-menu">
-										<li><a href="about-us.html">About us</a></li>
-										<li><a href="service-v1.html">Service v-1</a></li>
-										<li><a href="service-v2.html">Service v-2</a></li>
-										<li><a href="service-details.html">Service details</a></li>
-										<li><a href="testimonial.html">Testimonial</a></li>
-										<li><a href="faq.html">faq</a></li>
-										<li><a href="error.html">Error</a></li>
-									</ul>
+								<li class="nav-item">
+					    	    	<a class="nav-link" href="contact-us.html">Contact</a>
 					    	    </li>
-					    	    <li class="nav-item dropdown-holder">
-					    	    	<a class="nav-link" href="#">Page</a>
-					    	    	<ul class="sub-menu">
-					    	    		<li><a href="portfolio-v1.html">Portfolio V-1</a></li>
-										<li><a href="portfolio-v2.html">Portfolio V-2</a></li>
-										<li><a href="portfolio-v3.html">Portfolio V-3</a></li>
-										<li><a href="portfolio-v4.html">Portfolio V-4</a></li>
-										<li><a href="portfolio-details.html">Portfolio details</a></li>
-										<li><a href="team.html">Team</a></li>
-									</ul>
+					    	    @auth
+					    	    <li class="nav-item">
+					    	    	<a class="nav-link" href="/contul-meu">Contul meu</a>
 					    	    </li>
-					    	    <li class="nav-item dropdown-holder">
-					    	    	<a class="nav-link" href="#">Blog</a>
-					    	    	<ul class="sub-menu">
-										<li><a href="blog-grid.html">Blog grid</a></li>
-										<li><a href="blog-sidebar.html">Blog List With Sidebar</a></li>
-										<li><a href="blog-details.html">Blog Details</a></li>
-									</ul>
+								<li class="nav-item dot-fix">
+					    	    	<a class="nav-link" href="{{ url('/logout') }}">Logout</a>
 					    	    </li>
-					    	    <li class="nav-item dot-fix">
-					    	    	<a class="nav-link" href="contact-us.html">Contact us</a>
+								@endauth
+								@guest
+								<li class="nav-item dot-fix">
+					    	    	<a class="nav-link" href="{{ url('/login') }}">Login</a>
 					    	    </li>
+								@endguest
 					    	  </ul>
 					    	</div>
 						</nav>

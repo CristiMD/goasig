@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/test', [App\Http\Controllers\CereriController::class, 'index']);
 Route::get('/marci', [App\Http\Controllers\CereriController::class, 'marci']);
@@ -41,4 +42,10 @@ Route::get('/polite', [App\Http\Controllers\PoliteController::class, 'numara']);
 Route::get('/vanzari', [App\Http\Controllers\PoliteController::class, 'vanzari']);
 Route::get('/users/all', [App\Http\Controllers\UsersController::class, 'index']);
 Route::get('/polite/all', [App\Http\Controllers\PoliteController::class, 'index']);
-Route::get('/contul-meu', [App\Http\Controllers\UsersController::class, 'cont']);
+Route::delete('/users/{id}', [App\Http\Controllers\UsersController::class, 'delete']);
+Route::get('/admin/users', [App\Http\Controllers\UsersController::class, 'admin_users']);
+Route::post('/admin/users', [App\Http\Controllers\UsersController::class, 'create']);
+
+
+//Cont
+Route::get('/contul-meu/{view?}', [App\Http\Controllers\UsersController::class, 'cont']);

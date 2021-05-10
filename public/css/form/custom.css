@@ -5,7 +5,7 @@
 
 .card.custom-card-view {
     width: 100%;
-    margin-top: 100px;
+    margin-top: 50px !important;
 }
 
 .card.custom-card-view .card-header {
@@ -320,3 +320,85 @@ img.logo-asigurator {
   .cst-tooltip-trigger:hover .cust-tooltip {
     display: block;
   }
+
+.account-wrapper {
+  display: flex;
+  align-items: stretch;
+  margin-top: 20px;
+  border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.account-nav {
+  flex: 1;
+  min-width: 200px;
+}
+
+.account-nav a:hover {
+  background: #fbe3b7;
+  width: 100%;
+  color: #000;
+}
+
+
+.account-nav a {
+  padding: 10px;
+  width: 100%;
+  font-size: 15px;
+  color: #365d4e;
+}
+
+.account-extra {
+  flex: 4;
+}
+
+.with-padding {
+  padding: 10px 20px;
+}
+
+.account-extra span {
+  font-weight: 800;
+}
+
+.card-cont .card-body{
+  padding: 1.25rem 0 0;
+}
+
+.account-nav a.activ {
+  background-color: #365d4e;
+  color: #fff;
+}
+
+.card-cont td {
+  padding: 10px 0;
+}
+
+.card-cont th {
+  padding: 15px;
+}
+
+.card-cont  ul {
+  border-right: 1px solid rgba(0,0,0,.125);
+  height: 100%;
+}
+
+.card-cont  ul li:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-cont tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-cont tbody tr:nth-child(2n){
+  background-color: #ececec;
+}
+
+
+.card-cont .vezi-polita {
+  background: #fbe3b7;
+  padding: 10px 15px;
+  color: #010101;
+  margin-top: 0px;
+  font-size: 14px;
+  line-height: 14px;
+}

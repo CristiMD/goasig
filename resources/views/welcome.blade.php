@@ -94,8 +94,8 @@
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 							},
 							type: "GET",
-							url: "/platforma/public/vehicul",
-							// url: "/vehicul",
+							// url: "/platforma/public/vehicul",
+							url: "/vehicul",
 							encode: true,
 						}).done(function (data) {
 							console.log(data);
@@ -249,8 +249,8 @@
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
-									url: "/platforma/public/proprietar",
-									// url: "/proprietar",
+									// url: "/platforma/public/proprietar",
+									url: "/proprietar",
 									encode: true,
 								}).done(function (data) {
 									// console.log(data);
@@ -429,13 +429,13 @@
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
-									url: "/platforma/public/conducator",
-									// url: "/conducator",
+									// url: "/platforma/public/conducator",
+									url: "/conducator",
 									encode: true,
 								}).done(function (data) {
 									console.log(data);
 									$('#conducatori-salvati').empty();
-									$('#conducatori-salvati').append(new Option('--alege proprietar--', ''));
+									$('#conducatori-salvati').append(new Option('--alege conducator--', ''));
 									if(data.length) {
 										data.map(conducator => {
 											$('#conducatori-salvati').append(new Option(conducator.nume + " " + conducator.prenume , conducator.cod_unic));
@@ -452,7 +452,7 @@
 								 <div class="user-conducatori-select">
 									<p>Alege unul din conducatorii salvati din lista </p>
 									<select id="conducatori-salvati" name="conducatori-salvati">
-										<option>--alege proprietar--<option>
+										<option>--alege conducator--<option>
 									</select>
 									<p class="centru-sau"> sau </p>
 									<button type="button" class="test-revenire" id="conducator-nou" >Adauga un conducator nou</button>

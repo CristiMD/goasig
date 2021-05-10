@@ -1855,6 +1855,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/Index */ "./resources/js/components/Index.js");
 
+__webpack_require__(/*! ./components/Utilizatori */ "./resources/js/components/Utilizatori.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -1926,7 +1928,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -1969,48 +1971,48 @@ function Index() {
       setVanzari = _useState12[1];
 
   var getUtilizatori = function getUtilizatori() {
-    // axios.get('/users').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users').then(function (res) {
+      // axios.get('/platforma/public/users').then(res => {
       console.log(res);
       setNrUtilizatori(res.data);
     });
   };
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    // axios.get('/users/all').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users/all').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
+      // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
       setUtilizatori(res.data);
     });
   };
 
   var getAllPolite = function getAllPolite() {
-    // axios.get('/polite/all').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/polite/all').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite/all').then(function (res) {
+      // axios.get('/platforma/public/polite/all').then(res => {
       console.log(res);
       setPolite(res.data);
     });
   };
 
   var getVehicule = function getVehicule() {
-    // axios.get('/vehicule').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/vehicule').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/vehicule').then(function (res) {
+      // axios.get('/platforma/public/vehicule').then(res => {
       console.log(res);
       setVehicule(res.data);
     });
   };
 
   var getPolite = function getPolite() {
-    // axios.get('/polite').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/polite').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite').then(function (res) {
+      // axios.get('/platforma/public/polite').then(res => {
       console.log(res);
       setNrPolite(res.data);
     });
   };
 
   var getVanzari = function getVanzari() {
-    // axios.get('/vanzari').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/vanzari').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/vanzari').then(function (res) {
+      // axios.get('/platforma/public/vanzari').then(res => {
       console.log(res);
       setVanzari(res.data);
     });
@@ -2163,6 +2165,259 @@ if (document.getElementById('index')) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Utilizatori.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/Utilizatori.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _parts_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parts/Navbar */ "./resources/js/components/parts/Navbar.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+function Utilizatori() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      utilizatori = _useState2[0],
+      setUtilizatori = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      nume = _useState4[0],
+      setNume = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      email = _useState6[0],
+      setEmail = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      telefon = _useState8[0],
+      setTelefon = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      parola = _useState10[0],
+      setParola = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      editing = _useState12[0],
+      setEditing = _useState12[1];
+
+  var getAllUtilizatori = function getAllUtilizatori() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
+      // axios.get('/platforma/public/users/all').then(res => {
+      console.log(res);
+      setUtilizatori(res.data);
+    });
+  };
+
+  var editUser = function editUser(id) {
+    setEditing(true);
+  };
+
+  var adaugaUser = function adaugaUser(e) {
+    e.preventDefault();
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/admin/users', {
+      nume: nume,
+      email: email,
+      telefon: telefon,
+      parola: parola
+    }).then(function (res) {
+      // axios.get('/platforma/public/users/all').then(res => {
+      console.log(res);
+      getAllUtilizatori();
+    });
+  };
+
+  var deleteUser = function deleteUser(id) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/users/' + id).then(function (res) {
+      // axios.delete('/platforma/public/users/'+id).then(res => {
+      getAllUtilizatori();
+      console.log(res);
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getAllUtilizatori();
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "container",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "side",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_parts_Navbar__WEBPACK_IMPORTED_MODULE_2__.default, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "page",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+        className: "top-50",
+        children: "Utilizatori"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "lista-utilizatori",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                children: "Nume"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                children: "Email"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                children: "Telefon"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                children: "Actiuni"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+            children: utilizatori.length ? utilizatori.map(function (user) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  children: user.nume
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  children: user.email
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  children: user.telefon
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                    className: "actiuni",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                      id: "edit",
+                      onClick: function onClick() {
+                        return editUser(user.id);
+                      },
+                      children: "Edit"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                      id: "delete",
+                      onClick: function onClick() {
+                        return deleteUser(user.id);
+                      },
+                      children: "Delete"
+                    })]
+                  })
+                })]
+              }, user.id);
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                colSpan: "3",
+                children: "Fara utilizatori"
+              })
+            })
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "add-form",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+          id: "add-user",
+          onSubmit: function onSubmit(e) {
+            return adaugaUser(e);
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "nume",
+            onChange: function onChange(e) {
+              return setNume(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "email",
+            onChange: function onChange(e) {
+              return setEmail(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "telefon",
+            onChange: function onChange(e) {
+              return setTelefon(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "password",
+            name: "parola",
+            onChange: function onChange(e) {
+              return setParola(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            type: "submit",
+            children: "Adauga"
+          })]
+        })
+      }), editing ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "add-form",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+          id: "add-user",
+          onSubmit: function onSubmit(e) {
+            return adaugaUser(e);
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "nume",
+            value: nume,
+            onChange: function onChange(e) {
+              return setNume(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "email",
+            value: email,
+            onChange: function onChange(e) {
+              return setEmail(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "telefon",
+            value: telefon,
+            onChange: function onChange(e) {
+              return setTelefon(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "password",
+            name: "parola",
+            onChange: function onChange(e) {
+              return setParola(e.target.value);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            type: "submit",
+            children: "Editeaza"
+          })]
+        })
+      }) : '']
+    })]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Utilizatori);
+
+if (document.getElementById('utilizatori')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Utilizatori, {}), document.getElementById('utilizatori'));
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/parts/Navbar.js":
 /*!*************************************************!*\
   !*** ./resources/js/components/parts/Navbar.js ***!
@@ -2192,10 +2447,23 @@ function Example() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "side-links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-          children: "Home"
-        })
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+            href: "/admin",
+            children: "Home"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+            href: "/admin/users",
+            children: "Utilizatori"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+            href: "/admin/polite",
+            children: "Polite"
+          })
+        })]
       })
     })]
   });
@@ -67205,7 +67473,7 @@ if (false) {} else {
 /******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
 /******/ 				}
 /******/ 			}
-/******/ 			if(runtime) runtime(__webpack_require__);
+/******/ 			if(runtime) var result = runtime(__webpack_require__);
 /******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 /******/ 			for(;i < chunkIds.length; i++) {
 /******/ 				chunkId = chunkIds[i];
@@ -67214,7 +67482,7 @@ if (false) {} else {
 /******/ 				}
 /******/ 				installedChunks[chunkIds[i]] = 0;
 /******/ 			}
-/******/ 			__webpack_require__.O();
+/******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
