@@ -84,8 +84,58 @@ class VehiculController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($nr_inmatriculare)
     {
-        //
+        $vehicul = Vehicul::where('nr_inmatriculare', $nr_inmatriculare)->first();
+        if($vehicul){
+            $vehicul->delete();
+            return ['deleted' => true];
+        }
+        return ['deleted' => false];
+    }
+
+    public function info($nr_inmatriculare)
+    {
+        $vehicul = Vehicul::where('nr_inmatriculare', $nr_inmatriculare)->first();
+        if($vehicul){
+            return $vehicul;
+        }
+
+        return ['vehicul' => false];
+    }
+
+    public function editare($nr_inmatriculare)
+    {
+        $marca = request('marca');
+        $model = request('model');
+        $utilizare = request('utilizare');
+        $carburant = request('carburant');
+        $an_fabricatie = request('an_fabricatie');
+        $capacitatea_cilindrica = request('capacitatea_cilindrica');
+        $masa_admia = request('masa_admia');
+        $serie_civ = request('serie_civ');
+        $putere_motor = request('putere_motor');
+        $nr_locuri = request('nr_locuri');
+
+        $vehicul = Vehicul::where('nr_inmatriculare', $nr_inmatriculare)->first();
+        if($vehicul){
+            $vehicul->marca = $marca;
+            $vehicul->model = $model;
+            $vehicul->utilizare = $utilizare;
+            $vehicul->carburant = $carburant;
+            $vehicul->an_fabricatie = $an_fabricatie;
+            $vehicul->capacitatea_cilindrica = $capacitatea_cilindrica;
+            $vehicul->masa_admia = $masa_admia;
+            $vehicul->serie_civ = $serie_civ;
+            $vehicul->putere_motor = $putere_motor;
+            $vehicul->nr_locuri = $nr_locuri;
+
+            $vehicul->timestamps = false;
+            $vehicul->save();
+
+            return ['edit' => true];
+        }
+
+        return ['edit' => false];
     }
 }

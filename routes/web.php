@@ -43,8 +43,21 @@ Route::get('/vanzari', [App\Http\Controllers\PoliteController::class, 'vanzari']
 Route::get('/users/all', [App\Http\Controllers\UsersController::class, 'index']);
 Route::get('/polite/all', [App\Http\Controllers\PoliteController::class, 'index']);
 Route::delete('/users/{id}', [App\Http\Controllers\UsersController::class, 'delete']);
+Route::post('/users', [App\Http\Controllers\UsersController::class, 'editare']);
 Route::get('/admin/users', [App\Http\Controllers\UsersController::class, 'admin_users']);
 Route::post('/admin/users', [App\Http\Controllers\UsersController::class, 'create']);
+
+
+Route::get('conducator/{cod}', [App\Http\Controllers\ConducatorController::class, 'info']);
+Route::post('conducator/{cod}', [App\Http\Controllers\ConducatorController::class, 'editare']);
+
+
+Route::get('proprietar/{cod}', [App\Http\Controllers\ProprietarController::class, 'info']);
+Route::post('proprietar/{cod}', [App\Http\Controllers\ProprietarController::class, 'editare']);
+
+
+Route::get('vehicul/{nr_inmatriculare}', [App\Http\Controllers\VehiculController::class, 'info']);
+Route::post('vehicul/{nr_inmatriculare}', [App\Http\Controllers\VehiculController::class, 'editare']);
 
 
 //Cont

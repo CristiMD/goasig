@@ -143,4 +143,30 @@ class UsersController extends Controller
             'deleted' => false 
        ]);
     }
+
+    public function editare()
+    {
+        // $email = request('email');
+        $nume = request('nume');
+        $telefon = request('telefon');
+
+        $user = auth()->user();
+
+        $user = User::where('id', $user->id)->first();
+        if($user){
+            // $user->email = $email;
+            $user->nume = $nume;
+            $user->telefon = $telefon;
+
+            $user->timestamps = false;
+            $user->save();
+
+            return ['edit' => true];
+        }
+
+        return response(200)->json([
+            'edit' => false 
+       ]);
+    }
+    
 }

@@ -859,7 +859,7 @@
       incarcaLocalitati($("#judet").val());
     });
 
-    function incarcaLocalitati(judet = '') {
+    function incarcaLocalitati(judet = '', sel_localitate ='') {
       let val;
       if(judet.length) {
         val = judet
@@ -873,7 +873,13 @@
         if(selectat){
           $('#localitate').empty();
           selectat.map(localitate => {
-            $('#localitate').append(new Option(localitate.nume, localitate.nume));
+            // console.log('selectata: ', sel_localitate, ' la rand: ', localitate.nume, '\n');
+            // console.log(sel_localitate == localitate.nume);
+            if(sel_localitate == localitate.nume) {
+              $('#localitate').append(new Option(localitate.nume, localitate.nume, true, true));
+            } else {
+              $('#localitate').append(new Option(localitate.nume, localitate.nume));
+            }
             // console.log(localitate.nume)
           });
         }
@@ -997,7 +1003,7 @@
         $("#cnp_proprietar").val(data.cod_unic);
         $("#ci_proprietar").val(data.serie_ci);
         $("#judet").val(data.judet);
-        incarcaLocalitati(data.judet);
+        incarcaLocalitati(data.judet, data.localitate);
         $("#strada_proprietar").val(data.strada);
         $("#bloc_proprietar").val(data.bloc);
         $("#etaj_proprietar").val(data.etaj);
@@ -1075,5 +1081,358 @@
         $(".container-ndd").css('display', 'block');
       }
     });
+
+    ////Editare sectiune detalii
+
+  $("#editare-detalii").on('click', function() {
+    $('.account-extra  input[type=text]').prop( "disabled", true );
+    $('#nume-detalii-header').text($("#nume-detalii").val());
+    
+    var formData = {
+      nume: $("#nume-detalii").val(),
+      // email: $("#email-detalii").val(),
+      telefon: $("#telefon-detalii").val()
+    }
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "POST",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/users/",
+      data: formData,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'editare');
+      // let parsed = JSON.parse(data);
+    });
+  });
+
+  $('#toggle-editare-detalii').on('click', function(){
+    $('.account-extra input[type=text]').prop( "disabled", false );
+    $(".actiuni-edit").css('display', 'flex');
+    $("#toggle-editare-detalii").css('display', 'none');
+  });
+
+  $('#cancel-editare-detalii').on('click', function(){
+    $('.account-extra input[type=text]').prop( "disabled", true );
+    $(".actiuni-edit").css('display', 'none');
+    $("#toggle-editare-detalii").css('display', 'block');
+  });
+
+  ////Editare sectiune detalii
+
+
+
+  ////Editare sectiune coducatori
+
+
+  $('.conducator-edit').on('click', function(){
+    console.log($(this).data('index'));
+    var cod = $(this).data('conducator');
+    $('#edit-form-conducator').css('display', 'block');
+    $('#lista-conducator').css('display', 'none');
+    $('.actiuni-edit').css('display', 'flex');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "GET",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/conducator/"+cod,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'conducator');
+      $("#nume-conducator").val(data.nume);
+      $("#prenume-conducator").val(data.prenume);
+      $("#cod-conducator").val(data.cod_unic);
+      $("#nr-ci-conducator").val(data.nr_ci);
+      $("#serie-ci-conducator").val(data.serie_ci);
+      // let parsed = JSON.parse(data);
+    });
+  });
+
+
+  $('#cancel-editare-conducator').on('click', function(){
+    $('#edit-form-conducator').css('display', 'none');
+    $('#lista-conducator').css('display', 'block');
+    $('.actiuni-edit').css('display', 'none');
+
+    $("#nume-conducator").val('');
+    $("#prenume-conducator").val('');
+    $("#cod-conducator").val('');
+    $("#nr-ci-conducator").val('');
+    $("#serie-ci-conducator").val('');
+  });
+
+  $('#editare-conducator').on('click', function(){
+    var cod = $("#cod-conducator").val();
+    var formData = {
+      nume: $("#nume-conducator").val(),
+      prenume: $("#prenume-conducator").val(),
+      nr_ci: $("#nr-ci-conducator").val(),
+      serie_ci: $("#serie-ci-conducator").val()
+    }
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "POST",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/conducator/"+cod,
+      data: formData,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'editare');
+      // let parsed = JSON.parse(data);
+      $('#edit-form-conducator').css('display', 'none');
+      $('#lista-conducator').css('display', 'block');
+      $('.actiuni-edit').css('display', 'none');
+      location.reload();
+    });
+  });
+
+  $('.conducator-delete').on('click', function(){
+    var cod = $(this).data('conducator');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "DELETE",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/conducator/"+cod,
+      encode: true,
+    }).done(function (data) {
+      // console.log(data,'editare');
+      location.reload();
+    });
+  });
+
+  ////Editare sectiune coducatori
+
+  ////Editare sectiune proprietari
+
+  $('.proprietar-edit').on('click', function(){
+    var cod = $(this).data('proprietar');
+    $('#edit-form-proprietar').css('display', 'block');
+    $('#lista-proprietar').css('display', 'none');
+    $('.actiuni-edit').css('display', 'flex');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "GET",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/proprietar/"+cod,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'proprietar');
+      incarcaLocalitati(data.judet,data.localitate);
+      // $("#localitate").val();
+      $("#nume-proprietar").val(data.nume);
+      $("#prenume-proprietar").val(data.prenume);
+      $("#cod-proprietar").val(data.cod_unic);
+      $("#nr-ci-proprietar").val(data.nr_ci);
+      $("#serie-ci-proprietar").val(data.serie_ci);
+      $("#tip_persoana-proprietar").val(data.tip_persoana);
+      $("#judet-proprietar").val(data.judet);
+      $("#strada-proprietar").val(data.strada);
+      $("#numar-proprietar").val(data.numar);
+      $("#bloc-proprietar").val(data.bloc);
+      $("#scara-proprietar").val(data.scara);
+      $("#etaj-proprietar").val(data.etaj);
+      $("#apartament-proprietar").val(data.apartament);
+      // let parsed = JSON.parse(data);
+    });
+  });
+
+
+  $('#cancel-editare-proprietar').on('click', function(){
+    $('#edit-form-proprietar').css('display', 'none');
+    $('#lista-proprietar').css('display', 'block');
+    $('.actiuni-edit').css('display', 'none');
+
+    $("#nume-proprietar").val('');
+    $("#prenume-proprietar").val('');
+    $("#cod-proprietar").val('');
+    $("#nr-ci-proprietar").val('');
+    $("#serie-ci-proprietar").val('');
+    $("#tip_persoana-proprietar").val('');
+    $("#judet-proprietar").val('');
+    $("#localitate").val('');
+    $("#strada-proprietar").val('');
+    $("#numar-proprietar").val('');
+    $("#bloc-proprietar").val('');
+    $("#scara-proprietar").val('');
+    $("#etaj-proprietar").val('');
+    $("#apartament-proprietar").val('');
+  });
+
+  $("#judet-proprietar").on('change', function() {
+    incarcaLocalitati($("#judet-proprietar").val());
+  });
+
+  $('#editare-proprietar').on('click', function(){
+    var cod = $("#cod-proprietar").val();
+    var formData = {
+      nume: $("#nume-proprietar").val(),
+      prenume: $("#prenume-proprietar").val(),
+      cod_unic: $("#cod-proprietar").val(),
+      nr_ci: $("#nr-ci-proprietar").val(),
+      serie_ci: $("#serie-ci-proprietar").val(),
+      tip_persoana: $("#tip_persoana-proprietar").val(),
+      judet: $("#judet-proprietar").val(),
+      localitate: $("#localitate").val(),
+      strada: $("#strada-proprietar").val(),
+      numar: $("#numar-proprietar").val(),
+      bloc: $("#bloc-proprietar").val(),
+      scara: $("#scara-proprietar").val(),
+      etaj: $("#etaj-proprietar").val(),
+      apartament: $("#apartament-proprietar").val()
+    }
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "POST",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/proprietar/"+cod,
+      data: formData,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'editare');
+      // let parsed = JSON.parse(data);
+      $('#edit-form-proprietar').css('display', 'none');
+      $('#lista-proprietar').css('display', 'block');
+      $('.actiuni-edit').css('display', 'none');
+      location.reload();
+    });
+  });
+
+  $('.proprietar-delete').on('click', function(){
+    var cod = $(this).data('proprietar');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "DELETE",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/proprietar/"+cod,
+      encode: true,
+    }).done(function (data) {
+      // console.log(data,'editare');
+      location.reload();
+    });
+  });
+
+  ////Editare sectiune proprietari
+
+
+  ////Editare sectiune vehicule
+
+  $('.vehicul-edit').on('click', function(){
+    var cod = $(this).data('vehicul');
+    $('#edit-form-vehicul').css('display', 'block');
+    $('#lista-vehicul').css('display', 'none');
+    $('.actiuni-edit').css('display', 'flex');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "GET",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/vehicul/"+cod,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'vehicul');
+      $("#marca").val(data.marca);
+      $("#model-vehicul").val(data.model);
+      $("#nr_inmatriculare-vehicul").val(data.nr_inmatriculare);
+      $("#utilizare").val(data.utilizare);
+      $("#combustibil").val(data.carburant);
+      $("#an_fabricatie-vehicul").val(data.an_fabricatie);
+      $("#capacitatea_cilindrica-vehicul").val(data.capacitatea_cilindrica);
+      $("#masa_admisa-vehicul").val(data.masa_admia);
+      $("#serie_civ-vehicul").val(data.serie_civ);
+      $("#putere_motor-vehicul").val(data.putere_motor);
+      $("#nr_locuri-vehicul").val(data.nr_locuri);
+      // let parsed = JSON.parse(data);
+    });
+  });
+
+
+  $('#cancel-editare-vehicul').on('click', function(){
+    $('#edit-form-vehicul').css('display', 'none');
+    $('#lista-vehicul').css('display', 'block');
+    $('.actiuni-edit').css('display', 'none');
+
+    $("#marca").val('');
+    $("#model-vehicul").val('');
+    $("#nr_inmatriculare-vehicul").val('');
+    $("#utilizare").val('');
+    $("#combustibil").val('');
+    $("#an_fabricatie-vehicul").val('');
+    $("#capacitatea_cilindrica-vehicul").val('');
+    $("#masa_admisa-vehicul").val('');
+    $("#serie_civ-vehicul").val('');
+    $("#putere_motor-vehicul").val('');
+    $("#nr_locuri-vehicul").val('');
+  });
+
+  $("#judet-vehicul").on('change', function() {
+    incarcaLocalitati($("#judet-vehicul").val());
+  });
+
+  $('#editare-vehicul').on('click', function(){
+    var cod = $("#nr_inmatriculare-vehicul").val();
+    var formData = {
+      marca : $("#marca").val(),
+      model : $("#model-vehicul").val(),
+      nr_inmatriculare : $("#nr_inmatriculare-vehicul").val(),
+      utilizare : $("#utilizare").val(),
+      carburant : $("#combustibil").val(),
+      an_fabricatie : $("#an_fabricatie-vehicul").val(),
+      capacitatea_cilindrica : $("#capacitatea_cilindrica-vehicul").val(),
+      masa_admia : $("#masa_admisa-vehicul").val(),
+      serie_civ : $("#serie_civ-vehicul").val(),
+      putere_motor : $("#putere_motor-vehicul").val(),
+      nr_locuri : $("#nr_locuri-vehicul").val(),
+    }
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "POST",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/vehicul/"+cod,
+      data: formData,
+      encode: true,
+    }).done(function (data) {
+      console.log(data,'editare');
+      // let parsed = JSON.parse(data);
+      $('#edit-form-vehicul').css('display', 'none');
+      $('#lista-vehicul').css('display', 'block');
+      $('.actiuni-edit').css('display', 'none');
+      location.reload();
+    });
+  });
+
+  $('.vehicul-delete').on('click', function(){
+    var cod = $(this).data('vehicul');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "DELETE",
+      // url: "/platforma/public/conducator/"+cod_unic,
+      url: "/vehicul/"+cod,
+      encode: true,
+    }).done(function (data) {
+      // console.log(data,'editare');
+      location.reload();
+    });
+  });
+
+  ////Editare sectiune vehicule
 
 })(jQuery)

@@ -83,8 +83,69 @@ class ProprietarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($cod)
     {
-        //
+        $proprietar = Proprietar::where('cod_unic', $cod)->first();
+        if($proprietar){
+            $proprietar->delete();
+            return ['deleted' => true];
+        }
+        return ['deleted' => false];
+    }
+
+    public function info($cod)
+    {
+        $proprietar = Proprietar::where('cod_unic', $cod)->first();
+        if($proprietar){
+            return $proprietar;
+        }
+
+        return response(404)->json([
+            'proprietar' => false 
+       ]);
+    }
+
+    public function editare($cod)
+    {
+       
+        $nume = request('nume');
+        $prenume = request('prenume');
+        $nr_ci = request('nr_ci');
+        $serie_ci = request('serie_ci');
+        $tip_persoana = request('tip_persoana');
+        $judet = request('judet');
+        $localitate = request('localitate');
+        $strada = request('strada');
+        $numar = request('numar');
+        $bloc = request('bloc');
+        $scara = request('scara');
+        $etaj = request('etaj');
+        $apartament = request('apartament');
+
+        $proprietar = Proprietar::where('cod_unic', $cod)->first();
+        if($proprietar){
+            $proprietar->nume = $nume;
+            $proprietar->prenume = $prenume;
+            $proprietar->nr_ci = $nr_ci;
+            $proprietar->serie_ci = $serie_ci;
+            $proprietar->tip_persoana = $tip_persoana;
+            $proprietar->judet = $judet;
+            $proprietar->localitate = $localitate;
+            $proprietar->strada = $strada;
+            $proprietar->numar = $numar;
+            $proprietar->bloc = $bloc;
+            $proprietar->scara = $scara;
+            $proprietar->etaj = $etaj;
+            $proprietar->apartament = $apartament;
+
+            $proprietar->timestamps = false;
+            $proprietar->save();
+
+            return ['edit' => true];
+        }
+
+        return response(404)->json([
+            'proprietar' => false 
+       ]);
     }
 }

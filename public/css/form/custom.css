@@ -326,6 +326,7 @@ img.logo-asigurator {
   align-items: stretch;
   margin-top: 20px;
   border-top: 1px solid rgba(0,0,0,.125);
+  position: relative;
 }
 
 .account-nav {
@@ -357,6 +358,12 @@ img.logo-asigurator {
 
 .account-extra span {
   font-weight: 800;
+}
+
+.span-detalii {
+  width: 80px;
+  display: block;
+  float: left;
 }
 
 .card-cont .card-body{
@@ -401,4 +408,57 @@ img.logo-asigurator {
   margin-top: 0px;
   font-size: 14px;
   line-height: 14px;
+}
+
+.show-info:disabled {
+  background: #fff;
+  border: 1px solid #fff;
+  padding: 1px 2px;
+}
+
+.actiuni-edit {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+}
+
+button.editare {
+  display: block;
+  padding: 5px 10px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+#toggle-editare-detalii {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: transparent;
+  font-size: 20px;
+}
+
+.e-submit {
+  background: green;
+  color: #fff;
+}
+
+.e-cancel {
+  background: red;
+  color: #fff;
+}
+
+.account-extra .actiuni{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-extra .actiuni button {
+  background: transparent;
+  margin-right: 15px;
+}
+
+#edit-form-conducator, #edit-form-proprietar, #edit-form-vehicul {
+  display: none;
+  flex: 4;
 }

@@ -84,8 +84,57 @@ class ConducatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($cod)
     {
-        //
+        $conducator = Conducator::where('cod_unic', $cod)->first();
+        if($conducator){
+            $conducator->delete();
+            return ['deleted' => true];
+        }
+        return ['deleted' => false];
     }
+
+    public function info($cod)
+    {
+        $conducator = Conducator::where('cod_unic', $cod)->first();
+        if($conducator){
+            // $user->email = $email;
+            // $conducator->nume = $nume;
+            // $conducator->telefon = $telefon;
+
+            // $conducator->timestamps = false;
+            // $conducator->save();
+
+            return $conducator;
+        }
+
+        return response(404)->json([
+            'conducator' => false 
+       ]);
+    }
+
+    public function editare($cod)
+    {
+        $nume = request('nume');
+        $prenume = request('prenume');
+        $nr_ci = request('nr_ci');
+        $serie_ci = request('serie_ci');
+
+        $conducator = Conducator::where('cod_unic', $cod)->first();
+        if($conducator){
+            $conducator->nume = $nume;
+            $conducator->prenume = $prenume;
+            $conducator->nr_ci = $nr_ci;
+            $conducator->serie_ci = $serie_ci;
+            $conducator->timestamps = false;
+            $conducator->save();
+
+            return ['edit' => true];
+        }
+
+        return response(404)->json([
+            'conducator' => false 
+       ]);
+    }
+    
 }
