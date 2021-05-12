@@ -112,3 +112,64 @@ span.count {
 .top-50 {
     margin-top: 50px;
 }
+
+.react-wrapper .actiuni{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.react-wrapper .actiuni button, .react-wrapper  .heading button{
+    background: transparent;
+    margin-right: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.react-wrapper .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.react-wrapper .heading #add {
+    font-size: 25px;
+}
+
+.react-wrapper label {
+    display: flex;
+    flex-direction: column;
+}
+
+.react-wrapper form .actiuni button{
+    padding: 10px;
+    background: red;
+    color: #fff;
+}
+
+.react-wrapper form .actiuni button[type=submit]{
+    background: green;
+}
+
+.react-wrapper form .actiuni {
+    margin-top: 30px;
+}
+
+.react-wrapper form input {
+    padding: 10px;
+    margin: 5px 0 15px;
+}
+
+.mesaj-wrapper {
+    padding: 10px;
+    margin: 15px 0;
+    background: red;
+    border-radius: 5px;
+    color: #fff;
+}
+
+a#view {
+    display: block;
+    color: #000;
+    margin-right: 10px;
+}

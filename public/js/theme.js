@@ -1130,7 +1130,7 @@
   $('.conducator-edit').on('click', function(){
     console.log($(this).data('index'));
     var cod = $(this).data('conducator');
-    $('#edit-form-conducator').css('display', 'block');
+    $('#edit-form-conducator').css('display', 'flex');
     $('#lista-conducator').css('display', 'none');
     $('.actiuni-edit').css('display', 'flex');
     $.ajax({
@@ -1214,7 +1214,7 @@
 
   $('.proprietar-edit').on('click', function(){
     var cod = $(this).data('proprietar');
-    $('#edit-form-proprietar').css('display', 'block');
+    $('#edit-form-proprietar').css('display', 'flex');
     $('#lista-proprietar').css('display', 'none');
     $('.actiuni-edit').css('display', 'flex');
     $.ajax({
@@ -1332,7 +1332,7 @@
 
   $('.vehicul-edit').on('click', function(){
     var cod = $(this).data('vehicul');
-    $('#edit-form-vehicul').css('display', 'block');
+    $('#edit-form-vehicul').css('display', 'flex');
     $('#lista-vehicul').css('display', 'none');
     $('.actiuni-edit').css('display', 'flex');
     $.ajax({

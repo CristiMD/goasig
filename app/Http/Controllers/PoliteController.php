@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Polita;
+use DB;
 
 
 class PoliteController extends Controller
@@ -10,7 +11,10 @@ class PoliteController extends Controller
 
     public function index()
     {
-        $polite = Polita::all();
+        $polite = DB::table('polite')
+        ->join('users', 'polite.id_utilizator', '=', 'users.id')
+        ->select('polite.*', 'users.telefon')
+        ->get();
         return $polite;
     }
     /**
@@ -28,6 +32,10 @@ class PoliteController extends Controller
     {
         $polite = Polita::sum('suma');
         return $polite;
+    }
+
+    public function admin_polite() {
+        return view('admin.polite');
     }
 
 }

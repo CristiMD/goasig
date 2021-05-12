@@ -43,9 +43,14 @@ Route::get('/vanzari', [App\Http\Controllers\PoliteController::class, 'vanzari']
 Route::get('/users/all', [App\Http\Controllers\UsersController::class, 'index']);
 Route::get('/polite/all', [App\Http\Controllers\PoliteController::class, 'index']);
 Route::delete('/users/{id}', [App\Http\Controllers\UsersController::class, 'delete']);
+Route::get('/users/{id}', [App\Http\Controllers\UsersController::class, 'unic']);
 Route::post('/users', [App\Http\Controllers\UsersController::class, 'editare']);
 Route::get('/admin/users', [App\Http\Controllers\UsersController::class, 'admin_users']);
 Route::post('/admin/users', [App\Http\Controllers\UsersController::class, 'create']);
+Route::post('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'edit']);
+
+
+Route::get('/admin/polite', [App\Http\Controllers\PoliteController::class, 'admin_polite']);
 
 
 Route::get('conducator/{cod}', [App\Http\Controllers\ConducatorController::class, 'info']);

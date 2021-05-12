@@ -126,9 +126,7 @@ class UsersController extends Controller
             $user->save();
             return $user;
         }
-        return response(200)->json([
-            'created' => false 
-       ]);
+        return ['created' => false];
     }
 
     public function delete($id)
@@ -139,9 +137,7 @@ class UsersController extends Controller
             return ['deleted' => true];
         }
 
-        return response(200)->json([
-            'deleted' => false 
-       ]);
+        return ['deleted' => false];
     }
 
     public function editare()
@@ -164,9 +160,42 @@ class UsersController extends Controller
             return ['edit' => true];
         }
 
-        return response(200)->json([
-            'edit' => false 
-       ]);
+        return ['edit' => false];
+    }
+
+    public function edit($id)
+    {
+        $email = request('email');
+        $nume = request('nume');
+        $telefon = request('telefon');
+        $parola = request('parola');
+
+        $check = User::where('email', $email)->first();
+        $user = User::where('id', $id)->first();
+
+        if($check->id == $id){
+            $user->email = $email;
+            $user->nume = $nume;
+            $user->telefon = $telefon;
+            if(strlen($parola) > 3){
+                $user->parola = $parola;
+            }
+
+            $user->timestamps = false;
+            $user->save();
+
+            return ['edit' => true];
+        }
+        return ['edit' => false];
     }
     
+    public function unic($id)
+    {
+        $user = User::where('id', $id)->first();
+        if($user){
+            return $user;
+        }
+
+        return ['user' => false ];
+    }
 }

@@ -361,9 +361,7 @@ img.logo-asigurator {
 }
 
 .span-detalii {
-  width: 80px;
   display: block;
-  float: left;
 }
 
 .card-cont .card-body{
@@ -413,13 +411,14 @@ img.logo-asigurator {
 .show-info:disabled {
   background: #fff;
   border: 1px solid #fff;
-  padding: 1px 2px;
+  padding: 6px;
 }
 
 .actiuni-edit {
   display: none;
   position: absolute;
   bottom: 20px;
+  left: 10px;
 }
 
 button.editare {
@@ -461,4 +460,28 @@ button.editare {
 #edit-form-conducator, #edit-form-proprietar, #edit-form-vehicul {
   display: none;
   flex: 4;
+}
+
+.edit-form {
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.e-half {
+  flex: 1;
+  padding: 10px;
+}
+
+.edit-form input {
+  padding: 5px;
+  margin: 5px 0 15px;
+  width: 100%;
+}
+
+.edit-form select {
+  text-transform: none;
+  width: 100%;
+  padding: 5px;
+  padding: 5px;
+  margin: 5px 0 15px;
 }

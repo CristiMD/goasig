@@ -35,11 +35,13 @@
         @endif
     </div>
     <div id="edit-form-conducator" class="edit-form">
-        <div><span class="span-detalii">Nume: </span><input id="nume-conducator" type="text"/></div>
-        <div><span class="span-detalii">Prenume: </span><input id="prenume-conducator" type="text"/></div>
-        <div><span class="span-detalii">Cod unic: </span><input  class="show-info" disabled id="cod-conducator" type="text"/></div>
-        <div><span class="span-detalii">Nr CI: </span><input id="nr-ci-conducator" type="text"/></div>
-        <div><span class="span-detalii">Serie CI: </span><input id="serie-ci-conducator" type="text"/></div>
-        <div class="actiuni-edit"><button class="editare e-submit" id="editare-conducator">Editeaza</button><button class="editare e-cancel" id="cancel-editare-conducator">Anuleaza</button></div>
+        <div class="e-half">
+            <div><span class="span-detalii">Nume: </span><input id="nume-conducator" type="text"/></div>
+            <div><span class="span-detalii">Prenume: </span><input id="prenume-conducator" type="text"/></div>
+            <div><span class="span-detalii">Cod unic: </span><input  class="show-info" disabled id="cod-conducator" type="text"/></div>
+            <div><span class="span-detalii">Nr CI: </span><input id="nr-ci-conducator" type="text"/></div>
+            <div><span class="span-detalii">Serie CI: </span><input id="serie-ci-conducator" type="text"/></div>
+            <div class="actiuni-edit"><button class="editare e-submit" id="editare-conducator">Editeaza</button><button class="editare e-cancel" id="cancel-editare-conducator">Anuleaza</button></div>
+        </div>
     </div>
 </div>
