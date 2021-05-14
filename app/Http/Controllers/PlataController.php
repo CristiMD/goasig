@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Oferta;
 use App\Models\Polita;
+use App\Mail\PolitaGenerata;
+use Illuminate\Support\Facades\Mail;
 
 
 class ComplexCredentials{
@@ -143,6 +145,8 @@ class PlataController extends Controller
             'id' => $id_oferta,
             'id_utilizator'  => $selected_offer->id_utilizator,
             'nr_inmatriculare' => $selected_offer->nr_inmatriculare,
+            'email' => $selected_offer->email,
+            'telefon' => $selected_offer->telefon,
             'link-polita' => $link,
             'suma' => $selected_offer->suma,
             'perioada' => $selected_offer->perioada,
@@ -165,6 +169,28 @@ class PlataController extends Controller
         ));
         $polita->timestamps = false;
         $polita->save();
+
+        $this->save_pdf($id_oferta, $link, $selected_offer->$dataincepere, $selected_offer->nr_inmatriculare, $selected_offer->email);
     }
+
+    public function save_pdf($id_oferta, $link, $dataincepere, $nr_inmatriculare, $email) {
+
+        // Create a stream
+        $curl_handle=curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL,$link);
+        curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl_handle, CURLOPT_USERAGENT, 'GoAsig');
+        $pdf = curl_exec($curl_handle);
+        curl_close($curl_handle);
+
+        $nume = $nr_inmatriculare.'-'.$id_oferta.'-'.$dataincepere.'.pdf';
+
+        Mail::to($email)->send(new PolitaGenerata($pdf, $nume));
+
+        \Storage::disk('public')->put($nume, $pdf);
+     
+        return 'OK';
+     }
 
 }

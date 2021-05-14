@@ -24,7 +24,7 @@ function Index() {
         axios.get('/users/all').then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
-            setUtilizatori(res.data);
+            setUtilizatori(res.data.slice(0,5));
         })
     }
 
@@ -32,7 +32,7 @@ function Index() {
         axios.get('/polite/all').then(res => {
         // axios.get('/platforma/public/polite/all').then(res => {
             console.log(res);
-            setPolite(res.data);
+            setPolite(res.data.data.slice(0,5));
         })
     }
 

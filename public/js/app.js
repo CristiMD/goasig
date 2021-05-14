@@ -11886,7 +11886,7 @@ function Index() {
     axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
       // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
-      setUtilizatori(res.data);
+      setUtilizatori(res.data.slice(0, 5));
     });
   };
 
@@ -11894,7 +11894,7 @@ function Index() {
     axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite/all').then(function (res) {
       // axios.get('/platforma/public/polite/all').then(res => {
       console.log(res);
-      setPolite(res.data);
+      setPolite(res.data.data.slice(0, 5));
     });
   };
 
@@ -12115,41 +12115,55 @@ function Polite() {
       polite = _useState2[0],
       setPolite = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState4 = _slicedToArray(_useState3, 2),
-      nume = _useState4[0],
-      setNume = _useState4[1];
+      paginaCurenta = _useState4[0],
+      setPaginaCurenta = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState6 = _slicedToArray(_useState5, 2),
-      email = _useState6[0],
-      setEmail = _useState6[1];
+      paginaAnterioara = _useState6[0],
+      setPaginaAnterioara = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState8 = _slicedToArray(_useState7, 2),
-      telefon = _useState8[0],
-      setTelefon = _useState8[1];
+      paginaUrmatoare = _useState8[0],
+      setPaginaUrmatoare = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      parola = _useState10[0],
-      setParola = _useState10[1];
+      email = _useState10[0],
+      setEmail = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      editing = _useState12[0],
-      setEditing = _useState12[1];
+      telefon = _useState12[0],
+      setTelefon = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState14 = _slicedToArray(_useState13, 2),
-      user = _useState14[0],
-      setUser = _useState14[1];
+      parola = _useState14[0],
+      setParola = _useState14[1];
+
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      editing = _useState16[0],
+      setEditing = _useState16[1];
+
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState18 = _slicedToArray(_useState17, 2),
+      user = _useState18[0],
+      setUser = _useState18[1];
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite/all').then(function (res) {
+    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/polite/all';
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(link).then(function (res) {
       // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
-      setPolite(res.data);
+      setPolite(res.data.data);
+      setPaginaCurenta(res.data.current_page);
+      setPaginaAnterioara(res.data.prev_page_url);
+      setPaginaUrmatoare(res.data.next_page_url);
     });
   };
 
@@ -12174,6 +12188,10 @@ function Polite() {
     });
   };
 
+  var schimbaPagina = function schimbaPagina(link) {
+    getAllUtilizatori(link);
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getAllUtilizatori();
   }, []);
@@ -12189,9 +12207,9 @@ function Polite() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
           children: "Polite"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "lista-utilizatori",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -12254,7 +12272,32 @@ function Polite() {
               })
             })
           })]
-        })
+        }), polite.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "paginare",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "butoane",
+            children: [paginaAnterioara ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+              id: "delete",
+              onClick: function onClick() {
+                return schimbaPagina(paginaAnterioara);
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon, {
+                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faArrowLeft
+              }), "Anterior"]
+            }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "current-page",
+              children: paginaCurenta
+            }), paginaUrmatoare ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+              id: "delete",
+              onClick: function onClick() {
+                return schimbaPagina(paginaUrmatoare);
+              },
+              children: ["Urmator", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon, {
+                icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faArrowRight
+              })]
+            }) : '']
+          })
+        }) : ""]
       })]
     })]
   });

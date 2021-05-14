@@ -173,3 +173,41 @@ a#view {
     color: #000;
     margin-right: 10px;
 }
+
+.paginare .butoane button, .current-page {
+    font-weight: 400;
+    outline: none;
+    text-align: center;
+    background: #365d4e;
+    position: relative;
+    font-size: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 1;
+    border: none;
+    color: #fff;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+
+.paginare .butoane svg {
+    font-size: 12px;
+    margin: 0 5px;
+}
+
+.current-page {
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.paginare .butoane {
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.paginare {
+    display: flex;
+    padding: 20px;
+}

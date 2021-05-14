@@ -18,6 +18,8 @@ class Polita extends Model
         'id',
         'id_utilizator',
         'nr_inmatriculare',
+        'email',
+        'telefon',
         'cod_unic_proprietar',
         'cod_unic_conducator',
         'link-polita',

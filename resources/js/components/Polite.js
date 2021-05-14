@@ -3,23 +3,28 @@ import ReactDOM from 'react-dom';
 import Navbar from './parts/Navbar';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTrash, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 function Polite() {
 
     const [polite, setPolite] = useState([]);
-    const [nume, setNume] = useState('');
+    const [paginaCurenta, setPaginaCurenta] = useState(1);
+    const [paginaAnterioara, setPaginaAnterioara] = useState(null);
+    const [paginaUrmatoare, setPaginaUrmatoare] = useState(null);
     const [email, setEmail] = useState('');
     const [telefon, setTelefon] = useState('');
     const [parola, setParola] = useState('');
     const [editing, setEditing] = useState(false);
     const [user, setUser] = useState('');
 
-    const getAllUtilizatori = () => {
-        axios.get('/polite/all').then(res => {
+    const getAllUtilizatori = (link = '/polite/all') => {
+        axios.get(link).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
-            setPolite(res.data);
+            setPolite(res.data.data);
+            setPaginaCurenta(res.data.current_page);
+            setPaginaAnterioara(res.data.prev_page_url);
+            setPaginaUrmatoare(res.data.next_page_url);
         })
     }
 
@@ -43,6 +48,10 @@ function Polite() {
             getAllUtilizatori();
             console.log(res);
         })
+    }
+
+    const schimbaPagina = (link) => {
+        getAllUtilizatori(link);
     }
 
     useEffect(() => {
@@ -89,6 +98,15 @@ function Polite() {
                     }) : <tr><td colSpan="3">Fara polite</td></tr>}
                     </tbody>
                     </table>
+                    {polite.length ? 
+                        <div className="paginare">
+                            <div className="butoane">
+                                {paginaAnterioara ? <button id="delete" onClick={() => schimbaPagina(paginaAnterioara)}><FontAwesomeIcon icon={faArrowLeft} />Anterior</button> : ''}
+                                <div className="current-page">{paginaCurenta}</div>
+                                {paginaUrmatoare ?<button id="delete" onClick={() => schimbaPagina(paginaUrmatoare)}>Urmator<FontAwesomeIcon icon={faArrowRight} /></button> : ''}
+                            </div>
+                        </div>
+                    : ""}
                 </div> 
             </div>
         </div>

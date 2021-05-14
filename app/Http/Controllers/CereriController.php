@@ -1199,7 +1199,7 @@ class CereriController extends Controller
         ]);
     }
 
-    public function createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $id_oferta, $nr_inmatriculare, $decontare_directa, $link_plata, $suma_oferta, $perioada_oferta, $asigurator, $data_incepere)
+    public function createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_telefon, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $id_oferta, $nr_inmatriculare, $decontare_directa, $link_plata, $suma_oferta, $perioada_oferta, $asigurator, $data_incepere)
     {
 
         date_default_timezone_set('UTC');
@@ -1221,6 +1221,8 @@ class CereriController extends Controller
                 'id' => $id_oferta,
                 'id_utilizator'  => $user_id,
                 'nr_inmatriculare' => $nr_inmatriculare,
+                'email' => $_email,
+                'telefon' => $_telefon,
                 'link-plata' => $link_plata,
                 'suma' => $suma_oferta,
                 'perioada' => $perioada_oferta,
@@ -1307,8 +1309,8 @@ class CereriController extends Controller
         $_euroins_acc = 'false';
         $_decontare_directa = request('decontare_directa');
 
-        // $link_redirect_plata='https://goasig.ro/platforma/public/plata';
-        $link_redirect_plata='http://127.0.0.1:8000/plata';
+        $link_redirect_plata='https://goasig.ro/platforma/public/plata';
+        // $link_redirect_plata='http://127.0.0.1:8000/plata';
 
         // $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
         // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
@@ -1498,7 +1500,7 @@ class CereriController extends Controller
             // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
             array_push($oferte, $res);
             // print_r($cereri[$i][0]->display()->result);
-            $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate);
+            $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_mobil, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate);
         }
         $end_time = microtime(true) - $time_start;
 

@@ -293,21 +293,22 @@
                 }
               },
             submitHandler: function(form) {
-              $(form).ajaxSubmit({
-                success: function() {
-                  $('.form-validation :input').attr('disabled', 'disabled');
-                  $('.form-validation').fadeTo( "slow", 1, function() {
-                      $(this).find(':input').attr('disabled', 'disabled');
-                      $(this).find('label').css('cursor','default');
-                      $('#alert-success').fadeIn();
-                    });
-                  },
-                  error: function() {
-                    $('.form-validation').fadeTo( "slow", 1, function() {
-                      $('#alert-error').fadeIn();
-                    });
-                  }
-                });
+              sendForm(form);
+              // $(form).ajaxSubmit({
+              //   success: function() {
+              //     $('.form-validation :input').attr('disabled', 'disabled');
+              //     $('.form-validation').fadeTo( "slow", 1, function() {
+              //         $(this).find(':input').attr('disabled', 'disabled');
+              //         $(this).find('label').css('cursor','default');
+              //         $('#alert-success').fadeIn();
+              //       });
+              //     },
+              //     error: function() {
+              //       $('.form-validation').fadeTo( "slow", 1, function() {
+              //         $('#alert-error').fadeIn();
+              //       });
+              //     }
+              //   });
               }
             });
           }
@@ -356,7 +357,8 @@
           return tmp;
         }
 
-        $("#wrapped").on('submit', async function (event) {
+        function sendForm (event) {
+        // $("#wrapped").on('submit', async function (event) {
           $("#full-overlay").css('display', 'flex');
           var cont;
           if($("#creaza_cont").is(':checked')){
@@ -374,8 +376,8 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "GET",
-            // url: "/platforma/public/coduri/"+judet+"/"+localitate,
-            url: "/coduri/"+judet+"/"+localitate,
+            url: "/platforma/public/coduri/"+judet+"/"+localitate,
+            // url: "/coduri/"+judet+"/"+localitate,
             encode: true,
           }).done(function (coduri) {
             // console.log(coduri);
@@ -517,10 +519,10 @@
           });
           
           event.preventDefault();
+        }
         });
-
         
-    });
+    // });
 
     function getFaraDecontare(formData, valabilitate) {
       $("#replaceble").append('<div class="container container-ndd">\
@@ -563,14 +565,14 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "/ajaxify",
-                // url: "/platforma/public/ajaxify",
+                // url: "/ajaxify",
+                url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
                 console.log(asigurator, ' = ',data);
                 // var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
                 <div class="tooltip-wrapper">\
                   <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
@@ -624,14 +626,14 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "/ajaxify",
-                // url: "/platforma/public/ajaxify",
+                // url: "/ajaxify",
+                url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
                 console.log(asigurator, ' = ',data);
                 //var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
                 <div class="tooltip-wrapper">\
                   <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
@@ -750,8 +752,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/caen",
-        url: "/caen",
+        url: "/platforma/public/caen",
+        // url: "/caen",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -867,8 +869,8 @@
         $("#judet").val();
 
       }
-      $.getJSON("/js/localitati.json", function(obiect) {
-      // $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
+      // $.getJSON("/js/localitati.json", function(obiect) {
+      $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
         if(selectat){
           $('#localitate').empty();
@@ -901,8 +903,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/vehicul/"+nr_mat,
-        url: "/vehicul/"+nr_mat,
+        url: "/platforma/public/vehicul/"+nr_mat,
+        // url: "/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -942,8 +944,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/vehicul/"+nr_mat,
-        url: "/vehicul/"+nr_mat,
+        url: "/platforma/public/vehicul/"+nr_mat,
+        // url: "/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -994,8 +996,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/proprietar/"+cod_unic,
-        url: "/proprietar/"+cod_unic,
+        url: "/platforma/public/proprietar/"+cod_unic,
+        // url: "/proprietar/"+cod_unic,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -1016,12 +1018,13 @@
         $("#numar_adresa_proprietar").val(data.numar);
         $("#scara_proprietar").val(data.scara);
         $("#apartament_proprietar").val(data.apartament);
+        $("#forward").trigger( "click" );
         // let parsed = JSON.parse(data);
       });
     });
 
     $('#proprietar-nou').on('click', function(){
-      $("#persoana").val('');
+        $("#persoana").val('');
         $("#cnp_proprietar").val('');
         $("#ci_proprietar").val('');
         $("#judet").val('');
@@ -1037,6 +1040,7 @@
         $("#numar_adresa_proprietar").val('');
         $("#scara_proprietar").val('');
         $("#apartament_proprietar").val('');
+        $("#forward").trigger( "click" );
     });
 
     $("#conducatori-salvati").on('change', function() {
@@ -1048,8 +1052,8 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "GET",
-        // url: "/platforma/public/conducator/"+cod_unic,
-        url: "/conducator/"+cod_unic,
+        url: "/platforma/public/conducator/"+cod_unic,
+        // url: "/conducator/"+cod_unic,
         encode: true,
       }).done(function (data) {
         console.log(data,'conducator');
@@ -1059,6 +1063,7 @@
         $("#ci_conducator").val(data.serie_ci);
         $("#nr_ci_conducatorr").val(data.nr_ci);
         $("#cnp_conducator").val(data.cod_unic);
+        $("#forward").trigger( "click" );
       });
     });
 
@@ -1098,8 +1103,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/users/",
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/users/",
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1138,8 +1143,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "GET",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/conducator/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/conducator/"+cod,
       encode: true,
     }).done(function (data) {
       console.log(data,'conducator');
@@ -1178,8 +1183,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/conducator/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/conducator/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1199,8 +1204,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "DELETE",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/conducator/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/conducator/"+cod,
       encode: true,
     }).done(function (data) {
       // console.log(data,'editare');
@@ -1222,8 +1227,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "GET",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/proprietar/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/proprietar/"+cod,
       encode: true,
     }).done(function (data) {
       console.log(data,'proprietar');
@@ -1295,8 +1300,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/proprietar/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/proprietar/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1316,8 +1321,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "DELETE",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/proprietar/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/proprietar/"+cod,
       encode: true,
     }).done(function (data) {
       // console.log(data,'editare');
@@ -1340,8 +1345,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "GET",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/vehicul/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/vehicul/"+cod,
       encode: true,
     }).done(function (data) {
       console.log(data,'vehicul');
@@ -1403,8 +1408,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/vehicul/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/vehicul/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1424,8 +1429,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "DELETE",
-      // url: "/platforma/public/conducator/"+cod_unic,
-      url: "/vehicul/"+cod,
+      url: "/platforma/public/conducator/"+cod_unic,
+      // url: "/vehicul/"+cod,
       encode: true,
     }).done(function (data) {
       // console.log(data,'editare');
@@ -1434,5 +1439,13 @@
   });
 
   ////Editare sectiune vehicule
+
+
+  //data
+  var today = new Date();
+  today = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
+  $("#data_rca")[0].setAttribute('min', today);
+  $("#data_rca")[0].val(today).trigger('change');
+
 
 })(jQuery)

@@ -2,6 +2,10 @@
 
 @section('content')
 <div id="replaceble">
+	@php ($month = date('m',strtotime("+1 day")))
+	@php ($day = date('d',strtotime("+1 day")))
+	@php ($year = date('Y',strtotime("+1 day")))
+	@php ($today = $year . '-' . $month . '-' . $day)
 <!-- 
 			=============================================
 				Theme Main Banner
@@ -94,8 +98,8 @@
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 							},
 							type: "GET",
-							// url: "/platforma/public/vehicul",
-							url: "/vehicul",
+							url: "/platforma/public/vehicul",
+							// url: "/vehicul",
 							encode: true,
 						}).done(function (data) {
 							console.log(data);
@@ -249,8 +253,8 @@
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
-									// url: "/platforma/public/proprietar",
-									url: "/proprietar",
+									url: "/platforma/public/proprietar",
+									// url: "/proprietar",
 									encode: true,
 								}).done(function (data) {
 									// console.log(data);
@@ -429,8 +433,8 @@
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
-									// url: "/platforma/public/conducator",
-									url: "/conducator",
+									url: "/platforma/public/conducator",
+									// url: "/conducator",
 									encode: true,
 								}).done(function (data) {
 									console.log(data);
@@ -526,13 +530,13 @@
 											</div>
 										</div> --}}
 										<div class="form-group">
-											<input type="date" name="data_rca"  id="data_rca" class=" form-control" placeholder="Valabilitate de la">
+											<input value="{{$today}}" type="date" name="data_rca"  id="data_rca" class=" form-control" placeholder="Valabilitate de la">
 										</div>
 										<div class="form-group">
 											<input type="text" name="email_livrare"  id="email_livrare" class="required form-control" placeholder="Email">
 										</div>
 										<div class="item">
-											<input id="creaza_cont" type="checkbox" name="creaza_cont" class="required">
+											<input id="creaza_cont" type="checkbox" name="creaza_cont">
 											<label for="creaza_cont">Vrei sa iti creezi un cont pentru a salva detaliile?</label>
 										</div>
 										<div class="form-group" id="parola-wrapper">
@@ -555,7 +559,7 @@
 						<!-- /middle-wizard -->
 						<div id="bottom-wizard">
 							<button type="button" name="backward" class="backward">Inapoi </button>
-							<button type="button" name="forward" class="forward">Inainte</button>
+							<button type="button" name="forward" id="forward" class="forward">Inainte</button>
 							<button type="submit" name="process" class="submit">Trimite</button>
 						</div>
 						<!-- /bottom-wizard -->
