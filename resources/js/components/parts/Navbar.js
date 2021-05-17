@@ -9,9 +9,9 @@ function Example() {
             </div>
             <div className="side-links">
                 <ul>
-                    <li><a href="/admin">Home</a></li>
-                    <li><a href="/admin/users">Utilizatori</a></li>
-                    <li><a href="/admin/polite">Polite</a></li>
+                    <li><a href="/platforma/public/admin">Home</a></li>
+                    <li><a href="/platforma/public/admin/users">Utilizatori</a></li>
+                    <li><a href="/platforma/public/admin/polite">Polite</a></li>
                 </ul>
             </div>
         </div>

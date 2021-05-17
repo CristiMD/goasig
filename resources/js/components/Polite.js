@@ -17,7 +17,7 @@ function Polite() {
     const [editing, setEditing] = useState(false);
     const [user, setUser] = useState('');
 
-    const getAllUtilizatori = (link = '/polite/all') => {
+    const getAllUtilizatori = (link = '/platforma/public/users/all') => {
         axios.get(link).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
@@ -31,8 +31,8 @@ function Polite() {
     const viewPolita = (id) => {
         setEditing(true);
         setUser(id);
-        axios.get('/users/'+id).then(res => {
-        // axios.get('/platforma/public/users/all').then(res => {
+        // axios.get('/users/'+id).then(res => {
+        axios.get('/platforma/public/users/'+id).then(res => {
             console.log(res);
             setNume(res.data.nume);
             setEmail(res.data.email);
@@ -43,8 +43,8 @@ function Polite() {
     }
 
     const deletePolita = (id) => {
-        axios.delete('/users/'+id).then(res => {
-        // axios.delete('/platforma/public/users/'+id).then(res => {
+        // axios.delete('/users/'+id).then(res => {
+        axios.delete('/platforma/public/users/'+id).then(res => {
             getAllUtilizatori();
             console.log(res);
         })

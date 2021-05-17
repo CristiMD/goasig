@@ -11875,48 +11875,48 @@ function Index() {
       setVanzari = _useState12[1];
 
   var getUtilizatori = function getUtilizatori() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users').then(function (res) {
-      // axios.get('/platforma/public/users').then(res => {
+    // axios.get('/users').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users').then(function (res) {
       console.log(res);
       setNrUtilizatori(res.data);
     });
   };
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
-      // axios.get('/platforma/public/users/all').then(res => {
+    // axios.get('/users/all').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users/all').then(function (res) {
       console.log(res);
       setUtilizatori(res.data.slice(0, 5));
     });
   };
 
   var getAllPolite = function getAllPolite() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite/all').then(function (res) {
-      // axios.get('/platforma/public/polite/all').then(res => {
+    // axios.get('/polite/all').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/polite/all').then(function (res) {
       console.log(res);
       setPolite(res.data.data.slice(0, 5));
     });
   };
 
   var getVehicule = function getVehicule() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/vehicule').then(function (res) {
-      // axios.get('/platforma/public/vehicule').then(res => {
+    // axios.get('/vehicule').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/vehicule').then(function (res) {
       console.log(res);
       setVehicule(res.data);
     });
   };
 
   var getPolite = function getPolite() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite').then(function (res) {
-      // axios.get('/platforma/public/polite').then(res => {
+    // axios.get('/polite').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/polite').then(function (res) {
       console.log(res);
       setNrPolite(res.data);
     });
   };
 
   var getVanzari = function getVanzari() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/vanzari').then(function (res) {
-      // axios.get('/platforma/public/vanzari').then(res => {
+    // axios.get('/vanzari').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/vanzari').then(function (res) {
       console.log(res);
       setVanzari(res.data);
     });
@@ -12156,7 +12156,7 @@ function Polite() {
       setUser = _useState18[1];
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/polite/all';
+    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/platforma/public/users/all';
     axios__WEBPACK_IMPORTED_MODULE_3___default().get(link).then(function (res) {
       // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
@@ -12169,9 +12169,9 @@ function Polite() {
 
   var viewPolita = function viewPolita(id) {
     setEditing(true);
-    setUser(id);
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/' + id).then(function (res) {
-      // axios.get('/platforma/public/users/all').then(res => {
+    setUser(id); // axios.get('/users/'+id).then(res => {
+
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users/' + id).then(function (res) {
       console.log(res);
       setNume(res.data.nume);
       setEmail(res.data.email);
@@ -12181,8 +12181,8 @@ function Polite() {
   };
 
   var deletePolita = function deletePolita(id) {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/users/' + id).then(function (res) {
-      // axios.delete('/platforma/public/users/'+id).then(res => {
+    // axios.delete('/users/'+id).then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/platforma/public/users/' + id).then(function (res) {
       getAllUtilizatori();
       console.log(res);
     });
@@ -12398,8 +12398,8 @@ function Utilizatori() {
       setUser = _useState18[1];
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
-      // axios.get('/platforma/public/users/all').then(res => {
+    // axios.get('/users/all').then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users/all').then(function (res) {
       console.log(res);
       setUtilizatori(res.data);
     });
@@ -12407,9 +12407,9 @@ function Utilizatori() {
 
   var editUser = function editUser(id) {
     setEditing(true);
-    setUser(id);
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/' + id).then(function (res) {
-      // axios.get('/platforma/public/users/all').then(res => {
+    setUser(id); // axios.get('/users/'+id).then(res => {
+
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users/' + id).then(function (res) {
       console.log(res);
       setNume(res.data.nume);
       setEmail(res.data.email);
@@ -12419,8 +12419,9 @@ function Utilizatori() {
   };
 
   var adaugaUser = function adaugaUser(e) {
-    e.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/admin/users', {
+    e.preventDefault(); // axios.post('/admin/users', {
+
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/platforma/public/admin/users', {
       nume: nume,
       email: email,
       telefon: telefon,
@@ -12443,8 +12444,9 @@ function Utilizatori() {
   };
 
   var editareUser = function editareUser(e) {
-    e.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/admin/users/' + user, {
+    e.preventDefault(); // axios.post('/admin/users/'+user,{ 
+
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/platforma/public/admin/users/' + user, {
       nume: nume,
       email: email,
       telefon: telefon,
@@ -12468,8 +12470,8 @@ function Utilizatori() {
   };
 
   var deleteUser = function deleteUser(id) {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/users/' + id).then(function (res) {
-      // axios.delete('/platforma/public/users/'+id).then(res => {
+    // axios.delete('/users/'+id).then(res => {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/platforma/public/users/' + id).then(function (res) {
       getAllUtilizatori();
       console.log(res);
     });
@@ -12735,17 +12737,17 @@ function Example() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-            href: "/admin",
+            href: "/platforma/public/admin",
             children: "Home"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-            href: "/admin/users",
+            href: "/platforma/public/admin/users",
             children: "Utilizatori"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-            href: "/admin/polite",
+            href: "/platforma/public/admin/polite",
             children: "Polite"
           })
         })]

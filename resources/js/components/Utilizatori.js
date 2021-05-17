@@ -18,8 +18,8 @@ function Utilizatori() {
     const [user, setUser] = useState('');
 
     const getAllUtilizatori = () => {
-        axios.get('/users/all').then(res => {
-        // axios.get('/platforma/public/users/all').then(res => {
+        // axios.get('/users/all').then(res => {
+        axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
             setUtilizatori(res.data);
         })
@@ -28,8 +28,8 @@ function Utilizatori() {
     const editUser = (id) => {
         setEditing(true);
         setUser(id);
-        axios.get('/users/'+id).then(res => {
-        // axios.get('/platforma/public/users/all').then(res => {
+        // axios.get('/users/'+id).then(res => {
+        axios.get('/platforma/public/users/'+id).then(res => {
             console.log(res);
             setNume(res.data.nume);
             setEmail(res.data.email);
@@ -41,7 +41,8 @@ function Utilizatori() {
 
     const adaugaUser = (e) => {
         e.preventDefault();
-        axios.post('/admin/users', {
+        // axios.post('/admin/users', {
+        axios.post('/platforma/public/admin/users', {
             nume,
             email,
             telefon,
@@ -66,7 +67,8 @@ function Utilizatori() {
 
     const editareUser = (e) => {
         e.preventDefault();
-        axios.post('/admin/users/'+user,{ 
+        // axios.post('/admin/users/'+user,{ 
+        axios.post('/platforma/public/admin/users/'+user,{ 
             nume,
             email,
             telefon,
@@ -89,8 +91,8 @@ function Utilizatori() {
     }
 
     const deleteUser = (id) => {
-        axios.delete('/users/'+id).then(res => {
-        // axios.delete('/platforma/public/users/'+id).then(res => {
+        // axios.delete('/users/'+id).then(res => {
+        axios.delete('/platforma/public/users/'+id).then(res => {
             getAllUtilizatori();
             console.log(res);
         })

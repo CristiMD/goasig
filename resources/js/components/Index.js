@@ -13,48 +13,48 @@ function Index() {
     const [vanzari, setVanzari] = useState(0);
 
     const getUtilizatori = () => {
-        axios.get('/users').then(res => {
-        // axios.get('/platforma/public/users').then(res => {
+        // axios.get('/users').then(res => {
+        axios.get('/platforma/public/users').then(res => {
             console.log(res);
             setNrUtilizatori(res.data);
         })
     }
 
     const getAllUtilizatori = () => {
-        axios.get('/users/all').then(res => {
-        // axios.get('/platforma/public/users/all').then(res => {
+        // axios.get('/users/all').then(res => {
+        axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
             setUtilizatori(res.data.slice(0,5));
         })
     }
 
     const getAllPolite = () => {
-        axios.get('/polite/all').then(res => {
-        // axios.get('/platforma/public/polite/all').then(res => {
+        // axios.get('/polite/all').then(res => {
+        axios.get('/platforma/public/polite/all').then(res => {
             console.log(res);
             setPolite(res.data.data.slice(0,5));
         })
     }
 
     const getVehicule = () => {
-        axios.get('/vehicule').then(res => {
-        // axios.get('/platforma/public/vehicule').then(res => {
+        // axios.get('/vehicule').then(res => {
+        axios.get('/platforma/public/vehicule').then(res => {
             console.log(res);
             setVehicule(res.data);
         })
     }
 
     const getPolite = () => {
-        axios.get('/polite').then(res => {
-        // axios.get('/platforma/public/polite').then(res => {
+        // axios.get('/polite').then(res => {
+        axios.get('/platforma/public/polite').then(res => {
             console.log(res);
             setNrPolite(res.data);
         })
     }
 
     const getVanzari = () => {
-        axios.get('/vanzari').then(res => {
-        // axios.get('/platforma/public/vanzari').then(res => {
+        // axios.get('/vanzari').then(res => {
+        axios.get('/platforma/public/vanzari').then(res => {
             console.log(res);
             setVanzari(res.data);
         })
