@@ -43,13 +43,13 @@
 	}
 	
     /* Form submit loader */
-    $('form').on('submit',function() {
-        var form = $("form#wrapped");
-        form.validate();
-        if (form.valid()) {
-            $("#loader_form").fadeIn();
-        }
-    });
+    // $('form').on('submit',function() {
+    //     var form = $("form#wrapped");
+    //     form.validate();
+    //     if (form.valid()) {
+    //         $("#loader_form").fadeIn();
+    //     }
+    // });
 	
 	/*  Image popups */
 	$('.magnific-gallery').each(function () {
