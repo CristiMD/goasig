@@ -12156,7 +12156,7 @@ function Polite() {
       setUser = _useState18[1];
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/platforma/public/users/all';
+    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/platforma/public/polite/all';
     axios__WEBPACK_IMPORTED_MODULE_3___default().get(link).then(function (res) {
       // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
@@ -12171,7 +12171,7 @@ function Polite() {
     setEditing(true);
     setUser(id); // axios.get('/users/'+id).then(res => {
 
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/users/' + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/platforma/public/polite/' + id).then(function (res) {
       console.log(res);
       setNume(res.data.nume);
       setEmail(res.data.email);
@@ -12182,7 +12182,7 @@ function Polite() {
 
   var deletePolita = function deletePolita(id) {
     // axios.delete('/users/'+id).then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/platforma/public/users/' + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/platforma/public/polite/' + id).then(function (res) {
       getAllUtilizatori();
       console.log(res);
     });
