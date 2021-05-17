@@ -1103,7 +1103,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/users/",
       // url: "/users/",
       data: formData,
       encode: true,
@@ -1143,7 +1143,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "GET",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/conducator/"+cod,
       // url: "/conducator/"+cod,
       encode: true,
     }).done(function (data) {
@@ -1183,7 +1183,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/conducator/"+cod,
       // url: "/conducator/"+cod,
       data: formData,
       encode: true,
@@ -1204,7 +1204,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "DELETE",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/conducator/"+cod,
       // url: "/conducator/"+cod,
       encode: true,
     }).done(function (data) {
@@ -1227,7 +1227,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "GET",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/proprietar/"+cod,
       // url: "/proprietar/"+cod,
       encode: true,
     }).done(function (data) {
@@ -1300,7 +1300,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/proprietar/"+cod,
       // url: "/proprietar/"+cod,
       data: formData,
       encode: true,
@@ -1321,7 +1321,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "DELETE",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/proprietar/"+cod,
       // url: "/proprietar/"+cod,
       encode: true,
     }).done(function (data) {
@@ -1345,7 +1345,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "GET",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/vehicul/"+cod,
       // url: "/vehicul/"+cod,
       encode: true,
     }).done(function (data) {
@@ -1408,7 +1408,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "POST",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/vehicul/"+cod,
       // url: "/vehicul/"+cod,
       data: formData,
       encode: true,
@@ -1429,7 +1429,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: "DELETE",
-      url: "/platforma/public/conducator/"+cod_unic,
+      url: "/platforma/public/vehicul/"+cod,
       // url: "/vehicul/"+cod,
       encode: true,
     }).done(function (data) {
