@@ -132,7 +132,7 @@
 					    	    </li>
 					    	    @auth
 					    	    <li class="nav-item">
-					    	    	<a class="nav-link" href="/contul-meu">Contul meu</a>
+					    	    	<a class="nav-link" href="{{ url('/contul-meu') }}">Contul meu</a>
 					    	    </li>
 								<li class="nav-item dot-fix">
 					    	    	<a class="nav-link" href="{{ url('/logout') }}">Logout</a>
