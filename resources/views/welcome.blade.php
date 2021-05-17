@@ -133,7 +133,7 @@
 				@endguest
 				
 				<div id="wizard_container" style="display: none;">
-					<form name="example-1" id="wrapped" method="post" action="/platforma/public/cerere" enctype="multipart/form-data">
+					<form name="example-1" id="wrapped" method="post"  enctype="multipart/form-data">
         				<meta name="csrf-token" content="{{ csrf_token() }}">
 						<input id="website" name="website" type="text" value="">
 						<!-- Leave for security protection, read docs for details -->
