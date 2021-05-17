@@ -293,9 +293,9 @@
                 }
               },
             submitHandler: function(form, event) {
-              console.log(event);
-              event.preventDefault();
-              sendForm(form);
+              // console.log(event);
+              // event.preventDefault();
+              // sendForm(form);
               // $(form).ajaxSubmit({
               //   success: function() {
               //     $('.form-validation :input').attr('disabled', 'disabled');
@@ -359,8 +359,8 @@
           return tmp;
         }
 
-        function sendForm (event) {
-        // $("#wrapped").on('submit', async function (event) {
+        // function sendForm (event) {
+        $("#wrapped").on('submit', async function (event) {
           $("#full-overlay").css('display', 'flex');
           var cont;
           if($("#creaza_cont").is(':checked')){
@@ -516,15 +516,18 @@
             //     }
             //   });
             // })
-            //decontare directa
+            //decontare directa+
+
 
           });
-          
+
           event.preventDefault();
-        }
+
+          
+        // }
         });
         
-    // });
+    });
 
     function getFaraDecontare(formData, valabilitate) {
       $("#replaceble").append('<div class="container container-ndd">\
