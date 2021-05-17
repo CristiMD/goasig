@@ -293,6 +293,7 @@
                 }
               },
             submitHandler: function(form) {
+              form.preventDefault();
               sendForm(form);
               // $(form).ajaxSubmit({
               //   success: function() {
