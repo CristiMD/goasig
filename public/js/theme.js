@@ -292,8 +292,8 @@
                   required: true
                 }
               },
-            submitHandler: function(form) {
-              form.preventDefault();
+            submitHandler: function(form, event) {
+              event.preventDefault();
               sendForm(form);
               // $(form).ajaxSubmit({
               //   success: function() {
