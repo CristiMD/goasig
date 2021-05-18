@@ -230,4 +230,6 @@ return [
 
     ],
 
+    'mix_url' => env('APP_URL', null),
+
 ];
