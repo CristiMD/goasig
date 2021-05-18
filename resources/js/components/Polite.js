@@ -22,8 +22,8 @@ function Polite() {
     const [editing, setEditing] = useState(false);
     const [user, setUser] = useState('');
 
-    const getAllUtilizatori = (link = '/polite/all') => {
-        axios.get(site_url+link).then(res => {
+    const getAllUtilizatori = (link = site_url+'/polite/all') => {
+        axios.get(link).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
             setPolite(res.data.data);

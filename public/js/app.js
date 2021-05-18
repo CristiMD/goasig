@@ -12168,8 +12168,8 @@ function Polite() {
       setUser = _useState18[1];
 
   var getAllUtilizatori = function getAllUtilizatori() {
-    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/polite/all';
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + link).then(function (res) {
+    var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : site_url + '/polite/all';
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(link).then(function (res) {
       // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
       setPolite(res.data.data);
