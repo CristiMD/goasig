@@ -93,13 +93,17 @@
 				@auth
 					<script>
 						$(function() {
+							var site_url = "http://127.0.0.1:8000";
+							if(window.location.origin == 'https://goasig.ro'){
+								site_url = "https://goasig.ro/platforma/public";
+							}
 							$.ajax({
 							headers: {
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 							},
 							type: "GET",
 							// url: "{{config('app.url')}}"."platforma/public/vehicul",
-							url: "/vehicul",
+							url: site_url+"/vehicul",
 							encode: true,
 						}).done(function (data) {
 							console.log(data);
@@ -248,13 +252,17 @@
 							@auth
 							<script>
 								$(function() {
+									var site_url = "http://127.0.0.1:8000";
+									if(window.location.origin == 'https://goasig.ro'){
+										site_url = "https://goasig.ro/platforma/public";
+									}
 									$.ajax({
 									headers: {
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
 									// url: config('app.url')."/platforma/public/proprietar",
-									url: "/proprietar",
+									url: site_url+"/proprietar",
 									encode: true,
 								}).done(function (data) {
 									// console.log(data);
@@ -428,13 +436,17 @@
 							@auth
 							<script>
 								$(function() {
+									var site_url = "http://127.0.0.1:8000";
+									if(window.location.origin == 'https://goasig.ro'){
+										site_url = "https://goasig.ro/platforma/public";
+									}
 									$.ajax({
 									headers: {
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
 									// url: config('app.url')."/platforma/public/conducator",
-									url: "/conducator",
+									url: site_url+"/conducator",
 									encode: true,
 								}).done(function (data) {
 									console.log(data);

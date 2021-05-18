@@ -10,8 +10,10 @@
 
 (function($) {
     "use strict";
-
-    var url = window.location.origin;
+    var site_url = "http://127.0.0.1:8000";
+    if(window.location.origin == 'https://goasig.ro'){
+      site_url = "https://goasig.ro/platforma/public";
+    }
 
     
     $(document).on ('ready', function (){
@@ -382,7 +384,7 @@
             },
             type: "GET",
             // url: "/platforma/public/coduri/"+judet+"/"+localitate,
-            url: "/coduri/"+judet+"/"+localitate,
+            url: site_url+"/coduri/"+judet+"/"+localitate,
             encode: true,
           }).done(function (coduri) {
             // console.log(coduri);
@@ -573,14 +575,14 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "/ajaxify",
+                url: site_url+"/ajaxify",
                 // url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
                 console.log(asigurator, ' = ',data);
                 // var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="'+site_url+'/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
                 <div class="tooltip-wrapper">\
                   <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
@@ -634,14 +636,14 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "/ajaxify",
+                url: site_url+"/ajaxify",
                 // url: "/platforma/public/ajaxify",
                 data: formData,
                 encode: true,
               }).done(function (data) {
                 console.log(asigurator, ' = ',data);
                 //var html = '<tr><td><img class="logo-asigurator" src="/platforma/public/images/'+asigurator+'.png" />\
-                var html = '<tr><td><img class="logo-asigurator" src="/images/'+asigurator+'.png" />\
+                var html = '<tr><td><img class="logo-asigurator" src="'+site_url+'/images/'+asigurator+'.png" />\
                 </td><td class="detalii">\
                 <div class="tooltip-wrapper">\
                   <div class="clasa-bonus">Clasa BM:' + data.oferte[0].ClasaBM +'</div>\
@@ -695,7 +697,7 @@
         },
         type: "GET",
         // url: "/platforma/public/marci",
-        url: "/marci",
+        url: site_url+"/marci",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -717,7 +719,7 @@
         },
         type: "GET",
         // url: "/platforma/public/activitati",
-        url: "/activitati",
+        url: site_url+"/activitati",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -739,7 +741,7 @@
         },
         type: "GET",
         // url: "/platforma/public/categorii",
-        url: "/categorii",
+        url: site_url+"/categorii",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -761,7 +763,7 @@
         },
         type: "GET",
         // url: "/platforma/public/caen",
-        url: "/caen",
+        url: site_url+"/caen",
         encode: true,
       }).done(function (data) {
         let parsed = JSON.parse(data);
@@ -877,7 +879,7 @@
         $("#judet").val();
 
       }
-      $.getJSON("/js/localitati.json", function(obiect) {
+      $.getJSON(site_url+"/js/localitati.json", function(obiect) {
       // $.getJSON("/platforma/public/js/localitati.json", function(obiect) {
         let selectat = obiect.judete.filter(judet =>judet.nume === val)[0].localitati;
         if(selectat){
@@ -912,7 +914,7 @@
         },
         type: "GET",
         // url: "/platforma/public/vehicul/"+nr_mat,
-        url: "/vehicul/"+nr_mat,
+        url: site_url+"/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -953,7 +955,7 @@
         },
         type: "GET",
         // url: "/platforma/public/vehicul/"+nr_mat,
-        url: "/vehicul/"+nr_mat,
+        url: site_url+"/vehicul/"+nr_mat,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -1005,7 +1007,7 @@
         },
         type: "GET",
         // url: "/platforma/public/proprietar/"+cod_unic,
-        url: "/proprietar/"+cod_unic,
+        url: site_url+"/proprietar/"+cod_unic,
         encode: true,
       }).done(function (data) {
         // console.log(data);
@@ -1061,7 +1063,7 @@
         },
         type: "GET",
         // url: "/platforma/public/conducator/"+cod_unic,
-        url: "/conducator/"+cod_unic,
+        url: site_url+"/conducator/"+cod_unic,
         encode: true,
       }).done(function (data) {
         console.log(data,'conducator');
@@ -1112,7 +1114,7 @@
       },
       type: "POST",
       // url: "/platforma/public/users/",
-      url: "/users/",
+      url: site_url+"/users/",
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1152,7 +1154,7 @@
       },
       type: "GET",
       // url: "/platforma/public/conducator/"+cod,
-      url: "/conducator/"+cod,
+      url: site_url+"/conducator/"+cod,
       encode: true,
     }).done(function (data) {
       console.log(data,'conducator');
@@ -1193,7 +1195,7 @@
       },
       type: "POST",
       // url: "/platforma/public/conducator/"+cod,
-      url: url+"/conducator/"+cod,
+      url: site_url+"/conducator/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1214,7 +1216,7 @@
       },
       type: "DELETE",
       // url: "/platforma/public/conducator/"+cod,
-      url: "/conducator/"+cod,
+      url: site_url+"/conducator/"+cod,
       encode: true,
     }).done(function (data) {
       // console.log(data,'editare');
@@ -1237,7 +1239,7 @@
       },
       type: "GET",
       // url: "/platforma/public/proprietar/"+cod,
-      url: "/proprietar/"+cod,
+      url: site_url+"/proprietar/"+cod,
       encode: true,
     }).done(function (data) {
       console.log(data,'proprietar');
@@ -1310,7 +1312,7 @@
       },
       type: "POST",
       // url: "/platforma/public/proprietar/"+cod,
-      url: "/proprietar/"+cod,
+      url: site_url+"/proprietar/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1331,7 +1333,7 @@
       },
       type: "DELETE",
       // url: "/platforma/public/proprietar/"+cod,
-      url: "/proprietar/"+cod,
+      url: site_url+"/proprietar/"+cod,
       encode: true,
     }).done(function (data) {
       // console.log(data,'editare');
@@ -1355,7 +1357,7 @@
       },
       type: "GET",
       // url: "/platforma/public/vehicul/"+cod,
-      url: "/vehicul/"+cod,
+      url: site_url+"/vehicul/"+cod,
       encode: true,
     }).done(function (data) {
       console.log(data,'vehicul');
@@ -1418,7 +1420,7 @@
       },
       type: "POST",
       // url: "/platforma/public/vehicul/"+cod,
-      url: "/vehicul/"+cod,
+      url: site_url+"/vehicul/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
@@ -1439,7 +1441,7 @@
       },
       type: "DELETE",
       // url: "/platforma/public/vehicul/"+cod,
-      url: "/vehicul/"+cod,
+      url: site_url+"/vehicul/"+cod,
       encode: true,
     }).done(function (data) {
       // console.log(data,'editare');
