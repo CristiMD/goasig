@@ -69,3 +69,7 @@ Route::post('vehicul/{nr_inmatriculare}', [App\Http\Controllers\VehiculControlle
 Route::get('/contul-meu/{view?}', [App\Http\Controllers\UsersController::class, 'cont']);
 
 Route::get('/save-pdf/{id_oferta}',[App\Http\Controllers\PoliteController::class, 'save_pdf']);
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
