@@ -10,9 +10,12 @@
 
 (function($) {
     "use strict";
+
+    var url = window.location.origin;
+
     
     $(document).on ('ready', function (){
-        
+     
         // -------------------- Navigation Scroll
         $(window).on('scroll', function (){   
           var sticky = $('.main-menu-wrapper'),
@@ -1177,6 +1180,7 @@
 
   $('#editare-conducator').on('click', function(){
     var cod = $("#cod-conducator").val();
+    console.log(url);
     var formData = {
       nume: $("#nume-conducator").val(),
       prenume: $("#prenume-conducator").val(),
@@ -1189,7 +1193,7 @@
       },
       type: "POST",
       // url: "/platforma/public/conducator/"+cod,
-      url: "/conducator/"+cod,
+      url: url+"/conducator/"+cod,
       data: formData,
       encode: true,
     }).done(function (data) {
