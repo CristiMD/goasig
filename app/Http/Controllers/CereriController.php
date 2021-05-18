@@ -1309,7 +1309,7 @@ class CereriController extends Controller
         $_euroins_acc = 'false';
         $_decontare_directa = request('decontare_directa');
 
-        $link_redirect_plata=config('app.url').'/plata';
+        $link_redirect_plata=config('app.url').'plata';
         // $link_redirect_plata='http://127.0.0.1:8000/plata';
 
         // $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
