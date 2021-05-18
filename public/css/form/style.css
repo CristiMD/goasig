@@ -1101,7 +1101,7 @@ blockquote.testimonial p {
   width: 100%;
   overflow: hidden;
   height: 44px;
-  background: #fff url(../img/arrow_down.svg) no-repeat right center;
+  background: #fff no-repeat right center;
   border: 1px solid #d9e1e6;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1485,6 +1485,55 @@ input.qtyminus {
   .hidden_mobile {
     display: none !important;
   }
+
+  .account-wrapper {
+    flex-direction: column;
+  }
+
+  .with-padding {
+    padding: 10px;
+    background: rgba(0,0,0,.125);
+  }
+
+  .account-extra {
+    width: 100vw;
+    flex: 0;
+    overflow: scroll;
+  }
+
+  .card-cont td {
+    padding: 10px 10px !important;
+  }
+
+
+  img.logo-asigurator {
+    width: 120px;
+  }
+
+  .card-oferte th {
+    padding-bottom: 30px;
+    font-size: 15px;
+  }
+
+  .actiuni .buton {
+    font-size: 10px;
+    padding: 10px;
+  }
+
+  .actiuni .buton i {
+    color: #fff;
+    font-size: 9px;
+    margin-right: 2px;
+}
+
+.cst-tooltip-trigger i {
+  width: 5px;
+  height: 5px;
+  margin: 0 5px;
+  font-size: 15px;
+}
+
+
 }
 
 ul {

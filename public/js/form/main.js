@@ -30,17 +30,17 @@
 	});
 	
 	/* Scroll to top small screens: change the top position offset based on your content*/
-	var $Scrolbt = $('button.backward,button.forward');
-	var $Element = $('html, body');
+	// var $Scrolbt = $('button.backward,button.forward');
+	// var $Element = $('html, body');
 
-	if (window.innerWidth < 800) {
-		$Scrolbt.on("click", function () {
-			$Element.animate({
-				scrollTop: 100
-			}, "slow");
-			return false;
-		});
-	}
+	// if (window.innerWidth < 800) {
+	// 	$Scrolbt.on("click", function () {
+	// 		$Element.animate({
+	// 			scrollTop: 100
+	// 		}, "slow");
+	// 		return false;
+	// 	});
+	// }
 	
     /* Form submit loader */
     // $('form').on('submit',function() {

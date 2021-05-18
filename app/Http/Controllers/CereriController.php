@@ -1248,6 +1248,131 @@ class CereriController extends Controller
         }
     }
 
+    public function create_acc(Request $request)
+    {
+
+        $username = 'testRCA';
+        $password = 'test.1234';
+        $_km_totali = '120000';
+        $_km_an = '12000';
+        $_serie_motor='A123123';
+        $_allianz_supl = 'false';
+        $_allianz_dealer = 'false';
+        $_email= request('email_livrare');
+        $_telefon= request('telefon_fix');
+        $_mobil= request('telefon_livrare');
+        $_companie_tip ='?';
+        $_companie_profil='?';
+        $_companie_activitate='?';
+        $_companie_caen='?';
+        $nr_luni_valabilitate = "6";
+        $valabilitate = request('valabilitate');
+        $pensionar='0'; 
+        $deficiente='0';
+        $data_inceput_valabilitate=request('data_rca');
+        $activitate= 'Privat';
+        $leasing='3';  // nu este leasing
+        $tip_persoana= request('persoana');
+        $_serie_sasiu = request('sasiu');
+        $_stare_autevehicul =  request('stare_inmatriculare');
+        $_numar_inmatriculare = request('numar_inmatriculare');
+        $_marca = request('marca');
+        $_model = request('model');
+        $_serie_civ = request('serie_civ');
+        $_an_fabricatie = request('an_fab');
+        $_tip_autovehicul = request('tip_vehicul');
+        $_capacitate_cilindrica = request('cap_cil');
+        $_nr_locuri = request('nr_loc');
+        $_masa_maxima= request('masa_maxima');
+        $_putere = request('putere');
+        $_combustibil = request('combustibil');
+        $asigurator = request('asigurator');
+        $_city_acc = 'false';
+        $_euroins_acc = 'false';
+        $_decontare_directa = request('decontare_directa');
+
+        $link_redirect_plata=config('app.url').'plata';
+        // $link_redirect_plata='http://127.0.0.1:8000/plata';
+
+        // $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
+        // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
+        $asiguratori = array($asigurator);
+        
+        $nr_luni = array('12');
+        array_unshift($nr_luni,$valabilitate);
+
+
+        ///proprietar
+        $_cod_unic = request('cnp_proprietar');
+        $_nume = request('nmume_proprietar');
+        $_prenume= request('prenume_proprietar');
+        $_serie_ci= request('ci_proprietar');
+        $_numar_ci = request('nr_ci_proprietar');
+        $_sex_owner='M';
+        $_judet = request('judet');
+        $_localitate = request('localitate');
+        // $_cod_siruta = '95408';  // default pascani
+        $_strada = request('strada_proprietar');
+        $_numar = request('numar_adresa_proprietar');
+        $_bloc = request('bloc_proprietar');
+        $_scara = request('scara_proprietar');
+        $_etaj = request('etaj_proprietar');
+        $_ap = request('apartament_proprietar');
+        // $_cod_postal='705200';
+        $_permis_data=request('an_permis_proprietar');  
+
+
+        $_nume_driver = request('nume_conducator');
+        $_prenume_driver= request('prenume_conducator');
+        $_cnp_driver = request('cnp_conducator');
+        $_serie_ci_driver = request('ci_conducator');
+        $_numar_ci_driver = request('nr_ci_conducatorr');
+        $_parola= request('parola');
+        $_cont= request('creaza_cont');
+
+        ///inlocuiri variabile
+
+        if(strcmp($tip_persoana, "pf") != 0) {
+            $_nume = request('societate');
+            $_companie_tip = request('companie_tip');
+            $_companie_profil='?';
+            $_companie_activitate=request('companie_activitate');
+            $_companie_caen= request('caen');
+            $_cod_unic = request('cui');
+        }
+
+        $diac = array('â','Â','î','Î','ş','Ş','ţ','Ţ');
+        $cor = array('a','A','i','I','s','S','t' ,'T');
+
+        $_strada = str_replace($diac,$cor,$_strada);
+        $_nume = str_replace($diac,$cor,$_nume);
+        $_prenume = str_replace($diac,$cor,$_prenume);
+        $_judet = str_replace($diac,$cor,$_judet);
+        $_localitate = str_replace($diac,$cor,$_localitate);
+
+        $_cod_siruta = strval(request('cod_siruta'));
+        $_cod_postal = strval(request('cod_postal'));
+
+        $user = auth()->user();
+
+
+        if($_parola && $_cont) {
+            $user_id = $this->createUser($_email, $_nume, $_prenume, $_parola, $_mobil);
+            $this->createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user_id);
+            $this->createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user_id);
+            $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie,  $user_id);
+        } else if($user){
+            $this->createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user->id);
+            $this->createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user->id);
+            $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie, $user->id);
+        } else {
+            $this->createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user_id);
+            $this->createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user_id);
+            $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie, null);
+        }
+
+    }
+
     public function ajaxify(Request $request)
     {
         $time_start = microtime(true); 

@@ -211,3 +211,91 @@ a#view {
     display: flex;
     padding: 20px;
 }
+
+.side-links ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .side {
+        width: 100%;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .side-links {
+        margin: 0;
+    }
+
+    .side-links ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .side-links ul li {
+        margin-right: 10px;
+    }
+
+    .sidebar-nav .logo img {
+        max-width: 120px;
+    }
+
+    .overview-container {
+        align-items: stretch;
+    }
+
+    span.count {
+        font-size: 15px;
+    }
+
+    span.text {
+        font-size: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .lista-utilizatori td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .lista-utilizatori th {
+        padding: 10px 10px;
+        background: #3e6958;
+        color: #fff;
+        font-size: 13px;
+    }
+
+    .side-links ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .react-wrapper .actiuni button, .react-wrapper .heading button {
+        margin-right: 10px;
+    }
+
+    .react-wrapper .actiuni button#delete {
+        margin: 0;
+    }
+
+    .lista-utilizatori {
+        overflow: scroll;
+    }
+
+}

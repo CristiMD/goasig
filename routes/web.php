@@ -48,7 +48,7 @@ Route::post('/users', [App\Http\Controllers\UsersController::class, 'editare']);
 Route::get('/admin/users', [App\Http\Controllers\UsersController::class, 'admin_users']);
 Route::post('/admin/users', [App\Http\Controllers\UsersController::class, 'create']);
 Route::post('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'edit']);
-
+Route::post('/create-acc', [App\Http\Controllers\CereriController::class, 'create_acc']);
 
 Route::get('/admin/polite', [App\Http\Controllers\PoliteController::class, 'admin_polite']);
 
