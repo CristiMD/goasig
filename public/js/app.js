@@ -12496,6 +12496,8 @@ function Utilizatori() {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log(window.location.origin);
+
     if (window.location.origin == 'https://goasig.ro') {
       setSite_url("https://goasig.ro/platforma/public");
     }

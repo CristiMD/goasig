@@ -113,6 +113,7 @@ function Utilizatori() {
     }
 
     useEffect(() => {
+        console.log(window.location.origin);
         if(window.location.origin == 'https://goasig.ro'){
             setSite_url("https://goasig.ro/platforma/public");
         }
