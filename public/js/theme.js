@@ -1182,7 +1182,6 @@
 
   $('#editare-conducator').on('click', function(){
     var cod = $("#cod-conducator").val();
-    console.log(url);
     var formData = {
       nume: $("#nume-conducator").val(),
       prenume: $("#prenume-conducator").val(),
