@@ -188,7 +188,7 @@ class PlataController extends Controller
 
         Mail::to($email)->send(new PolitaGenerata($pdf, $nume));
 
-        \Storage::disk('public')->put($nume, $pdf);
+        // \Storage::disk('public')->put($nume, $pdf);
      
         return 'OK';
      }
