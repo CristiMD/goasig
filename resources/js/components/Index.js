@@ -5,6 +5,11 @@ import axios from 'axios';
 
 function Index() {
 
+    var site_url = "http://127.0.0.1:8000";
+    if(window.location.origin == 'https://goasig.ro'){
+        site_url = "https://goasig.ro/platforma/public";
+    }
+
     const [utilizatori, setUtilizatori] = useState([]);
     const [polite, setPolite] = useState([]);
     const [nrUtilizatori, setNrUtilizatori] = useState(0);
@@ -14,7 +19,7 @@ function Index() {
 
     const getUtilizatori = () => {
         // axios.get('/users').then(res => {
-        axios.get('/users').then(res => {
+        axios.get(site_url+'/users').then(res => {
             console.log(res);
             setNrUtilizatori(res.data);
         })
@@ -22,7 +27,7 @@ function Index() {
 
     const getAllUtilizatori = () => {
         // axios.get('/users/all').then(res => {
-        axios.get('/users/all').then(res => {
+        axios.get(site_url+'/users/all').then(res => {
             console.log(res);
             setUtilizatori(res.data.slice(0,5));
         })
@@ -30,7 +35,7 @@ function Index() {
 
     const getAllPolite = () => {
         // axios.get('/polite/all').then(res => {
-        axios.get('/polite/all').then(res => {
+        axios.get(site_url+'/polite/all').then(res => {
             console.log(res);
             setPolite(res.data.data.slice(0,5));
         })
@@ -38,7 +43,7 @@ function Index() {
 
     const getVehicule = () => {
         // axios.get('/vehicule').then(res => {
-        axios.get('/vehicule').then(res => {
+        axios.get(site_url+'/vehicule').then(res => {
             console.log(res);
             setVehicule(res.data);
         })
@@ -46,7 +51,7 @@ function Index() {
 
     const getPolite = () => {
         // axios.get('/polite').then(res => {
-        axios.get('/polite').then(res => {
+        axios.get(site_url+'/polite').then(res => {
             console.log(res);
             setNrPolite(res.data);
         })
@@ -54,7 +59,7 @@ function Index() {
 
     const getVanzari = () => {
         // axios.get('/vanzari').then(res => {
-        axios.get('/vanzari').then(res => {
+        axios.get(site_url+'/vanzari').then(res => {
             console.log(res);
             setVanzari(res.data);
         })

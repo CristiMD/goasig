@@ -11844,6 +11844,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Index() {
+  var site_url = "http://127.0.0.1:8000";
+
+  if (window.location.origin == 'https://goasig.ro') {
+    site_url = "https://goasig.ro/platforma/public";
+  }
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       utilizatori = _useState2[0],
@@ -11876,7 +11882,7 @@ function Index() {
 
   var getUtilizatori = function getUtilizatori() {
     // axios.get('/users').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/users').then(function (res) {
       console.log(res);
       setNrUtilizatori(res.data);
     });
@@ -11884,7 +11890,7 @@ function Index() {
 
   var getAllUtilizatori = function getAllUtilizatori() {
     // axios.get('/users/all').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/users/all').then(function (res) {
       console.log(res);
       setUtilizatori(res.data.slice(0, 5));
     });
@@ -11892,7 +11898,7 @@ function Index() {
 
   var getAllPolite = function getAllPolite() {
     // axios.get('/polite/all').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite/all').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/polite/all').then(function (res) {
       console.log(res);
       setPolite(res.data.data.slice(0, 5));
     });
@@ -11900,7 +11906,7 @@ function Index() {
 
   var getVehicule = function getVehicule() {
     // axios.get('/vehicule').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/vehicule').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/vehicule').then(function (res) {
       console.log(res);
       setVehicule(res.data);
     });
@@ -11908,7 +11914,7 @@ function Index() {
 
   var getPolite = function getPolite() {
     // axios.get('/polite').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/polite').then(function (res) {
       console.log(res);
       setNrPolite(res.data);
     });
@@ -11916,7 +11922,7 @@ function Index() {
 
   var getVanzari = function getVanzari() {
     // axios.get('/vanzari').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/vanzari').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/vanzari').then(function (res) {
       console.log(res);
       setVanzari(res.data);
     });
@@ -12110,6 +12116,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Polite() {
+  var site_url = "http://127.0.0.1:8000";
+
+  if (window.location.origin == 'https://goasig.ro') {
+    site_url = "https://goasig.ro/platforma/public";
+  }
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       polite = _useState2[0],
@@ -12157,7 +12169,7 @@ function Polite() {
 
   var getAllUtilizatori = function getAllUtilizatori() {
     var link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/polite/all';
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get(link).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + link).then(function (res) {
       // axios.get('/platforma/public/users/all').then(res => {
       console.log(res);
       setPolite(res.data.data);
@@ -12171,7 +12183,7 @@ function Polite() {
     setEditing(true);
     setUser(id); // axios.get('/users/'+id).then(res => {
 
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/polite/' + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/polite/' + id).then(function (res) {
       console.log(res);
       setNume(res.data.nume);
       setEmail(res.data.email);
@@ -12182,7 +12194,7 @@ function Polite() {
 
   var deletePolita = function deletePolita(id) {
     // axios.delete('/users/'+id).then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/polite/' + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().delete(site_url + '/polite/' + id).then(function (res) {
       getAllUtilizatori();
       console.log(res);
     });
@@ -12732,29 +12744,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Example() {
+  var site_url = "http://127.0.0.1:8000";
+
+  if (window.location.origin == 'https://goasig.ro') {
+    site_url = "https://goasig.ro/platforma/public";
+  }
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "sidebar-nav",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "logo",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-        src: "/images/logo/logo.png"
+        src: site_url + '/images/logo/logo.png'
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "side-links",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-            href: "/admin",
+            href: site_url + "/admin",
             children: "Home"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-            href: "/admin/users",
+            href: site_url + "/admin/users",
             children: "Utilizatori"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-            href: "/admin/polite",
+            href: site_url + "/admin/polite",
             children: "Polite"
           })
         })]

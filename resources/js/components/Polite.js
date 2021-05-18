@@ -7,6 +7,11 @@ import { faEye, faTrash, faArrowLeft, faArrowRight } from '@fortawesome/free-sol
 
 function Polite() {
 
+    var site_url = "http://127.0.0.1:8000";
+    if(window.location.origin == 'https://goasig.ro'){
+        site_url = "https://goasig.ro/platforma/public";
+    }
+
     const [polite, setPolite] = useState([]);
     const [paginaCurenta, setPaginaCurenta] = useState(1);
     const [paginaAnterioara, setPaginaAnterioara] = useState(null);
@@ -18,7 +23,7 @@ function Polite() {
     const [user, setUser] = useState('');
 
     const getAllUtilizatori = (link = '/polite/all') => {
-        axios.get(link).then(res => {
+        axios.get(site_url+link).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
             setPolite(res.data.data);
@@ -32,7 +37,7 @@ function Polite() {
         setEditing(true);
         setUser(id);
         // axios.get('/users/'+id).then(res => {
-        axios.get('/polite/'+id).then(res => {
+        axios.get(site_url+'/polite/'+id).then(res => {
             console.log(res);
             setNume(res.data.nume);
             setEmail(res.data.email);
@@ -44,7 +49,7 @@ function Polite() {
 
     const deletePolita = (id) => {
         // axios.delete('/users/'+id).then(res => {
-        axios.delete('/polite/'+id).then(res => {
+        axios.delete(site_url+'/polite/'+id).then(res => {
             getAllUtilizatori();
             console.log(res);
         })
