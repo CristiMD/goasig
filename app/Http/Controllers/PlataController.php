@@ -186,7 +186,7 @@ class PlataController extends Controller
 
         $nume = $nr_inmatriculare.'-'.$id_oferta.'-'.$dataincepere.'.pdf';
 
-        Mail::to($email)->send(new PolitaGenerata($pdf, $nume));
+        // Mail::to($email)->send(new PolitaGenerata($pdf, $nume));
 
         // \Storage::disk('public')->put($nume, $pdf);
      
