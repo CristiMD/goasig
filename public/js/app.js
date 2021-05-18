@@ -12352,6 +12352,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Utilizatori() {
+  var site_url = "http://127.0.0.1:8000";
+
+  if (window.location.origin == 'https://goasig.ro') {
+    site_url = "https://goasig.ro/platforma/public";
+  }
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       utilizatori = _useState2[0],
@@ -12395,12 +12401,8 @@ function Utilizatori() {
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState18 = _slicedToArray(_useState17, 2),
       user = _useState18[0],
-      setUser = _useState18[1];
+      setUser = _useState18[1]; // const [site_url, setSite_url] = useState("http://127.0.0.1:8000");
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("http://127.0.0.1:8000"),
-      _useState20 = _slicedToArray(_useState19, 2),
-      site_url = _useState20[0],
-      setSite_url = _useState20[1];
 
   var getAllUtilizatori = function getAllUtilizatori() {
     // axios.get('/users/all').then(res => {
@@ -12496,12 +12498,6 @@ function Utilizatori() {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log(window.location.origin);
-
-    if (window.location.origin == 'https://goasig.ro') {
-      setSite_url("https://goasig.ro/platforma/public");
-    }
-
     getAllUtilizatori();
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {

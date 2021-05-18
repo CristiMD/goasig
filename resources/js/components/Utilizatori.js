@@ -7,6 +7,11 @@ import { faPencilAlt, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-
 
 function Utilizatori() {
 
+    var site_url = "http://127.0.0.1:8000";
+    if(window.location.origin == 'https://goasig.ro'){
+        site_url = "https://goasig.ro/platforma/public";
+    }
+
     const [utilizatori, setUtilizatori] = useState([]);
     const [nume, setNume] = useState('');
     const [email, setEmail] = useState('');
@@ -16,7 +21,7 @@ function Utilizatori() {
     const [adding, setAdding] = useState(false);
     const [mesaj, setMesaj] = useState('');
     const [user, setUser] = useState('');
-    const [site_url, setSite_url] = useState("http://127.0.0.1:8000");
+    // const [site_url, setSite_url] = useState("http://127.0.0.1:8000");
 
     const getAllUtilizatori = () => {
         // axios.get('/users/all').then(res => {
@@ -112,11 +117,7 @@ function Utilizatori() {
         setTelefon('');
     }
 
-    useEffect(() => {
-        console.log(window.location.origin);
-        if(window.location.origin == 'https://goasig.ro'){
-            setSite_url("https://goasig.ro/platforma/public");
-        }
+    useEffect(() => {      
         getAllUtilizatori();
     }, []);
 
