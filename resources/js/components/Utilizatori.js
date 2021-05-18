@@ -16,10 +16,11 @@ function Utilizatori() {
     const [adding, setAdding] = useState(false);
     const [mesaj, setMesaj] = useState('');
     const [user, setUser] = useState('');
+    const [site_url, setSite_url] = useState("http://127.0.0.1:8000");
 
     const getAllUtilizatori = () => {
         // axios.get('/users/all').then(res => {
-        axios.get('/users/all').then(res => {
+        axios.get(site_url+'/users/all').then(res => {
             console.log(res);
             setUtilizatori(res.data);
         })
@@ -29,7 +30,7 @@ function Utilizatori() {
         setEditing(true);
         setUser(id);
         // axios.get('/users/'+id).then(res => {
-        axios.get('/users/'+id).then(res => {
+        axios.get(site_url+'/users/'+id).then(res => {
             console.log(res);
             setNume(res.data.nume);
             setEmail(res.data.email);
@@ -42,7 +43,7 @@ function Utilizatori() {
     const adaugaUser = (e) => {
         e.preventDefault();
         // axios.post('/admin/users', {
-        axios.post('/admin/users', {
+        axios.post(site_url+'/admin/users', {
             nume,
             email,
             telefon,
@@ -68,7 +69,7 @@ function Utilizatori() {
     const editareUser = (e) => {
         e.preventDefault();
         // axios.post('/admin/users/'+user,{ 
-        axios.post('/admin/users/'+user,{ 
+        axios.post(site_url+'/admin/users/'+user,{ 
             nume,
             email,
             telefon,
@@ -92,7 +93,7 @@ function Utilizatori() {
 
     const deleteUser = (id) => {
         // axios.delete('/users/'+id).then(res => {
-        axios.delete('/users/'+id).then(res => {
+        axios.delete(site_url+'/users/'+id).then(res => {
             getAllUtilizatori();
             console.log(res);
         })
@@ -112,6 +113,9 @@ function Utilizatori() {
     }
 
     useEffect(() => {
+        if(window.location.origin == 'https://goasig.ro'){
+            setSite_url("https://goasig.ro/platforma/public");
+        }
         getAllUtilizatori();
     }, []);
 

@@ -12397,9 +12397,14 @@ function Utilizatori() {
       user = _useState18[0],
       setUser = _useState18[1];
 
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("http://127.0.0.1:8000"),
+      _useState20 = _slicedToArray(_useState19, 2),
+      site_url = _useState20[0],
+      setSite_url = _useState20[1];
+
   var getAllUtilizatori = function getAllUtilizatori() {
     // axios.get('/users/all').then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/all').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/users/all').then(function (res) {
       console.log(res);
       setUtilizatori(res.data);
     });
@@ -12409,7 +12414,7 @@ function Utilizatori() {
     setEditing(true);
     setUser(id); // axios.get('/users/'+id).then(res => {
 
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get('/users/' + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(site_url + '/users/' + id).then(function (res) {
       console.log(res);
       setNume(res.data.nume);
       setEmail(res.data.email);
@@ -12421,7 +12426,7 @@ function Utilizatori() {
   var adaugaUser = function adaugaUser(e) {
     e.preventDefault(); // axios.post('/admin/users', {
 
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/admin/users', {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post(site_url + '/admin/users', {
       nume: nume,
       email: email,
       telefon: telefon,
@@ -12446,7 +12451,7 @@ function Utilizatori() {
   var editareUser = function editareUser(e) {
     e.preventDefault(); // axios.post('/admin/users/'+user,{ 
 
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/admin/users/' + user, {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post(site_url + '/admin/users/' + user, {
       nume: nume,
       email: email,
       telefon: telefon,
@@ -12471,7 +12476,7 @@ function Utilizatori() {
 
   var deleteUser = function deleteUser(id) {
     // axios.delete('/users/'+id).then(res => {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().delete('/users/' + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().delete(site_url + '/users/' + id).then(function (res) {
       getAllUtilizatori();
       console.log(res);
     });
@@ -12491,6 +12496,10 @@ function Utilizatori() {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (window.location.origin == 'https://goasig.ro') {
+      setSite_url("https://goasig.ro/platforma/public");
+    }
+
     getAllUtilizatori();
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
