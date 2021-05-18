@@ -9,7 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-		<base href="https://goasig.ro/platforma/public/">
+		<base href="{{ config('app.url', 'http://127.0.0.1:8000') }}">
 
 
         <!-- Scripts -->

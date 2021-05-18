@@ -98,8 +98,8 @@
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 							},
 							type: "GET",
-							url: "/platforma/public/vehicul",
-							// url: "/vehicul",
+							// url: "{{config('app.url')}}"."platforma/public/vehicul",
+							url: "/vehicul",
 							encode: true,
 						}).done(function (data) {
 							console.log(data);
@@ -253,8 +253,8 @@
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
-									url: "/platforma/public/proprietar",
-									// url: "/proprietar",
+									// url: config('app.url')."/platforma/public/proprietar",
+									url: "/proprietar",
 									encode: true,
 								}).done(function (data) {
 									// console.log(data);
@@ -433,8 +433,8 @@
 									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 									},
 									type: "GET",
-									url: "/platforma/public/conducator",
-									// url: "/conducator",
+									// url: config('app.url')."/platforma/public/conducator",
+									url: "/conducator",
 									encode: true,
 								}).done(function (data) {
 									console.log(data);
