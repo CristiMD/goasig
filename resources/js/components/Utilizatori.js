@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Navbar from './parts/Navbar';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash, faPlusCircle, faCaretSquareUp } from '@fortawesome/free-solid-svg-icons';
 
 function Utilizatori() {
 
@@ -21,11 +21,15 @@ function Utilizatori() {
     const [adding, setAdding] = useState(false);
     const [mesaj, setMesaj] = useState('');
     const [user, setUser] = useState('');
+    const [rol, setRol] = useState('');
+    const [perioada, setPerioana] = useState('luna');
+    const [termeni, setTermeni] = useState('');
+    const [confirmare, setConfirmare] = useState(false);
     // const [site_url, setSite_url] = useState("http://127.0.0.1:8000");
 
     const getAllUtilizatori = () => {
         // axios.get('/users/all').then(res => {
-        axios.get(site_url+'/users/all').then(res => {
+        axios.get(site_url+'/users/all/'+perioada).then(res => {
             console.log(res);
             setUtilizatori(res.data);
         })
@@ -40,6 +44,7 @@ function Utilizatori() {
             setNume(res.data.nume);
             setEmail(res.data.email);
             setTelefon(res.data.telefon);
+            setRol(res.data.role);
             setParola('');
             // setUtilizatori(res.data);
         })
@@ -52,6 +57,7 @@ function Utilizatori() {
             nume,
             email,
             telefon,
+            rol,
             parola
         }).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
@@ -71,13 +77,20 @@ function Utilizatori() {
         })
     }
 
-    const editareUser = (e) => {
+    const confirmEditare = (e) => {
         e.preventDefault();
+        setConfirmare(true);
+    }
+
+    const editareUser = (e) => {
+        // e.preventDefault();
         // axios.post('/admin/users/'+user,{ 
+        setConfirmare(false);
         axios.post(site_url+'/admin/users/'+user,{ 
             nume,
             email,
             telefon,
+            rol,
             parola
         }).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
@@ -104,6 +117,14 @@ function Utilizatori() {
         })
     }
 
+    const schimbarePerioada = (e) => {
+        setPerioana(e.target.value);
+        axios.get(site_url+'/users/all/'+e.target.value).then(res => {
+            console.log(res);
+            setUtilizatori(res.data);
+        })
+    }
+
     const addUser = () => {
         setAdding(true);
     }
@@ -114,7 +135,21 @@ function Utilizatori() {
         setNume('');
         setEmail('');
         setParola('');
+        setRol('');
         setTelefon('');
+        setConfirmare(false);
+    }
+
+    const cautare = (e) => {
+        setTermeni(e.target.value);
+        if(e.target.value){
+            axios.get(site_url+'/users/cautare/'+encodeURI(e.target.value)).then(res => {
+                console.log(res);
+                setUtilizatori(res.data);
+            })
+        } else {
+            getAllUtilizatori();
+        }
     }
 
     useEffect(() => {      
@@ -127,7 +162,16 @@ function Utilizatori() {
                 <Navbar />
             </div>
             <div className="page">
-                <div className="heading top-50"><h1>Utilizatori</h1>{!adding && !editing ? <button id="add" onClick={() => addUser()}><FontAwesomeIcon icon={faPlusCircle} /></button> : '' }</div>
+                <div className="heading top-50"><h1>Utilizatori</h1>
+                <select value={perioada} onChange={(e) => schimbarePerioada(e)}>
+                    <option value="azi">Azi</option>
+                    <option value="luna">Luna trecuta</option>
+                    <option value="an">Anul trecut</option>
+                    <option value="total">Total</option>
+                </select>
+                <input type="text" value={termeni} onChange={(e)=>cautare(e)}/>
+
+                {!adding && !editing ? <button id="add" onClick={() => addUser()}><FontAwesomeIcon icon={faPlusCircle} /></button> : '' }</div>
                 
                 {!adding && !editing ? 
                 <div className="lista-utilizatori">
@@ -170,6 +214,13 @@ function Utilizatori() {
                         <label htmlFor="nume">Telefon
                         <input type="text" name="telefon"  onChange={(e) => setTelefon(e.target.value)}/>
                         </label>
+                        <label htmlFor="rol">Rol
+                        <select value={rol} onChange={(e) => setRol(e.target.value)}>
+                            <option value="admin">Administrator</option>
+                            <option value="partener">Partener</option>
+                            <option value="user">Utilizator</option>
+                        </select>
+                        </label>
                         <label htmlFor="nume">Parola
                         <input type="password" name="parola"  onChange={(e) => setParola(e.target.value)}/>
                         </label>
@@ -184,7 +235,7 @@ function Utilizatori() {
                 <div className="add-form">
                     {mesaj.length ? <div className="mesaj-wrapper">{mesaj}</div> : ''}
                     
-                    <form id="add-user" onSubmit={(e)=>editareUser(e)}>
+                    <form id="add-user" onSubmit={(e)=>confirmEditare(e)}>
                         <label htmlFor="nume">Nume
                         <input type="text" name="nume" value={nume} onChange={(e) => setNume(e.target.value)}/>
                         </label>
@@ -193,6 +244,13 @@ function Utilizatori() {
                         </label>
                         <label htmlFor="nume">Telefon
                         <input type="text" name="telefon" value={telefon}  onChange={(e) => setTelefon(e.target.value)}/>
+                        </label>
+                        <label htmlFor="rol">Rol
+                        <select value={rol} onChange={(e) => setRol(e.target.value)}>
+                            <option value="admin">Administrator</option>
+                            <option value="partener">Partener</option>
+                            <option value="user">Utilizator</option>
+                        </select>
                         </label>
                         <label htmlFor="nume">Parola
                         <input type="password" autoComplete="new-password" name="parola"  onChange={(e) => setParola(e.target.value)}/>
@@ -203,6 +261,13 @@ function Utilizatori() {
                         </div>
                     </form>
                 </div> : '' }
+                {confirmare ? <div className="overlay"><div className="form-confirmare">
+                    <h2>Esti sigur ca vrei sa editezi utilizatorul?</h2>
+                    <div className="butoane-confirmare">
+                        <button className="confirma" onClick={()=>editareUser()}>Editeaza</button>
+                        <button className="renunta" onClick={()=> cancelForm()}>Renunta</button>
+                    </div>
+                </div></div> : ''}
             </div>
         </div>
     );

@@ -15,3 +15,5 @@ require('./bootstrap');
 require('./components/Index');
 require('./components/Utilizatori');
 require('./components/Polite');
+require('./components/Oferte');
+require('./components/Parteneri');

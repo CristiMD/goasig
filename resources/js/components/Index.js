@@ -12,21 +12,22 @@ function Index() {
 
     const [utilizatori, setUtilizatori] = useState([]);
     const [polite, setPolite] = useState([]);
+    const [vehiculeLista, setVehiculeLista] = useState([]);
     const [nrUtilizatori, setNrUtilizatori] = useState(0);
     const [vehicule, setVehicule] = useState(0);
     const [nrPolite, setNrPolite] = useState(0);
     const [vanzari, setVanzari] = useState(0);
+    const [perioada, setPerioana] = useState('luna');
+    const [loading, setLoading] = useState(0);
 
-    const getUtilizatori = () => {
-        // axios.get('/users').then(res => {
-        axios.get(site_url+'/users').then(res => {
+    const getUtilizatori = (perioada) => {
+        axios.get(site_url+'/users/date/'+perioada).then(res => {
             console.log(res);
             setNrUtilizatori(res.data);
         })
     }
 
     const getAllUtilizatori = () => {
-        // axios.get('/users/all').then(res => {
         axios.get(site_url+'/users/all').then(res => {
             console.log(res);
             setUtilizatori(res.data.slice(0,5));
@@ -34,44 +35,63 @@ function Index() {
     }
 
     const getAllPolite = () => {
-        // axios.get('/polite/all').then(res => {
         axios.get(site_url+'/polite/all').then(res => {
             console.log(res);
             setPolite(res.data.data.slice(0,5));
         })
     }
 
-    const getVehicule = () => {
-        // axios.get('/vehicule').then(res => {
-        axios.get(site_url+'/vehicule').then(res => {
+    const getAllVehicule = () => {
+        axios.get(site_url+'/vehicule/all').then(res => {
+            console.log(res);
+            setVehiculeLista(res.data.slice(0,5));
+        })
+    }
+
+    const getVehicule = (perioada) => {
+        axios.get(site_url+'/vehicule/date/'+perioada).then(res => {
             console.log(res);
             setVehicule(res.data);
         })
     }
 
-    const getPolite = () => {
-        // axios.get('/polite').then(res => {
-        axios.get(site_url+'/polite').then(res => {
+    const getPolite = (perioada) => {
+        axios.get(site_url+'/polite/date/'+perioada).then(res => {
             console.log(res);
             setNrPolite(res.data);
         })
     }
 
-    const getVanzari = () => {
-        // axios.get('/vanzari').then(res => {
-        axios.get(site_url+'/vanzari').then(res => {
+    const getVanzari = (perioada) => {
+        axios.get(site_url+'/vanzari/'+perioada).then(res => {
             console.log(res);
             setVanzari(res.data);
         })
     }
 
-    useEffect(() => {
-        getUtilizatori();
+    const schimbarePerioada = (e) => {
+        setPerioana(e.target.value);
+        refresh(e.target.value);
+    }
+
+    const refresh = (perioada = 'luna') => {
+        setLoading(1);
+        getUtilizatori(perioada);
         getAllUtilizatori();
         getAllPolite();
-        getVehicule();
-        getPolite();
-        getVanzari();
+        getAllVehicule();
+        getVehicule(perioada);
+        getPolite(perioada);
+        getVanzari(perioada);
+    }
+
+    useEffect(() => { 
+        setLoading(loading+1);
+    }, [nrUtilizatori, vehicule, polite, vanzari])
+
+
+    useEffect(() => {
+        refresh();
     }, []);
 
     return (
@@ -80,7 +100,17 @@ function Index() {
                 <Navbar />
             </div>
             <div className="page">
-                <h1>Prezentare generala</h1>
+                <div className="heading top-50"><h1>Prezentare generala</h1>
+                <select value={perioada} onChange={(e) => schimbarePerioada(e)}>
+                    <option value="azi">Azi</option>
+                    <option value="luna">Luna trecuta</option>
+                    <option value="an">Anul trecut</option>
+                    <option value="total">Total</option>
+                </select>
+                </div>
+                {loading < 4 ? 
+                <div className="placeholder"></div>
+                :
                 <div className="overview-container">
                     <div className="overview-child" id="users-count">
                         <span className="count">
@@ -114,7 +144,7 @@ function Index() {
                             Total vanzari
                         </span>
                     </div>
-                </div>
+                </div>}
 
                 <h1 className="top-50">Utilizatori</h1>
                 <div className="lista-utilizatori">
@@ -136,6 +166,32 @@ function Index() {
                         </tr>
                         )
                     }) : <tr><td colSpan="3">Fara utilizatori</td></tr>}
+                    </tbody>
+                    </table>
+                </div>
+
+                <h1 className="top-50">Vehicule adaugate recente</h1>
+                <div className="lista-utilizatori">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Numar inmatriculare</th>
+                                <th>Marca</th>
+                                <th>Model</th>
+                                <th>Proprietar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {vehiculeLista.length ? vehiculeLista.map( vehicul => {
+                        return(
+                        <tr key={vehicul.nr_inmatriculare}>
+                            <td>{vehicul.nr_inmatriculare}</td>
+                            <td>{vehicul.marca}</td>
+                            <td>{vehicul.model}</td>
+                            <td>{vehicul.nume}</td>
+                        </tr>
+                        )
+                    }) : <tr><td colSpan="4">Fara vehicule</td></tr>}
                     </tbody>
                     </table>
                 </div>

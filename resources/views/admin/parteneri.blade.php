@@ -10,12 +10,14 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <link href="{{ asset('css/react.css') }}" rel="stylesheet">
 
+
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Scripts -->
     </head>
     <body>
-        <div class="react-wrapper" id="index"></div>
+        <div class="react-wrapper" id="parteneri"></div>
         <script src="{{ asset('js/app.js') }}"></script>
+
     </body>
 </html>

@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from '../assets/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Example() {
-
     var site_url = "http://127.0.0.1:8000";
     if(window.location.origin == 'https://goasig.ro'){
         site_url = "https://goasig.ro/platforma/public";
@@ -17,6 +17,13 @@ function Example() {
                     <li><a href={site_url+"/admin"}>Home</a></li>
                     <li><a href={site_url+"/admin/users"}>Utilizatori</a></li>
                     <li><a href={site_url+"/admin/polite"}>Polite</a></li>
+                    <li><a href={site_url+"/admin/oferte"}>Oferte</a></li>
+                    <li><a href={site_url+"/admin/parteneri"}>Parteneri</a></li>
+                </ul>
+            </div>
+            <div className="side-links bottom-links">
+                <ul>
+                    <li><a href={site_url+"/"}><FontAwesomeIcon icon={faSignOutAlt} /> Inapoi in site</a></li>
                 </ul>
             </div>
         </div>

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Vehicul;
 use App\Models\User;
 
+use DB;
+use Carbon\Carbon;
+
+
 class VehiculController extends Controller
 {
     /**
@@ -18,6 +22,42 @@ class VehiculController extends Controller
         $user = auth()->user();
         $vehicule = Vehicul::with('user')->get();
         return $vehicule;
+    }
+
+
+    public function index_perioada($perioada = 'luna')
+    {
+        $rol = auth()->user()->role;
+        $vehicule = [];
+        if($rol == 'admin') {
+            if($perioada == 'luna') {
+                $fromDate = Carbon::now()->startOfMonth()->toDateString();
+                $tillDate = Carbon::now()->addDay()->toDateString();
+                $vehicule = DB::table('vehicul')
+                        ->join('users', 'vehicul.id_utilizator', '=', 'users.id')
+                        ->select('vehicul.*', 'users.nume')
+                        ->whereBetween('vehicul.created_at',[$fromDate,$tillDate])->get();
+                // Vehicul::whereBetween('created_at',[$fromDate,$tillDate])->get();
+            } else if($perioada == 'azi') {
+                $vehicule = DB::table('vehicul')
+                        ->join('users', 'vehicul.id_utilizator', '=', 'users.id')
+                        ->select('vehicul.*', 'users.nume')
+                        ->where(
+                            'vehicul.created_at', '>=', Carbon::now()->toDateString()
+                        )->get();
+                
+                // Vehicul::where(
+                //     'created_at', '>=', Carbon::now()->toDateString()
+                // )->get();
+            }else if($perioada == 'total') {
+                $vehicule = DB::table('vehicul')
+                        ->join('users', 'vehicul.id_utilizator', '=', 'users.id')
+                        ->select('vehicul.*', 'users.nume')
+                        ->get();
+            }
+            return $vehicule;
+        }
+        return [];
     }
 
     /**
@@ -64,6 +104,50 @@ class VehiculController extends Controller
     {
         $vehicule = Vehicul::count();
         return $vehicule;
+    }
+
+    /**
+     *Numara vehicule in funtie de perioada selectata
+     */
+    public function list_perioada($perioada, $id = '')
+    {
+        $rol = auth()->user()->role;
+        $user_id = auth()->user()->id;
+        if($id != '') {
+            $rol = 'partener';
+            $user_id =  $id;
+        }
+        
+        $vehicule = 0;
+        if($rol == 'partener') {
+            if($perioada == 'luna') {
+                $fromDate = Carbon::now()->startOfMonth()->toDateString();
+                $tillDate = Carbon::now()->addDay()->toDateString();
+                $vehicule = Vehicul::where('id_utilizator', $user_id)
+                                    ->whereBetween('created_at',[$fromDate,$tillDate])->get()->count();
+            } else if($perioada == 'azi') {
+                $vehicule = Vehicul::where('id_utilizator', $user_id)
+                                    ->where(
+                                        'created_at', '>=', Carbon::now()->toDateString()
+                                    )->get()->count();
+            }else if($perioada == 'total') {
+                $vehicule = Vehicul::where('id_utilizator', $user_id)->count();
+            }
+            return $vehicule;
+        } elseif($rol == 'admin') {
+            if($perioada == 'luna') {
+                $fromDate = Carbon::now()->startOfMonth()->toDateString();
+                $tillDate = Carbon::now()->addDay()->toDateString();
+                $vehicule = Vehicul::whereBetween('created_at',[$fromDate,$tillDate])->get()->count();
+            } else if($perioada == 'azi') {
+                $vehicule = Vehicul::where(
+                                        'created_at', '>=', Carbon::now()->toDateString()
+                                    )->get()->count();
+            }else if($perioada == 'total') {
+                $vehicule = Vehicul::count();
+            }
+            return $vehicule;
+        }
     }
 
     /**

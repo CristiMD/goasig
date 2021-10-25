@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from './parts/Navbar';
+import Partener from './parts/Partener';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faTrash, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-function Polite() {
+function Parteneri() {
 
     var site_url = "http://127.0.0.1:8000";
     if(window.location.origin == 'https://goasig.ro'){
         site_url = "https://goasig.ro/platforma/public";
     }
 
-    const [polite, setPolite] = useState([]);
+    const [parteneri, setParteneri] = useState([]);
     const [paginaCurenta, setPaginaCurenta] = useState(1);
     const [paginaAnterioara, setPaginaAnterioara] = useState(null);
     const [paginaUrmatoare, setPaginaUrmatoare] = useState(null);
@@ -24,17 +25,27 @@ function Polite() {
     const [perioada, setPerioana] = useState('luna');
     const [loading, setLoading] = useState(0);
     const [termeni, setTermeni] = useState('');
-    const [link, setLink] = useState(site_url+'/polite/all');
+    const [link, setLink] = useState(site_url+'/parteneri/all');
+    const [partener, setPartener] = useState({});
+    const [detaliiPartener, setDetaliiPartener] = useState(false);
 
-    const getAllUtilizatori = (link = site_url+'/polite/all', perioada, refresh = 0) => {
+    const getAllUtilizatori = (link = site_url+'/parteneri/all', perioada, refresh = 0) => {
         let tmp_link = refresh ? link : link+'/'+perioada;
         axios.get(tmp_link).then(res => {
         // axios.get('/platforma/public/users/all').then(res => {
             console.log(res);
-            setPolite(res.data.data);
-            setPaginaCurenta(res.data.current_page);
-            setPaginaAnterioara(res.data.prev_page_url);
-            setPaginaUrmatoare(res.data.next_page_url);
+            if(res.data) {
+                setParteneri(res.data);
+                // setPaginaCurenta(res.data.current_page);
+                // setPaginaAnterioara(res.data.prev_page_url);
+                // setPaginaUrmatoare(res.data.next_page_url);
+            } else {
+                setParteneri([]);
+                // setPaginaCurenta('');
+                // setPaginaAnterioara('');
+                // setPaginaUrmatoare('');
+            }
+            
         })
     }
 
@@ -42,7 +53,7 @@ function Polite() {
         setEditing(true);
         setUser(id);
         // axios.get('/users/'+id).then(res => {
-        axios.get(site_url+'/polite/'+id).then(res => {
+        axios.get(site_url+'/parteneri/'+id).then(res => {
             console.log(res);
             setNume(res.data.nume);
             setEmail(res.data.email);
@@ -54,7 +65,7 @@ function Polite() {
 
     const deletePolita = (id) => {
         // axios.delete('/users/'+id).then(res => {
-        axios.delete(site_url+'/polite/'+id).then(res => {
+        axios.delete(site_url+'/parteneri/'+id).then(res => {
             getAllUtilizatori(link, perioada);
             console.log(res);
         })
@@ -74,12 +85,18 @@ function Polite() {
         // })
     }
 
+    const openDetalii = (partener) => {
+        console.log(partener)
+        setPartener(partener);
+        setDetaliiPartener(true);
+    }
+
     const cautare = (e) => {
         setTermeni(e.target.value);
         if(e.target.value){
-            axios.get(site_url+'/polite/cautare/'+encodeURI(e.target.value)).then(res => {
+            axios.get(site_url+'/parteneri/cautare/'+encodeURI(e.target.value)).then(res => {
                 console.log(res);
-                setPolite(res.data);
+                setParteneri(res.data);
             })
         } else {
             getAllUtilizatori(link, perioada);
@@ -87,7 +104,7 @@ function Polite() {
     }
 
     useEffect(() => {
-        getAllUtilizatori(site_url+'/polite/all','luna');
+        getAllUtilizatori(site_url+'/parteneri/all','luna');
     }, []);
 
     return (
@@ -96,7 +113,8 @@ function Polite() {
                 <Navbar />
             </div>
             <div className="page">
-                <div className="heading top-50"><h1>Polite</h1>
+                {!detaliiPartener ? <>
+                <div className="heading top-50"><h1>Parteneri</h1>
                 <select value={perioada} onChange={(e) => schimbarePerioada(e)}>
                     <option value="azi">Azi</option>
                     <option value="luna">Luna trecuta</option>
@@ -109,35 +127,30 @@ function Polite() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Numar inmatriculare</th>
-                                <th>Nume proprietar</th>
+                                <th>Nume</th>
                                 <th>Telefon</th>
-                                <th>Asigurator</th>
-                                <th>Valoare</th>
-                                <th>Perioada</th>
+                                <th>Email</th>
                                 <th>Actiuni</th>
                             </tr>
                         </thead>
                         <tbody>
-                    {polite.length ? polite.map( polita => {
+                    {parteneri.length ? parteneri.map( partener => {
                         return(
-                        <tr key={polita.id}>
-                            <td>{polita.nr_inmatriculare}</td>
-                            <td>{polita.nume_proprietar} {polita.prenume_proprietar}</td>
-                            <td>{polita.telefon}</td>
-                            <td>{polita.asigurator}</td>
-                            <td>{polita.suma}</td>
-                            <td>{polita.perioada} luni</td>
+                        <tr key={partener.id}>
+                            <td>{partener.nume}</td>
+                            <td>{partener.telefon}</td>
+                            <td>{partener.email}</td>
                             <td><div className="actiuni">
-                                <a id="view" target="_blank" href={polita["link-polita"]}><FontAwesomeIcon icon={faEye} /></a>
-                                <button id="delete" onClick={() => deletePolita(polita.id)}><FontAwesomeIcon icon={faTrash} /></button>
-                                </div></td>
+                                <button id="view" onClick={() => openDetalii(partener)}><FontAwesomeIcon icon={faEye} /></button>
+                                <button id="delete" onClick={() => deletePolita(partener.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                                </div>
+                            </td> 
                         </tr>
                         )
-                    }) : <tr><td colSpan="3">Fara polite</td></tr>}
+                    }) : <tr><td colSpan="3">Fara oferte</td></tr>}
                     </tbody>
                     </table>
-                    {polite.length ? 
+                    {parteneri.length ? 
                         <div className="paginare">
                             <div className="butoane">
                                 {paginaAnterioara ? <button id="delete" onClick={() => schimbaPagina(paginaAnterioara)}><FontAwesomeIcon icon={faArrowLeft} />Anterior</button> : ''}
@@ -146,14 +159,17 @@ function Polite() {
                             </div>
                         </div>
                     : ""}
+                    
                 </div> 
+                </>
+                : <Partener partener = {partener} />}
             </div>
         </div>
     );
 }
 
-export default Polite;
+export default Parteneri;
 
-if (document.getElementById('polite')) {
-    ReactDOM.render(<Polite />, document.getElementById('polite'));
+if (document.getElementById('parteneri')) {
+    ReactDOM.render(<Parteneri />, document.getElementById('parteneri'));
 }

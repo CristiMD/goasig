@@ -14,7 +14,8 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
-        "meng-tian/async-soap-guzzle": "^0.4.0"
+        "meng-tian/async-soap-guzzle": "^0.4.0",
+        "ricorocks-digital-agency/soap": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

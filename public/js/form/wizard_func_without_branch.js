@@ -8,6 +8,9 @@
 		// PHPMailer with html template > phpmailer/without_branch_phpmailer_template.php
 		// PHPMailer with html template SMTP> phpmailer/without_branch_phpmailer_template_smtp.php
 		// $('form#wrapped').attr('action', 'form_send_without_branch.php');
+
+		
+
 		$("#wizard_container").wizard({
 			stepsWrapper: "#wrapped",
 			submit: ".submit",
@@ -21,6 +24,13 @@
 				return !inputs.length || !!inputs.valid();
 			}
 		}).validate({
+			rules: {
+                numar_inmatriculare: {
+					pattern: /^([a-zA-Z]{1,2}[0-9]{2,3}[a-zA-Z]{3})$/,
+					minlength: 10,
+                  	required: true
+                }
+			},
 			errorPlacement: function (error, element) {
 				if (element.is(':radio') || element.is(':checkbox')) {
 					error.insertBefore(element.next());

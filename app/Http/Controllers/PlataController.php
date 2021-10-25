@@ -165,7 +165,9 @@ class PlataController extends Controller
             'nr_ci_conducator' => $selected_offer->nr_ci_conducator,
             'data-generare' => $selected_offer->$datagenerare,
             'data-expirare' => $selected_offer->$dataexpirare,
-            'data-incepere' => $selected_offer->$dataincepere
+            'data-incepere' => $selected_offer->$dataincepere,
+            'comision' => $selected_offer->comision,
+            'valoare_decontare' =>$selected_offer->valoare_decontare
         ));
         $polita->timestamps = false;
         $polita->save();

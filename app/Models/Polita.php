@@ -25,6 +25,7 @@ class Polita extends Model
         'link-polita',
         'decontare_directa',
         'suma',
+        'comision_platit',
         'perioada',
         'asigurator',
         'cod_unic_proprietar',
@@ -41,7 +42,9 @@ class Polita extends Model
         'nr_ci_conducator',
         'data-generare',
         'data-expirare',
-        'data-incepere'
+        'data-incepere',
+        'comision',
+        'valoare_decontare'
     ];
 
 }

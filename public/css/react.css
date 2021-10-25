@@ -5,18 +5,23 @@
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    height: 100vh;
+}
 
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     font-family: 'Open Sans', sans-serif;
 }
 
 .react-wrapper {
     height: 100%;
+    min-height: 100vh;
 }
 
 .container {
@@ -27,6 +32,9 @@ body {
 .page {
     flex: 1;
     padding: 20px;
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .sidebar-nav {
@@ -35,6 +43,7 @@ body {
     text-align: center;
     color: #fff;
     padding: 20px;
+    position: relative;
 }
 
 .side-links {
@@ -217,6 +226,126 @@ a#view {
     text-decoration: none;
     font-weight: bold;
 }
+
+.partener .detalii {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    margin: 20px 0;
+}
+
+.partener .detalii > div {
+    flex: 1;
+    background: rgba(0,0,0,0.1);
+    margin-right: 2px;
+    padding: 20px;
+}
+
+.wrapper-comision {
+    margin-top: 30px;
+}
+
+.tab-navigation {
+    display: flex;
+    align-items: center;
+}
+
+.tab-navigation button {
+    background: #efefef;
+    border-bottom: none;
+    border: 1px solid #222;
+    padding: 5px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.tab-navigation button.activ {
+    background: #fff;
+}
+
+.tab-navigation button:first-child {
+    border-top-left-radius: 5px;
+}
+
+.tab-navigation button:last-child {
+    border-top-right-radius: 5px;
+}
+
+.wrapper-comision .lista-utilizatori {
+    margin-top: 0;
+}
+
+/* placeholder */
+  
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+  }
+  .placeholder {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 1000px 104px;
+    height: 85px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-confirmare {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    background: #fff;
+  }
+
+  .form-confirmare h2 {
+      margin-bottom: 50px;
+  }
+
+  .form-confirmare button {
+    margin-right: 15px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #fff;
+  }
+
+  .form-confirmare button.confirma {
+    background: green;
+  }
+
+  .form-confirmare button.renunta {
+      background: red;
+}
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bottom-links {
+    position: absolute;
+    width: calc(100% - 40px);
+    text-align: center;
+    bottom: 20px;
+  }
 
 @media (max-width: 767px) {
     .container {

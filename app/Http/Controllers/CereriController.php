@@ -16,6 +16,10 @@ use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
 ////
 
+use RicorocksDigitalAgency\Soap\Facades\Soap;
+
+
+
 use App\Models\Vehicul;
 use App\Models\User;
 use App\Models\Proprietar;
@@ -663,36 +667,112 @@ class CereriController extends Controller
 
     }
 
+    // public function marci(Request $request)
+    // {
+
+    //     $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+    //     $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+    //     $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+    //     'soap_version' => SOAP_1_1,
+    //     'location' => $location_URL,
+    //     'uri'      => $action_URL,
+    //     'style'    => SOAP_RPC,
+    //     'use'      => SOAP_ENCODED,
+    //     'trace'    => 1,
+    //     ));
+
+    //     $username = 'testRCA';
+    //     $password = 'test.1234';
+    //     $autentificare = new ComplexCredentials($username, $password);
+
+    //     try {
+    //         $result = $client->__call('GetVehicleBrandsList',
+    //         array(
+    //             $autentificare
+    //         )
+    //     );
+    //     return $result->Lista;
+    //     } catch(Exception $a) {
+    //         echo $a;
+    //     }
+    // }
+
     public function marci(Request $request)
     {
 
-        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
-        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
 
-        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
-        'soap_version' => SOAP_1_1,
-        'location' => $location_URL,
-        'uri'      => $action_URL,
-        'style'    => SOAP_RPC,
-        'use'      => SOAP_ENCODED,
-        'trace'    => 1,
-        ));
+        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE ));
+        $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
+        $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
+        $client->__setSoapHeaders($header);
+        $params = new \stdClass();
+        $params->autentificare_sas = new \stdClass();
+        $params->autentificare_sas->utilizator = 'goasig_dev';
+        $params->autentificare_sas->parola = 'M3PJfSR2dEMrSQ4Y';
 
-        $username = 'testRCA';
-        $password = 'test.1234';
-        $autentificare = new ComplexCredentials($username, $password);
+        $data = $client->login($params);
 
-        try {
-            $result = $client->__call('GetVehicleBrandsList',
-            array(
-                $autentificare
-            )
-        );
-        return $result->Lista;
-        } catch(Exception $a) {
-            echo $a;
-        }
+        // $client = new \SoapClient('https://ws-rca-dev.24broker.ro/?wsdl');
+
+
+        // $header = Soap::header()
+        //     ->name('autentificare')
+        //     ->namespace('test.com')
+        //     ->data([
+        //         'utilizator' => 'goasig_dev',
+        //         'parola' => 'M3PJfSR2dEMrSQ4Y'
+        //     ])
+        //     ->mustUnderstand();
+
+        //     Soap::headers($header);
+
+            
+        // $test = Soap::to('https://ws-rca-dev.24broker.ro/?wsdl')->call('ping', ['content' => 'test']);
+        // Soap::to('github.com/api')->call('merge')
+
+                // print_r($test);
+
+
+        // $username = 'goasig_dev';
+        // $password = 'M3PJfSR2dEMrSQ4Y';
+
+        // $soapBody           =   '<soap:Body>
+        //                         <tem:GetSomeDetails/>
+        //                   </soap:Body>';
+
+        // $xmlRequest         =   $this->generateSoapRequest($soapBody); 
+
+        // $soapr         =   '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/"><soap:Header> 
+        //                                     <ns2:autentificare>
+        //                                     <utilizator>goasig_dev</utilizator>
+        //                                     <parola>M3PJfSR2dEMrSQ4Y</parola>
+        //                                 </ns2:autentificare>
+        //                             </soap:Header></soap:Envelope>';
+
+
+        // $client = new Client();
+
+        //         $options = [
+        //             'body'    => $xmlRequest,
+        //             'headers' => [
+        //                 "Content-Type" => "text/xml",
+        //                 "accept" => "*/*",
+        //                 "accept-encoding" => "gzip, deflate"
+        //             ]
+        //         ];
+
+        //         $res = $client->request(
+        //             'GET',
+        //             'https://ws-rca-dev.24broker.ro/?wsdl',
+        //             $soapr
+        //         );
+
+                // print_r($res->getBody());
+
+        
     }
+
 
     public function activitati(Request $request)
     {
@@ -1078,11 +1158,11 @@ class CereriController extends Controller
         return $check->id;
     }
 
-    public function createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user_id){
+    public function createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user_id = 0){
 
         $check = Conducator::where('cod_unic', $_cnp_driver)->first();
 
-        if(!$check){
+        if(!$check && !$user_id){
             $conducator = new Conducator(array(
                 'cod_unic' => $_cnp_driver,
                 'nume' => $_nume_driver,
@@ -1097,11 +1177,11 @@ class CereriController extends Controller
         }
     }
 
-    public function createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user_id){
+    public function createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user_id = 0){
 
         $check = Proprietar::where('cod_unic', $_cod_unic)->first();
 
-        if(!$check){
+        if(!$check && !$user_id){
             $proprietar = new Proprietar(array(
                 'cod_unic' => $_cod_unic,
                 'tip_persoana' => $tip_persoana,
@@ -1133,22 +1213,42 @@ class CereriController extends Controller
         $check = Vehicul::where('nr_inmatriculare', $nr_inmatriculare)->first();
 
         if(!$check){
-            $vehicul = new Vehicul(array(
-                'nr_inmatriculare' => $nr_inmatriculare,
-                'tip_vehicul' => $tip_vehicul,
-                'marca' => $marca,
-                'model' => $model,
-                'carburant' => $carburant,
-                'utilizare' => $utilizare,
-                'masa_admia' => $masa_admisa,
-                'capacitatea_cilindrica' => $capacitatea_cilindrica,
-                'putere_motor' => $putere_motor,
-                'nr_locuri' => $nr_locuri,
-                'serie_civ' => $serie_civ,
-                'serie_sasiu' => $serie_sasiu,
-                'an_fabricatie' => $an_fabricatie,
-                'id_utilizator' => $user_id
-            ));
+            if(!$user_id){
+                $vehicul = new Vehicul(array(
+                    'nr_inmatriculare' => $nr_inmatriculare,
+                    'tip_vehicul' => $tip_vehicul,
+                    'marca' => $marca,
+                    'model' => $model,
+                    'carburant' => $carburant,
+                    'utilizare' => $utilizare,
+                    'masa_admia' => $masa_admisa,
+                    'capacitatea_cilindrica' => $capacitatea_cilindrica,
+                    'putere_motor' => $putere_motor,
+                    'nr_locuri' => $nr_locuri,
+                    'serie_civ' => $serie_civ,
+                    'serie_sasiu' => $serie_sasiu,
+                    'an_fabricatie' => $an_fabricatie,
+                    'id_utilizator' => $user_id
+                ));
+            } else {
+                $vehicul = new Vehicul(array(
+                    'nr_inmatriculare' => $nr_inmatriculare,
+                    'tip_vehicul' => $tip_vehicul,
+                    'marca' => $marca,
+                    'model' => $model,
+                    'carburant' => $carburant,
+                    'utilizare' => $utilizare,
+                    'masa_admia' => $masa_admisa,
+                    'capacitatea_cilindrica' => $capacitatea_cilindrica,
+                    'putere_motor' => $putere_motor,
+                    'nr_locuri' => $nr_locuri,
+                    'serie_civ' => $serie_civ,
+                    'serie_sasiu' => $serie_sasiu,
+                    'an_fabricatie' => $an_fabricatie,
+                    'id_utilizator' => null
+                ));
+            }
+            
         
             $vehicul->timestamps = false;
             $vehicul->save();
@@ -1199,12 +1299,12 @@ class CereriController extends Controller
         ]);
     }
 
-    public function createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_telefon, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $id_oferta, $nr_inmatriculare, $decontare_directa, $link_plata, $suma_oferta, $perioada_oferta, $asigurator, $data_incepere)
+    public function createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_telefon, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $id_oferta, $nr_inmatriculare, $decontare_directa, $link_plata, $suma_oferta, $perioada_oferta, $asigurator, $data_incepere, $comision, $decontare_valoare)
     {
 
         date_default_timezone_set('UTC');
 
-        if($decontare_directa == true) {
+        if($decontare_directa) {
             $decontare_directa = 1;
         } else {
             $decontare_directa = 0;
@@ -1241,7 +1341,9 @@ class CereriController extends Controller
                 'nr_ci_conducator' => $_numar_ci_driver,
                 'data-generare' => Carbon::now()->isoFormat('YYYY-MM-D'),
                 'data-expirare' => Carbon::createFromIsoFormat('YYYY-MM-D', $data_incepere, 'UTC')->addMonths($perioada_oferta)->isoFormat('YYYY-MM-D'),
-                'data-incepere' => $data_incepere
+                'data-incepere' => $data_incepere,
+                'comision' => $comision,
+                'valoare_decontare' => $decontare_valoare
             ));
             $oferta->timestamps = false;
             $oferta->save();
@@ -1584,6 +1686,8 @@ class CereriController extends Controller
         $user = auth()->user();
         if($user) {
             $user_id = $user->id;
+        } else {
+            $user_id = null;
         }
 
 
@@ -1624,8 +1728,8 @@ class CereriController extends Controller
             $res = $cereri[$i][0]->display()->result;
             // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
             array_push($oferte, $res);
-            // print_r($cereri[$i][0]->display()->result);
-            $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_mobil, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate);
+            // print_r($res);
+            $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_mobil, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate, $res->ComisionValoare,$res->DecontareDirectaValoare);
         }
         $end_time = microtime(true) - $time_start;
 

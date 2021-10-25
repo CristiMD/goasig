@@ -10,13 +10,22 @@ use App\Models\Oferta;
 use App\Models\Polita;
 use Illuminate\Support\Facades\Hash;
 
+use Carbon\Carbon;
+
 class UsersController extends Controller
 {
 
     public function index()
     {
-        $users = User::all();
-        return $users;
+        $rol = auth()->user()->role;
+        if($rol == 'admin') {
+            $users = User::all();
+            return $users;
+        } elseif ($rol == 'admin'){
+            $users = Proprietar::with('user')->get();
+            return $users;
+        }
+        return [];
     }
     /**
      * Display a listing of the resource.
@@ -25,8 +34,102 @@ class UsersController extends Controller
      */
     public function numara()
     {
-        $users = User::count();
-        return $users;
+        $rol = auth()->user()->role;
+        if($rol == 'admin') {
+            $users = User::count();
+            return $users;
+        }
+        return 0;
+    }
+
+    
+    public function index_perioada($perioada)
+    {
+        // $rol = auth()->user()->role;
+        // if($rol == 'admin') {
+        //     $users = User::all();
+        //     return $users;
+        // } elseif ($rol == 'admin'){
+        //     $users = Proprietar::with('user')->get();
+        //     return $users;
+        // }
+        // return [];
+        $rol = auth()->user()->role;
+        $users = [];
+        if($rol == 'admin') {
+            if($perioada == 'luna') {
+                $fromDate = Carbon::now()->startOfMonth()->toDateString();
+                $tillDate = Carbon::now()->addDay()->toDateString();
+                $users = User::whereBetween('created_at',[$fromDate,$tillDate])->get();
+            } else if($perioada == 'azi') {
+                $users = User::where(
+                    'created_at', '>=', Carbon::now()->toDateString()
+                )->get();
+            }else if($perioada == 'total') {
+                $users = User::all();
+            }
+            return $users;
+        }
+        return [];
+    }
+
+    
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_cautare($termeni)
+    {
+        $rol = auth()->user()->role;
+        if($rol == 'admin') {
+            $users = User::where('nume', 'LIKE', '%'.urldecode($termeni).'%')
+                        ->orWhere('email', 'LIKE', '%'.urldecode($termeni).'%')
+                        ->orWhere('telefon', 'LIKE', '%'.urldecode($termeni).'%')
+                                                                ->get();
+            return $users;
+        }
+        return 0;
+    }
+
+    // 
+    // if($rol == 'admin') {
+    //     if($perioada == 'luna') {
+    //         $fromDate = Carbon::now()->subMonth()->startOfMonth()->toDateString();
+    //         $tillDate = Carbon::now()->subMonth()->endOfMonth()->toDateString();
+    //         $users = User::whereBetween('created_at',[$fromDate,$tillDate])->get()->count();
+    //     } else if($perioada == 'azi') {
+    //         $users = User::where(
+    //             'created_at', '>=', Carbon::now()->toDateString()
+    //         )->get()->count();
+    //     }else if($perioada == 'total') {
+    //         $users = User::count();
+    //     }
+    //     return $users;
+    // }
+    // 
+    /**
+     *Numara utilizatori in funtie de perioada selectata
+     */
+    public function list_perioada($perioada)
+    {
+        $rol = auth()->user()->role;
+        $users = 0;
+        if($rol == 'admin') {
+            if($perioada == 'luna') {
+                $fromDate = Carbon::now()->startOfMonth()->toDateString();
+                $tillDate = Carbon::now()->addDay()->toDateString();
+                $users = User::whereBetween('created_at',[$fromDate,$tillDate])->get()->count();
+            } else if($perioada == 'azi') {
+                $users = User::where(
+                    'created_at', '>=', Carbon::now()->toDateString()
+                )->get()->count();
+            }else if($perioada == 'total') {
+                $users = User::count();
+            }
+            return $users;
+        }
+        return 0;
     }
 
     public function cont($view = 'detalii')
@@ -111,6 +214,7 @@ class UsersController extends Controller
         $nume= request('nume');
         $parola= request('parola');
         $telefon = request('telefon');
+        $rol = request('rol');
 
         $check = User::where('email', $email)->first();
 
@@ -119,10 +223,11 @@ class UsersController extends Controller
                 'email' => $email,
                 'nume' => $nume,
                 'parola' => Hash::make($parola),
+                'role' => $rol,
                 'telefon' => $telefon
             ));
         
-            $user->timestamps = false;
+            //$user->timestamps = false;
             $user->save();
             return $user;
         }
@@ -145,7 +250,7 @@ class UsersController extends Controller
         // $email = request('email');
         $nume = request('nume');
         $telefon = request('telefon');
-
+        $rol = request('rol');
         $user = auth()->user();
 
         $user = User::where('id', $user->id)->first();
@@ -153,8 +258,8 @@ class UsersController extends Controller
             // $user->email = $email;
             $user->nume = $nume;
             $user->telefon = $telefon;
-
-            $user->timestamps = false;
+            $user->role = $rol;
+            //$user->timestamps = false;
             $user->save();
 
             return ['edit' => true];
@@ -169,7 +274,7 @@ class UsersController extends Controller
         $nume = request('nume');
         $telefon = request('telefon');
         $parola = request('parola');
-
+        $rol = request('rol');
         $check = User::where('email', $email)->first();
         $user = User::where('id', $id)->first();
 
@@ -177,11 +282,12 @@ class UsersController extends Controller
             $user->email = $email;
             $user->nume = $nume;
             $user->telefon = $telefon;
+            $user->role = $rol;
             if(strlen($parola) > 3){
                 $user->parola = $parola;
             }
 
-            $user->timestamps = false;
+            //$user->timestamps = false;
             $user->save();
 
             return ['edit' => true];
@@ -197,5 +303,16 @@ class UsersController extends Controller
         }
 
         return ['user' => false ];
+    }
+
+
+    ////// Sectiune parteneri
+    public function admin_parteneri() {
+        return view('admin.parteneri');
+    }
+
+    public function list_parteneri() {
+        $parteneri = User::where('role', 'partener')->get();
+        return $parteneri;
     }
 }

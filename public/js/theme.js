@@ -281,10 +281,12 @@
 
         // --------------------------------- Contact Form Validation
           if($('.form-validation').length){
+            console.log($('.form-validation'));
             $('.form-validation').validate({ // initialize the plugin
               rules: {
-                name: {
-                  required: true
+                numar_inmatriculare: {
+                  required: true,
+                  pattern: !/^([a-zA-Z]{1,2}[0-9]{2,3}[a-zA-Z]{3})$/,
                 },
                 email: {
                   required: true,
@@ -877,7 +879,7 @@
         
 
         $("#nmume_proprietar-wrapper").append('<input type="text" name="nmume_proprietar" id="nmume_proprietar" class="required form-control" placeholder="Nume">');
-        $("#cnp_proprietar-wrapper").append('<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="required form-control" placeholder="CNP">');
+        $("#cnp_proprietar-wrapper").append('<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="cnp required form-control" placeholder="CNP">');
         $("#ci_proprietar-wrapper").append('<input type="text" name="ci_proprietar" id="ci_proprietar" class="required form-control" placeholder="Serie CI">');
         $("#prenume_proprietar-wrapper").append('<input type="text" name="prenume_proprietar" id="prenume_proprietar" class="required form-control" placeholder="Prenume">');
         $("#an_permis_proprietar-wrapper").append('<input type="date" name="an_permis_proprietar" id="an_permis_proprietar" class="required form-control" placeholder="Data obtinere permis">');

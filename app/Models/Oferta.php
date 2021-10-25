@@ -40,7 +40,9 @@ class Oferta extends Model
         'nr_ci_conducator',
         'data-generare',
         'data-expirare',
-        'data-incepere'
+        'data-incepere',
+        'comision',
+        'valoare_decontare'
     ];
 
     function user() {

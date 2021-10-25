@@ -162,7 +162,7 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<input type="text" id="numar_inmatriculare" name="numar_inmatriculare" class="required form-control" placeholder="Numar Inmatriculare">
+												<input type="text" id="numar_inmatriculare" name="numar_inmatriculare" class="numaiinm required form-control" placeholder="Numar Inmatriculare">
 											</div>
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
@@ -222,25 +222,25 @@
 									<div class="col-lg-5">
 										<div class="box_general">
 										<div class="form-group">
-											<input type="text" name="masa_maxima" id="masa_maxima" class="required form-control" placeholder="Masa Maxima">
+											<input type="number" min="10"  name="masa_maxima" id="masa_maxima" class="required form-control" placeholder="Masa Maxima">
 										</div>
 										<div class="form-group">
-											<input type="text" name="cap_cil" id="cap_cil" class="required form-control" placeholder="Capacitate cilindrica">
+											<input type="number" min="10"  name="cap_cil" id="cap_cil" class="required form-control" placeholder="Capacitate cilindrica">
 										</div>
 										<div class="form-group">
-											<input type="text" name="putere" id="putere" class="required form-control" placeholder="Putere">
+											<input type="number" min="10"  name="putere" id="putere" class="required form-control" placeholder="Putere">
 										</div>
 										<div class="form-group">
-											<input type="text" name="nr_loc" id="nr_loc" class="required form-control" placeholder="Nr. Locuri">
+											<input type="number" min="1"  name="nr_loc" id="nr_loc" class="required form-control" placeholder="Nr. Locuri">
 										</div>
 										<div class="form-group">
-											<input type="text" name="serie_civ" id="serie_civ" class="required form-control" placeholder="Seria CIV">
+											<input type="text" name="serie_civ" id="serie_civ" class="serieciv required form-control" placeholder="Seria CIV">
 										</div>
 										<div class="form-group">
-											<input type="text" name="sasiu" id="sasiu" class="required form-control" placeholder="Serie sasiu">
+											<input type="text" name="sasiu" id="sasiu" class="seriesasiu required form-control" placeholder="Serie sasiu">
 										</div>
 										<div class="form-group">
-											<input type="text" name="an_fab" name="an_fab" id="an_fab" class="required form-control" placeholder="An fabricatie">
+											<input type="number" min="1900" name="an_fab" name="an_fab" id="an_fab" class="required form-control" placeholder="An fabricatie">
 										</div>
 									</div>
 									</div>
@@ -323,7 +323,7 @@
 										<div class="form-group" id="companie-activitate-wrapper">
 										</div>
 										<div class="form-group" id="cnp_proprietar-wrapper">
-											<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="required form-control" placeholder="CNP">
+											<input type="text" name="cnp_proprietar" id="cnp_proprietar" class="cnp required form-control" placeholder="CNP">
 										</div>
 										<div class="form-group" id="ci_proprietar-wrapper">
 											<input type="text" name="ci_proprietar" id="ci_proprietar" class="required form-control" placeholder="Serie CI">
@@ -503,7 +503,7 @@
 											<input type="text" name="nr_ci_conducatorr"  id="nr_ci_conducatorr" class="form-control" placeholder="Numar CI">
 										</div>
 										<div class="form-group">
-											<input type="text" name="cnp_conducator" id="cnp_conducator" class="form-control" placeholder="CNP">
+											<input type="text" name="cnp_conducator" id="cnp_conducator" class="cnp form-control" placeholder="CNP">
 										</div>
 										
 										
@@ -523,7 +523,7 @@
 											<input type="text" name="adresa_livrare" id="adresa_livrare" class="required form-control" placeholder="Adresa">
 										</div> --}}
 										<div class="form-group">
-											<input type="number" name="valabilitate" id="valabilitate" class="form-control" placeholder="Valabilitate">
+											<input type="number" min="1" max="12"  name="valabilitate" id="valabilitate" class="form-control" placeholder="Valabilitate">
 										</div>
 										{{-- <div class="form-group add_bottom_30">
 											<div class="styled-select">
