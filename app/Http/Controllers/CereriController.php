@@ -735,7 +735,7 @@ class CereriController extends Controller
             </soapenv:Header>\n   
             <soapenv:Body>\n
                 <ns1:ping>\n
-                    <ns1:content>String de test</ns1:content>\n
+                    <content>String de test</content>\n
                 </ns1:ping>\n
             </soapenv:Body>\n
         </soapenv:Envelope>",
