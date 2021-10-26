@@ -734,10 +734,10 @@ class CereriController extends Controller
                 </ns2:autentificare>
             </soapenv:Header>\n   
             <soapenv:Body>\n
-                <ns1:get_societati>\n
-                    <request xsi:type='ns1:get_societati'>\n
+                <ns1:get_marci>\n
+                    <request xsi:type='ns1:get_marci'>\n
                     </request>\n
-                </ns1:get_societati>\n
+                </ns1:get_marci>\n
             </soapenv:Body>\n
         </soapenv:Envelope>",
         CURLOPT_HTTPHEADER => array("content-type: text/xml"),
