@@ -867,7 +867,7 @@ class CereriController extends Controller
             <soapenv:Body>\n
                 <ns1:get_subcategorii>\n
                     <request xsi:type='ns1:get_marci'>\n
-                    <categorie_id>0</categorie_id>\n
+                    <categorie_id xsi:type='xsd:int'>0</categorie_id>\n
                     </request>\n
                 </ns1:get_subcategorii>\n
             </soapenv:Body>\n
