@@ -734,9 +734,9 @@ class CereriController extends Controller
                 </ns2:autentificare>
             </soapenv:Header>\n   
             <soapenv:Body>\n
-                <ns1:ping>
-                    
-                </ns1:ping>   
+                <ns1:ping>\n
+                    <ns1:content>String de test</ns1:content>\n
+                </ns1:ping>\n
             </soapenv:Body>\n
         </soapenv:Envelope>",
         CURLOPT_HTTPHEADER => array("content-type: text/xml"),
