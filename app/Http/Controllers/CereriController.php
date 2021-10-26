@@ -701,8 +701,9 @@ class CereriController extends Controller
     public function marci(Request $request)
     {
 
-
-        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE ));
+        $opts = array('socket' => array('bindto' => '176.223.122.169'));
+        $context = stream_context_create($opts);
+        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context ));
         $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
         $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
         $client->__setSoapHeaders($header);
