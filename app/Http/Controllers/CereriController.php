@@ -701,18 +701,57 @@ class CereriController extends Controller
     public function marci(Request $request)
     {
 
-        $opts = array('socket' => array('bindto' => '176.223.122.169'));
-        $context = stream_context_create($opts);
-        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context ));
-        $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
-        $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
-        $client->__setSoapHeaders($header);
-        $params = new \stdClass();
-        $params->autentificare_sas = new \stdClass();
-        $params->autentificare_sas->utilizator = 'goasig_dev';
-        $params->autentificare_sas->parola = 'M3PJfSR2dEMrSQ4Y';
+        // $opts = array('socket' => array('bindto' => '176.223.122.169'));
+        // $context = stream_context_create($opts);
+        // $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context ));
+        // $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
+        // $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
+        // $client->__setSoapHeaders($header);
+        // $params = new \stdClass();
+        // $params->autentificare_sas = new \stdClass();
+        // $params->autentificare_sas->utilizator = 'goasig_dev';
+        // $params->autentificare_sas->parola = 'M3PJfSR2dEMrSQ4Y';
 
-        $data = $client->login($params);
+        // $data = $client->login($params);
+
+
+        ///curl
+
+
+        $curl = curl_init();
+ 
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://ws-rca-dev.24broker.ro/?wsdl",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_INTERFACE => "176.223.122.169",
+        CURLOPT_POSTFIELDS => 
+        "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://ws-rca-dev.24broker.ro\">\n  
+            <soapenv:Header>\n
+                <ns2:autentificare>\n
+                    <utilizator>goasig_dev</utilizator>\n
+                    <parola>M3PJfSR2dEMrSQ4Y</parola>\n
+                </ns2:autentificare>
+            </soapenv:Header>\n   
+            <soapenv:Body>\n
+                <ns1:ping>
+                    
+                </ns1:ping>   
+            </soapenv:Body>\n
+        </soapenv:Envelope>",
+        CURLOPT_HTTPHEADER => array("content-type: text/xml"),
+        ));
+        
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        echo $response;
+        }
 
         // $client = new \SoapClient('https://ws-rca-dev.24broker.ro/?wsdl');
 
