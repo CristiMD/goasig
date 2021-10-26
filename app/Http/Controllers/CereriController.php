@@ -815,34 +815,75 @@ class CereriController extends Controller
     }
 
 
+    // public function activitati(Request $request)
+    // {
+
+    //     $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+    //     $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+    //     $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+    //     'soap_version' => SOAP_1_1,
+    //     'location' => $location_URL,
+    //     'uri'      => $action_URL,
+    //     'style'    => SOAP_RPC,
+    //     'use'      => SOAP_ENCODED,
+    //     'trace'    => 1,
+    //     ));
+
+    //     $username = 'testRCA';
+    //     $password = 'test.1234';
+    //     $autentificare = new ComplexCredentials($username, $password);
+
+    //     try {
+    //         $result = $client->__call('GetVehicleActivitiesList',
+    //         array(
+    //             $autentificare
+    //         )
+    //     );
+    //     return $result->Lista;
+    //     } catch(Exception $a) {
+    //         echo $a;
+    //     }
+    // }
+
     public function activitati(Request $request)
     {
 
-        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
-        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
-
-        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
-        'soap_version' => SOAP_1_1,
-        'location' => $location_URL,
-        'uri'      => $action_URL,
-        'style'    => SOAP_RPC,
-        'use'      => SOAP_ENCODED,
-        'trace'    => 1,
+        $curl = curl_init();
+ 
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://ws-rca-dev.24broker.ro/?wsdl",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_INTERFACE => "176.223.122.169",
+        CURLOPT_POSTFIELDS => 
+        "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://ws-rca-dev.24broker.ro\">\n  
+            <soapenv:Header>\n
+                <ns2:autentificare>\n
+                    <utilizator>goasig_dev</utilizator>\n
+                    <parola>M3PJfSR2dEMrSQ4Y</parola>\n
+                </ns2:autentificare>
+            </soapenv:Header>\n   
+            <soapenv:Body>\n
+                <ns1:get_subcategorii>\n
+                    <request xsi:type='ns1:get_marci'>\n
+                    <categorie_id>0</categorie_id>\n
+                    </request>\n
+                </ns1:get_subcategorii>\n
+            </soapenv:Body>\n
+        </soapenv:Envelope>",
+        CURLOPT_HTTPHEADER => array("content-type: text/xml"),
         ));
-
-        $username = 'testRCA';
-        $password = 'test.1234';
-        $autentificare = new ComplexCredentials($username, $password);
-
-        try {
-            $result = $client->__call('GetVehicleActivitiesList',
-            array(
-                $autentificare
-            )
-        );
-        return $result->Lista;
-        } catch(Exception $a) {
-            echo $a;
+        
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        echo $response;
         }
     }
 
