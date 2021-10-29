@@ -767,7 +767,7 @@
           $('#tip_vehicul').empty();
           $('#tip_vehicul').append(new Option("Tip vehicul", ""));
           data.map(categorie => {
-            $('#tip_vehicul').append(new Option(categorie[0], categorie[1]));
+            $('#tip_vehicul').append(new Option(categorie.nume, categorie.id));
           });
         }
       });
