@@ -722,7 +722,7 @@
           $('#marca').empty();
           $('#marca').append(new Option("Marca", ""));
           brands.map(brand => {
-            $('#marca').append(new Option(brand[0], brand[1]));
+            $('#marca').append(new Option(brand.nume, brand.id));
           });
         }
       });
