@@ -933,7 +933,7 @@ class CereriController extends Controller
             $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
             $xml = simplexml_load_string($clean_xml);
             // print_r($xml->Body->get_subcategoriiResponse->return);
-            $arr = $xml->Body->get_subcategoriiResponse->return->item;
+            $arr = $xml->Body->get_subcategoriiResponse->return;
             $array = json_decode(json_encode((array)$arr), TRUE); 
             print_r($array);
             // foreach ($arr as $key => $value) {
