@@ -939,7 +939,7 @@ class CereriController extends Controller
             $array = json_decode(json_encode((array)$arr), TRUE); 
             //print_r($array["item"]);
             print_r($array);
-            foreach ($array as $key => $value) {
+            foreach ($array["item"] as $key => $value) {
                 
                 $tmp = new \stdClass();
                 $tmp->id = $value["id"][0];
