@@ -940,6 +940,14 @@ class CereriController extends Controller
         //     return $coduri;
         // }
 
+        $soap_exception_occured = false;
+        $ipandport = array(
+            'socket' => array(
+                'bindto' => '176.223.122.169',
+            ),
+        );
+        $setip  = stream_context_create($ipandport);
+
 
         $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE ));
         $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
