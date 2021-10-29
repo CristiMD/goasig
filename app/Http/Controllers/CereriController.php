@@ -940,7 +940,7 @@ class CereriController extends Controller
             // }
 
             $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $result["data"]);
-            $xml = new SimpleXMLElement($response);
+            $xml = new \SimpleXMLElement($response);
             $body = $xml->xpath('//SBody')[0];
             $array = json_decode(json_encode((array)$body), TRUE); 
             print_r($array);
