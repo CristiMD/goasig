@@ -761,37 +761,56 @@ class CereriController extends Controller
     //     }
     // }
 
-    public function makeRequest($body){
-        $curl = curl_init();
+    // public function makeRequest($body){
+    //     $curl = curl_init();
  
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "http://ws-rca-dev.24broker.ro/?wsdl",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_INTERFACE => "176.223.122.169",
-        CURLOPT_POSTFIELDS => 
-        "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://ws-rca-dev.24broker.ro\">\n  
-            <soapenv:Header>\n
-                <ns2:autentificare>\n
-                    <utilizator>goasig_dev</utilizator>\n
-                    <parola>M3PJfSR2dEMrSQ4Y</parola>\n
-                </ns2:autentificare>
-            </soapenv:Header>\n   
-            <soapenv:Body>".$body."</soapenv:Body>\n
-        </soapenv:Envelope>",
-        CURLOPT_HTTPHEADER => array("content-type: text/xml"),
-        ));
+    //     curl_setopt_array($curl, array(
+    //     CURLOPT_URL => "http://ws-rca-dev.24broker.ro/?wsdl",
+    //     CURLOPT_RETURNTRANSFER => true,
+    //     CURLOPT_CUSTOMREQUEST => "POST",
+    //     CURLOPT_INTERFACE => "176.223.122.169",
+    //     CURLOPT_POSTFIELDS => 
+    //     "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://ws-rca-dev.24broker.ro\">\n  
+    //         <soapenv:Header>\n
+    //             <ns2:autentificare>\n
+    //                 <utilizator>goasig_dev</utilizator>\n
+    //                 <parola>M3PJfSR2dEMrSQ4Y</parola>\n
+    //             </ns2:autentificare>
+    //         </soapenv:Header>\n   
+    //         <soapenv:Body>".$body."</soapenv:Body>\n
+    //     </soapenv:Envelope>",
+    //     CURLOPT_HTTPHEADER => array("content-type: text/xml"),
+    //     ));
         
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+    //     $response = curl_exec($curl);
+    //     $err = curl_error($curl);
         
-        curl_close($curl);
+    //     curl_close($curl);
         
-        if ($err) {
-            return ["err"=> true, "message" => $err];
-        } else {
-            return ["err"=> false, "data" => $response];
-        }
+    //     if ($err) {
+    //         return ["err"=> true, "message" => $err];
+    //     } else {
+    //         return ["err"=> false, "data" => $response];
+    //     }
+    // }
+
+    public function makeRequest(){
+        $options = array('socket' => array('bindto' => '176.223.122.169:0'));
+        $context = stream_context_create($options);
+
+        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context));
+        $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
+        $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
+        $client->__setSoapHeaders($header);
+
+        return $client;
+
+        // try {
+        //     $data = $client->get_coduri_caen();
+        //     var_dump($data);
+        // } catch (SoapFault $exception) {
+        //     echo 'Exception: ' . $exception->faultstring;
+        // }
     }
 
     public function activitati(Request $request)
@@ -940,13 +959,7 @@ class CereriController extends Controller
         //     return $coduri;
         // }
 
-        $options = array('socket' => array('bindto' => '176.223.122.169:0'));
-        $context = stream_context_create($options);
-
-        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context));
-        $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
-        $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
-        $client->__setSoapHeaders($header);
+        $client = $this->makeRequest();
 
         try {
             $data = $client->get_coduri_caen();
