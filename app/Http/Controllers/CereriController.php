@@ -996,8 +996,8 @@ class CereriController extends Controller
     /////// cotatie 24broker /////
 
     public function caen() {
-        $params = new stdClass();
-        $params->vehicul = new stdClass();
+        $params = new \stdClass();
+        $params->vehicul = new \stdClass();
         $params->vehicul->numar_inmatriculare = 'CJ-06-BNM';
         $params->vehicul->tip_inmatriculare = 'inmatriculat';
         $params->vehicul->serie_sasiu = 'WSDF123123154';
@@ -1015,13 +1015,13 @@ class CereriController extends Controller
         $params->vehicul->tip_utilizare = 'personal';
         $params->vehicul->leasing = false;
         $params->vehicul->carte_identitate = 'H123123';
-        $params->proprietar = new stdClass();
+        $params->proprietar = new \stdClass();
         $params->proprietar->tip_persoana = 'fizica';
         $params->proprietar->cod_unic = '1861111331600';
         $params->proprietar->nume = 'Florin';
         $params->proprietar->prenume = 'Piersic';
         $params->proprietar->societate = null;
-        $params->proprietar->adresa = new stdClass();
+        $params->proprietar->adresa = new \stdClass();
         $params->proprietar->adresa->localitate_siruta = 55268;
         $params->proprietar->adresa->judet = 'CJ';
         $params->proprietar->adresa->strada = 'Principala';
@@ -1032,8 +1032,8 @@ class CereriController extends Controller
         $params->proprietar->societate_de_leasing = false;
         $params->domeniu_activitate = 3;
         $params->clasa_bm_anterioara = 'B0';
-        $params->data_inceput = '2014-12-01';
-        $params->reduceri = new stdClass();
+        $params->data_inceput = '2021-12-01';
+        $params->reduceri = new \stdClass();
         $params->reduceri->reducere_tehnica = 5;
         $params->societate = 'euroins';
         $params->durata = 6;
