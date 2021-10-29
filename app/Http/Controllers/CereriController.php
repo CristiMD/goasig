@@ -698,35 +698,52 @@ class CereriController extends Controller
     //     }
     // }
 
+    // public function marci(Request $request)
+    // {
+    //     $body =  "<ns1:get_marci>\n
+    //                 <request xsi:type='ns1:get_marci'>\n
+    //                     <tip_inmatriculare xsi:type='tns:tipuri_inmatriculare'>inmatriculat</tip_inmatriculare>\n
+    //                     <categorie xsi:type='xsd:string'>1</categorie>\n
+    //                     <subcategorie xsi:type='xsd:string'>1</subcategorie>\n
+    //                 </request>\n
+    //             </ns1:get_marci>\n";
+
+    //     $marci = [];
+
+    //     $result = $this->makeRequest($body);
+    //     if($result["err"]) {
+    //         echo "A aparut o eroare".$result["message"];
+    //     } else {
+    //         $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+    //         $xml = simplexml_load_string($clean_xml);
+    //         $arr = $xml->Body->get_marciResponse->return;
+    //         $array = json_decode(json_encode((array)$arr), TRUE); 
+    //         foreach ($array["item"] as $key => $value) {
+    //             $tmp = new \stdClass();
+    //             $tmp->id = $value["id"][0];
+    //             $tmp->nume = $value["nume"][0];
+    //             $tmp->marca_uzuala = $value["marca_uzuala"][0];
+    //             array_push($marci, $tmp);
+    //         }
+    //         return $marci;
+    //     }
+    // }
+
     public function marci(Request $request)
     {
-        $body =  "<ns1:get_marci>\n
-                    <request xsi:type='ns1:get_marci'>\n
-                        <tip_inmatriculare xsi:type='tns:tipuri_inmatriculare'>inmatriculat</tip_inmatriculare>\n
-                        <categorie xsi:type='xsd:string'>1</categorie>\n
-                        <subcategorie xsi:type='xsd:string'>1</subcategorie>\n
-                    </request>\n
-                </ns1:get_marci>\n";
+        $client = $this->makeRequest();
 
-        $marci = [];
+        $params = new \stdClass();
+        $params->tip_inmatriculare = "inmatriculat";
+        $params->categorie = 1;
+        $params->subcategorie = 1;
 
-        $result = $this->makeRequest($body);
-        if($result["err"]) {
-            echo "A aparut o eroare".$result["message"];
-        } else {
-            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
-            $xml = simplexml_load_string($clean_xml);
-            $arr = $xml->Body->get_marciResponse->return;
-            $array = json_decode(json_encode((array)$arr), TRUE); 
-            foreach ($array["item"] as $key => $value) {
-                $tmp = new \stdClass();
-                $tmp->id = $value["id"][0];
-                $tmp->nume = $value["nume"][0];
-                $tmp->marca_uzuala = $value["marca_uzuala"][0];
-                array_push($marci, $tmp);
-            }
-            return $marci;
-        }
+        try {
+            $data = $client->get_marci($params);
+            return $data;
+        } catch (SoapFault $exception) {
+            echo 'Exception: ' . $exception->faultstring;
+       }
     }
 
 
