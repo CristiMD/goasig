@@ -955,17 +955,15 @@ class CereriController extends Controller
             
             $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
             $xml = simplexml_load_string($clean_xml);
-            print_r($xml);
-            // $arr = $xml->Body->get_categoriiResponse->return;
-            // $array = json_decode(json_encode((array)$arr), TRUE); 
-            // foreach ($array["item"] as $key => $value) {
-            //     $tmp = new \stdClass();
-            //     $tmp->id = $value["id"][0];
-            //     $tmp->categorie_id = $value["categorie_id"][0];
-            //     $tmp->nume = $value["nume"][0];
-            //     array_push($categorii, $tmp);
-            // }
-            // return $categorii;
+            $arr = $xml->Body->get_categoriiResponse->return;
+            $array = json_decode(json_encode((array)$arr), TRUE); 
+            foreach ($array["item"] as $key => $value) {
+                $tmp = new \stdClass();
+                $tmp->id = $value["id"][0];
+                $tmp->nume = $value["nume"][0];
+                array_push($categorii, $tmp);
+            }
+            return $categorii;
         }
     }
 
