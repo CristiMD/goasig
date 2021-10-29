@@ -866,33 +866,46 @@ class CereriController extends Controller
     //     }
     // }
 
+
     public function categorii(Request $request)
     {
-        $body =  "<ns1:get_categorii>\n
-                    <request xsi:type='ns1:get_categorii'>\n
-                    </request>\n
-                </ns1:get_categorii>\n";
+        $client = $this->makeRequest();
 
-        $categorii = [];
-
-        $result = $this->makeRequest($body);
-        if($result["err"]) {
-            echo "A aparut o eroare".$result["message"];
-        } else {
-            
-            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
-            $xml = simplexml_load_string($clean_xml);
-            $arr = $xml->Body->get_categoriiResponse->return;
-            $array = json_decode(json_encode((array)$arr), TRUE); 
-            foreach ($array["item"] as $key => $value) {
-                $tmp = new \stdClass();
-                $tmp->id = $value["id"][0];
-                $tmp->nume = $value["nume"][0];
-                array_push($categorii, $tmp);
-            }
-            return $categorii;
-        }
+        try {
+            $data = $client->get_categorii();
+            return $data;
+        } catch (SoapFault $exception) {
+            echo 'Exception: ' . $exception->faultstring;
+       }
     }
+
+    // public function categorii(Request $request)
+    // {
+    //     $body =  "<ns1:get_categorii>\n
+    //                 <request xsi:type='ns1:get_categorii'>\n
+    //                 </request>\n
+    //             </ns1:get_categorii>\n";
+
+    //     $categorii = [];
+
+    //     $result = $this->makeRequest($body);
+    //     if($result["err"]) {
+    //         echo "A aparut o eroare".$result["message"];
+    //     } else {
+            
+    //         $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+    //         $xml = simplexml_load_string($clean_xml);
+    //         $arr = $xml->Body->get_categoriiResponse->return;
+    //         $array = json_decode(json_encode((array)$arr), TRUE); 
+    //         foreach ($array["item"] as $key => $value) {
+    //             $tmp = new \stdClass();
+    //             $tmp->id = $value["id"][0];
+    //             $tmp->nume = $value["nume"][0];
+    //             array_push($categorii, $tmp);
+    //         }
+    //         return $categorii;
+    //     }
+    // }
 
     // public function caen(Request $request)
     // {
@@ -925,47 +938,49 @@ class CereriController extends Controller
     //     }
     // }
 
+    // public function caen(Request $request)
+    // {
+    //     // $body =  "<ns1:get_coduri_caen>\n
+    //     //             <request xsi:type='ns1:get_coduri_caen'>\n
+    //     //             </request>\n
+    //     //         </ns1:get_coduri_caen>\n";
+
+    //     // $coduri = [];
+
+    //     // $result = $this->makeRequest($body);
+    //     // if($result["err"]) {
+    //     //     echo "A aparut o eroare".$result["message"];
+    //     // } else {
+            
+    //     //     $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+    //     //     $xml = simplexml_load_string($clean_xml);
+    //     //     $arr = $xml->Body->get_coduri_caenResponse->return;
+    //     //     $array = json_decode(json_encode((array)$arr), TRUE); 
+    //     //     foreach ($array["item"] as $key => $value) {
+    //     //         $tmp = new \stdClass();
+    //     //         $tmp->cod = $value["cod"][0];
+    //     //         $tmp->nume = $value["nume"][0];
+    //     //         array_push($coduri, $tmp);
+    //     //     }
+    //     //     return $coduri;
+    //     // }
+
+    //     $client = $this->makeRequest();
+
+    //     try {
+    //         $data = $client->get_coduri_caen();
+    //         return $data;
+    //     } catch (SoapFault $exception) {
+    //         echo 'Exception: ' . $exception->faultstring;
+    //    }
+    // }
+
     public function caen(Request $request)
     {
-        // $body =  "<ns1:get_coduri_caen>\n
-        //             <request xsi:type='ns1:get_coduri_caen'>\n
-        //             </request>\n
-        //         </ns1:get_coduri_caen>\n";
-
-        // $coduri = [];
-
-        // $result = $this->makeRequest($body);
-        // if($result["err"]) {
-        //     echo "A aparut o eroare".$result["message"];
-        // } else {
-            
-        //     $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
-        //     $xml = simplexml_load_string($clean_xml);
-        //     $arr = $xml->Body->get_coduri_caenResponse->return;
-        //     $array = json_decode(json_encode((array)$arr), TRUE); 
-        //     foreach ($array["item"] as $key => $value) {
-        //         $tmp = new \stdClass();
-        //         $tmp->cod = $value["cod"][0];
-        //         $tmp->nume = $value["nume"][0];
-        //         array_push($coduri, $tmp);
-        //     }
-        //     return $coduri;
-        // }
-
         $client = $this->makeRequest();
-
-        $coduri = [];
 
         try {
             $data = $client->get_coduri_caen();
-            // foreach ($data as $key => $value) {
-            //     print_r($value);
-            //     // $tmp = new \stdClass();
-            //     // $tmp->cod = $value["cod"][0];
-            //     // $tmp->nume = $value["nume"][0];
-            //     // array_push($coduri, $tmp);
-            // }
-            // print_r($coduri);
             return $data;
         } catch (SoapFault $exception) {
             echo 'Exception: ' . $exception->faultstring;
