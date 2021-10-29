@@ -914,11 +914,46 @@ class CereriController extends Controller
     public function categorii(Request $request)
     {
         $params = new \stdClass();
+        $params->vehicul = new \stdClass();
+        $params->vehicul->numar_inmatriculare = 'CJ-06-BNM';
+        $params->vehicul->tip_inmatriculare = 'inmatriculat';
+        $params->vehicul->serie_sasiu = 'WSDF123123154';
+        $params->vehicul->categorie = 1;
+        $params->vehicul->subcategorie = 'Autoturism de teren';
+        $params->vehicul->marca = 'DACIA';
+        $params->vehicul->model = 'Logan 1.5 dCi Prestige';
+        $params->vehicul->model_id = "";
+        $params->vehicul->an_fabricatie = 2005;
+        $params->vehicul->capacitate_cilindrica = 1461;
+        $params->vehicul->putere = 63;
+        $params->vehicul->masa_maxima = 1065;
+        $params->vehicul->numar_locuri = 5;
+        $params->vehicul->combustibil = 'benzina';
+        $params->vehicul->tip_utilizare = 'personal';
+        $params->vehicul->leasing = false;
+        $params->vehicul->carte_identitate = 'H123123';
+        $params->proprietar = new \stdClass();
+        $params->proprietar->tip_persoana = 'fizica';
+        $params->proprietar->cod_unic = '1861111331600';
+        $params->proprietar->telefon_mobil = '0769030490';
+        $params->proprietar->nume = 'Florin';
+        $params->proprietar->prenume = 'Piersic';
+        $params->proprietar->societate = null;
+        $params->proprietar->adresa = new \stdClass();
+        $params->proprietar->adresa->localitate_siruta = 55268;
+        $params->proprietar->adresa->judet = 'CJ';
+        $params->proprietar->adresa->strada = 'Principala';
+        $params->proprietar->data_permis_conducere = '2012-02-29';
+        $params->proprietar->bugetar = true;
+        $params->proprietar->somer = true;
+        $params->proprietar->numar_daune = 3;
+        $params->proprietar->societate_de_leasing = false;
         $params->identificator_oferta = "a615a780-3897-11ec-b442-d686eb040809";
+        $params->mod_de_plata = 'op broker';
 
         $client = $this->makeRequest();
         try {
-            $data = $client->get_oferta_pdf($params);
+            $data = $client->emitere_polita($params);
             var_dump($data);
        } catch (SoapFault $exception) {
             echo 'Exception: ' . $exception->faultstring;
