@@ -838,20 +838,20 @@ class CereriController extends Controller
        }
     }
 
-    public function activitati(Request $request)
-    {
-        $client = $this->makeRequest();
+    // public function activitati(Request $request)
+    // {
+    //     $client = $this->makeRequest();
 
-        $params = new \stdClass();
-        $params->categorie_id = 1;
+    //     $params = new \stdClass();
+    //     $params->categorie_id = 1;
 
-        try {
-            $data = $client->get_subcategorii($params);
-            return $data;
-        } catch (SoapFault $exception) {
-            echo 'Exception: ' . $exception->faultstring;
-       }
-    }
+    //     try {
+    //         $data = $client->get_subcategorii($params);
+    //         return $data;
+    //     } catch (SoapFault $exception) {
+    //         echo 'Exception: ' . $exception->faultstring;
+    //    }
+    // }
 
     // public function activitati(Request $request)
     // {
