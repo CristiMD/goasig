@@ -925,6 +925,8 @@ class CereriController extends Controller
                     </request>\n
                  </ns1:get_subcategorii>\n";
 
+        $categorii = [];
+
         $result = $this->makeRequest($body);
         if($result["err"]) {
             echo "A aparut o eroare".$result["message"];
@@ -937,8 +939,13 @@ class CereriController extends Controller
             $array = json_decode(json_encode((array)$arr), TRUE); 
             //print_r($array["item"]);
             foreach ($array as $key => $value) {
-                print_r($value);
+                $tmp = new \stdClass();
+                $tmp->id = $value->id[0];
+                $tmp->categorie_id = $value->categorie_id[0];
+                $tmp->nume = $value->nume[0];
+                array_push($categorii, $tmp);
             }
+            print_r($categorii);
         }
     }
 
