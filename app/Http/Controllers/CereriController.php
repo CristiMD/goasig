@@ -915,30 +915,43 @@ class CereriController extends Controller
 
     public function caen(Request $request)
     {
-        $body =  "<ns1:get_coduri_caen>\n
-                    <request xsi:type='ns1:get_coduri_caen'>\n
-                    </request>\n
-                </ns1:get_coduri_caen>\n";
+        // $body =  "<ns1:get_coduri_caen>\n
+        //             <request xsi:type='ns1:get_coduri_caen'>\n
+        //             </request>\n
+        //         </ns1:get_coduri_caen>\n";
 
-        $coduri = [];
+        // $coduri = [];
 
-        $result = $this->makeRequest($body);
-        if($result["err"]) {
-            echo "A aparut o eroare".$result["message"];
-        } else {
+        // $result = $this->makeRequest($body);
+        // if($result["err"]) {
+        //     echo "A aparut o eroare".$result["message"];
+        // } else {
             
-            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
-            $xml = simplexml_load_string($clean_xml);
-            $arr = $xml->Body->get_coduri_caenResponse->return;
-            $array = json_decode(json_encode((array)$arr), TRUE); 
-            foreach ($array["item"] as $key => $value) {
-                $tmp = new \stdClass();
-                $tmp->cod = $value["cod"][0];
-                $tmp->nume = $value["nume"][0];
-                array_push($coduri, $tmp);
-            }
-            return $coduri;
-        }
+        //     $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+        //     $xml = simplexml_load_string($clean_xml);
+        //     $arr = $xml->Body->get_coduri_caenResponse->return;
+        //     $array = json_decode(json_encode((array)$arr), TRUE); 
+        //     foreach ($array["item"] as $key => $value) {
+        //         $tmp = new \stdClass();
+        //         $tmp->cod = $value["cod"][0];
+        //         $tmp->nume = $value["nume"][0];
+        //         array_push($coduri, $tmp);
+        //     }
+        //     return $coduri;
+        // }
+
+
+        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE ));
+        $param = new \SoapVar(array('utilizator' => 'abdullah','parola'=>'test'), SOAP_ENC_OBJECT); 
+        $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
+        $client->__setSoapHeaders($header);
+
+        try {
+            $data = $client->get_coduri_caen();
+            var_dump($data);
+       } catch (SoapFault $exception) {
+            echo 'Exception: ' . $exception->faultstring;
+       }
     }
 
     /**
