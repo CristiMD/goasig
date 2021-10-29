@@ -700,118 +700,31 @@ class CereriController extends Controller
 
     public function marci(Request $request)
     {
-
-        // $opts = array('socket' => array('bindto' => '176.223.122.169'));
-        // $context = stream_context_create($opts);
-        // $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context ));
-        // $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
-        // $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
-        // $client->__setSoapHeaders($header);
-        // $params = new \stdClass();
-        // $params->autentificare_sas = new \stdClass();
-        // $params->autentificare_sas->utilizator = 'goasig_dev';
-        // $params->autentificare_sas->parola = 'M3PJfSR2dEMrSQ4Y';
-
-        // $data = $client->login($params);
-
-
-        ///curl
-
-
-        $curl = curl_init();
- 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "http://ws-rca-dev.24broker.ro/?wsdl",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_INTERFACE => "176.223.122.169",
-        CURLOPT_POSTFIELDS => 
-        "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://ws-rca-dev.24broker.ro\">\n  
-            <soapenv:Header>\n
-                <ns2:autentificare>\n
-                    <utilizator>goasig_dev</utilizator>\n
-                    <parola>M3PJfSR2dEMrSQ4Y</parola>\n
-                </ns2:autentificare>
-            </soapenv:Header>\n   
-            <soapenv:Body>\n
-                <ns1:get_marci>\n
+        $body =  "<ns1:get_marci>\n
                     <request xsi:type='ns1:get_marci'>\n
                     </request>\n
-                </ns1:get_marci>\n
-            </soapenv:Body>\n
-        </soapenv:Envelope>",
-        CURLOPT_HTTPHEADER => array("content-type: text/xml"),
-        ));
-        
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        
-        curl_close($curl);
-        
-        if ($err) {
-        echo "cURL Error #:" . $err;
+                </ns1:get_marci>\n";
+
+        $activitati = [];
+
+        $result = $this->makeRequest($body);
+        if($result["err"]) {
+            echo "A aparut o eroare".$result["message"];
         } else {
-        echo $response;
+            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+            $xml = simplexml_load_string($clean_xml);
+            print_r($xml);
+            // $arr = $xml->Body->get_subcategoriiResponse->return;
+            // $array = json_decode(json_encode((array)$arr), TRUE); 
+            // foreach ($array["item"] as $key => $value) {
+            //     $tmp = new \stdClass();
+            //     $tmp->id = $value["id"][0];
+            //     $tmp->categorie_id = $value["categorie_id"][0];
+            //     $tmp->nume = $value["nume"][0];
+            //     array_push($activitati, $tmp);
+            // }
+            // return $activitati;
         }
-
-        // $client = new \SoapClient('https://ws-rca-dev.24broker.ro/?wsdl');
-
-
-        // $header = Soap::header()
-        //     ->name('autentificare')
-        //     ->namespace('test.com')
-        //     ->data([
-        //         'utilizator' => 'goasig_dev',
-        //         'parola' => 'M3PJfSR2dEMrSQ4Y'
-        //     ])
-        //     ->mustUnderstand();
-
-        //     Soap::headers($header);
-
-            
-        // $test = Soap::to('https://ws-rca-dev.24broker.ro/?wsdl')->call('ping', ['content' => 'test']);
-        // Soap::to('github.com/api')->call('merge')
-
-                // print_r($test);
-
-
-        // $username = 'goasig_dev';
-        // $password = 'M3PJfSR2dEMrSQ4Y';
-
-        // $soapBody           =   '<soap:Body>
-        //                         <tem:GetSomeDetails/>
-        //                   </soap:Body>';
-
-        // $xmlRequest         =   $this->generateSoapRequest($soapBody); 
-
-        // $soapr         =   '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/"><soap:Header> 
-        //                                     <ns2:autentificare>
-        //                                     <utilizator>goasig_dev</utilizator>
-        //                                     <parola>M3PJfSR2dEMrSQ4Y</parola>
-        //                                 </ns2:autentificare>
-        //                             </soap:Header></soap:Envelope>';
-
-
-        // $client = new Client();
-
-        //         $options = [
-        //             'body'    => $xmlRequest,
-        //             'headers' => [
-        //                 "Content-Type" => "text/xml",
-        //                 "accept" => "*/*",
-        //                 "accept-encoding" => "gzip, deflate"
-        //             ]
-        //         ];
-
-        //         $res = $client->request(
-        //             'GET',
-        //             'https://ws-rca-dev.24broker.ro/?wsdl',
-        //             $soapr
-        //         );
-
-                // print_r($res->getBody());
-
-        
     }
 
 
