@@ -716,8 +716,8 @@
         encode: true,
       }).done(function (data) {
         console.log(data);
-        let parsed = JSON.parse(data);
-        let brands = Object.entries(parsed)
+        // let parsed = JSON.parse(data);
+        // let brands = Object.entries(parsed)
         if(data.length){
           $('#marca').empty();
           $('#marca').append(new Option("Marca", ""));
@@ -761,8 +761,8 @@
         encode: true,
       }).done(function (data) {
         console.log(data);
-        let parsed = JSON.parse(data);
-        let categorii = Object.entries(parsed)
+        // let parsed = JSON.parse(data);
+        // let categorii = Object.entries(parsed)
         if(data.length){
           $('#tip_vehicul').empty();
           $('#tip_vehicul').append(new Option("Tip vehicul", ""));
