@@ -958,14 +958,15 @@ class CereriController extends Controller
 
         try {
             $data = $client->get_coduri_caen();
-            foreach ($data as $key => $value) {
-                print_r($value);
-                // $tmp = new \stdClass();
-                // $tmp->cod = $value["cod"][0];
-                // $tmp->nume = $value["nume"][0];
-                // array_push($coduri, $tmp);
-            }
-            print_r($coduri);
+            // foreach ($data as $key => $value) {
+            //     print_r($value);
+            //     // $tmp = new \stdClass();
+            //     // $tmp->cod = $value["cod"][0];
+            //     // $tmp->nume = $value["nume"][0];
+            //     // array_push($coduri, $tmp);
+            // }
+            // print_r($coduri);
+            return $data;
         } catch (SoapFault $exception) {
             echo 'Exception: ' . $exception->faultstring;
        }
