@@ -940,7 +940,7 @@ class CereriController extends Controller
         //     return $coduri;
         // }
 
-        $options = array('socket' => array('bindto' => '176.223.122.169'));
+        $options = array('socket' => array('bindto' => '176.223.122.169:0'));
         $context = stream_context_create($options);
 
         $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context));
