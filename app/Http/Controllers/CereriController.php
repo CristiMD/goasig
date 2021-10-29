@@ -1018,6 +1018,7 @@ class CereriController extends Controller
         $params->proprietar = new \stdClass();
         $params->proprietar->tip_persoana = 'fizica';
         $params->proprietar->cod_unic = '1861111331600';
+        $params->proprietar->telefon_mobil = '0769030490';
         $params->proprietar->nume = 'Florin';
         $params->proprietar->prenume = 'Piersic';
         $params->proprietar->societate = null;
