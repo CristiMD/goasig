@@ -804,13 +804,6 @@ class CereriController extends Controller
         $client->__setSoapHeaders($header);
 
         return $client;
-
-        // try {
-        //     $data = $client->get_coduri_caen();
-        //     var_dump($data);
-        // } catch (SoapFault $exception) {
-        //     echo 'Exception: ' . $exception->faultstring;
-        // }
     }
 
     public function activitati(Request $request)
@@ -961,10 +954,18 @@ class CereriController extends Controller
 
         $client = $this->makeRequest();
 
+        $coduri = [];
+
         try {
             $data = $client->get_coduri_caen();
-            var_dump($data);
-       } catch (SoapFault $exception) {
+            foreach (data as $key => $value) {
+                $tmp = new \stdClass();
+                $tmp->cod = $value["cod"][0];
+                $tmp->nume = $value["nume"][0];
+                array_push($coduri, $tmp);
+            }
+            print_r($coduri);
+        } catch (SoapFault $exception) {
             echo 'Exception: ' . $exception->faultstring;
        }
     }
