@@ -49,6 +49,28 @@ class ComplexCredentials{
     public $parola;
 }
 
+// class Vehicul {
+//     public function __construct($user, $parola) {
+//         $params->vehicul->numar_inmatriculare = $numar_inmatriculare;
+//         $params->vehicul->tip_inmatriculare = $tip_inmatriculare;
+//         $params->vehicul->serie_sasiu = $serie_sasiu;
+//         $params->vehicul->categorie = $categorie;
+//         $params->vehicul->subcategorie = $subcategorie;
+//         $params->vehicul->marca = $marca;
+//         $params->vehicul->model = $model;
+//         $params->vehicul->model_id = $model_id;
+//         $params->vehicul->an_fabricatie = $an_fabricatie;
+//         $params->vehicul->capacitate_cilindrica = $capacitate_cilindrica;
+//         $params->vehicul->putere = $putere;
+//         $params->vehicul->masa_maxima = $masa_maxima;
+//         $params->vehicul->numar_locuri = $numar_locuri;
+//         $params->vehicul->combustibil = $combustibil;
+//         $params->vehicul->tip_utilizare = $tip_utilizare;
+//         $params->vehicul->leasing = $leasing;
+//         $params->vehicul->carte_identitate = $carte_identitate;
+//     }
+// }
+
 class ComplexVehicle{
 
     public function __construct($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an, $_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa) {
@@ -914,71 +936,71 @@ class CereriController extends Controller
     // }
 
 
-    public function categorii(Request $request)
-    {
-        $client = $this->makeRequest();
-
-        try {
-            $data = $client->get_categorii();
-            return $data;
-        } catch (SoapFault $exception) {
-            echo 'Exception: ' . $exception->faultstring;
-       }
-    }
-
     // public function categorii(Request $request)
     // {
-    //    $params = new \stdClass();
-    //     $params->vehicul = new \stdClass();
-    //     $params->vehicul->numar_inmatriculare = 'CJ-06-BNM';
-    //     $params->vehicul->tip_inmatriculare = 'inmatriculat';
-    //     $params->vehicul->serie_sasiu = 'WSDF123123154';
-    //     $params->vehicul->categorie = 1;
-    //     $params->vehicul->subcategorie = 'Autoturism de teren';
-    //     $params->vehicul->marca = 'DACIA';
-    //     $params->vehicul->model = 'Logan 1.5 dCi Prestige';
-    //     $params->vehicul->model_id = "";
-    //     $params->vehicul->an_fabricatie = 2005;
-    //     $params->vehicul->capacitate_cilindrica = 1461;
-    //     $params->vehicul->putere = 63;
-    //     $params->vehicul->masa_maxima = 1065;
-    //     $params->vehicul->numar_locuri = 5;
-    //     $params->vehicul->combustibil = 'benzina';
-    //     $params->vehicul->tip_utilizare = 'personal';
-    //     $params->vehicul->leasing = false;
-    //     $params->vehicul->carte_identitate = 'H123123';
-    //     $params->proprietar = new \stdClass();
-    //     $params->proprietar->tip_persoana = 'fizica';
-    //     $params->proprietar->cod_unic = '1861111331600';
-    //     $params->proprietar->telefon_mobil = '0769030490';
-    //     $params->proprietar->nume = 'Florin';
-    //     $params->proprietar->prenume = 'Piersic';
-    //     $params->proprietar->societate = null;
-    //     $params->proprietar->adresa = new \stdClass();
-    //     $params->proprietar->adresa->localitate_siruta = 55268;
-    //     $params->proprietar->adresa->judet = 'CJ';
-    //     $params->proprietar->adresa->strada = 'Principala';
-    //     $params->proprietar->data_permis_conducere = '2012-02-29';
-    //     $params->proprietar->bugetar = true;
-    //     $params->proprietar->somer = true;
-    //     $params->proprietar->numar_daune = 3;
-    //     $params->proprietar->societate_de_leasing = false;
-    //     $params->domeniu_activitate = 3;
-    //     $params->clasa_bm_anterioara = 'B0';
-    //     $params->data_inceput = '2021-12-01';
-    //     $params->reduceri = new \stdClass();
-    //     $params->reduceri->reducere_tehnica = 5;
-    //     $params->societate = 'euroins';
-    //     $params->durata = 6;
-
     //     $client = $this->makeRequest();
+
     //     try {
-    //         $data = $client->get_cotatie($params);
-    //         var_dump($data);
-    //    } catch (SoapFault $exception) {
+    //         $data = $client->get_categorii();
+    //         return $data;
+    //     } catch (SoapFault $exception) {
     //         echo 'Exception: ' . $exception->faultstring;
     //    }
     // }
+
+    public function categorii(Request $request)
+    {
+       $params = new \stdClass();
+        $params->vehicul = new \stdClass();
+        $params->vehicul->numar_inmatriculare = 'CJ-06-BNM';
+        $params->vehicul->tip_inmatriculare = 'inmatriculat';
+        $params->vehicul->serie_sasiu = 'WSDF123123154';
+        $params->vehicul->categorie = 1;
+        $params->vehicul->subcategorie = 'Autoturism de teren';
+        $params->vehicul->marca = 'DACIA';
+        $params->vehicul->model = 'Logan 1.5 dCi Prestige';
+        $params->vehicul->model_id = "";
+        $params->vehicul->an_fabricatie = 2005;
+        $params->vehicul->capacitate_cilindrica = 1461;
+        $params->vehicul->putere = 63;
+        $params->vehicul->masa_maxima = 1065;
+        $params->vehicul->numar_locuri = 5;
+        $params->vehicul->combustibil = 'benzina';
+        $params->vehicul->tip_utilizare = 'personal';
+        $params->vehicul->leasing = false;
+        $params->vehicul->carte_identitate = 'H123123';
+        $params->proprietar = new \stdClass();
+        $params->proprietar->tip_persoana = 'fizica';
+        $params->proprietar->cod_unic = '1861111331600';
+        $params->proprietar->telefon_mobil = '0769030490';
+        $params->proprietar->nume = 'Florin';
+        $params->proprietar->prenume = 'Piersic';
+        $params->proprietar->societate = null;
+        $params->proprietar->adresa = new \stdClass();
+        $params->proprietar->adresa->localitate_siruta = 55268;
+        $params->proprietar->adresa->judet = 'CJ';
+        $params->proprietar->adresa->strada = 'Principala';
+        $params->proprietar->data_permis_conducere = '2012-02-29';
+        $params->proprietar->bugetar = true;
+        $params->proprietar->somer = true;
+        $params->proprietar->numar_daune = 3;
+        $params->proprietar->societate_de_leasing = false;
+        $params->domeniu_activitate = 3;
+        $params->clasa_bm_anterioara = 'B0';
+        $params->data_inceput = '2021-12-01';
+        $params->reduceri = new \stdClass();
+        $params->reduceri->reducere_tehnica = 5;
+        $params->societate = 'euroins';
+        $params->durata = 6;
+
+        $client = $this->makeRequest();
+        try {
+            $data = $client->get_cotatie($params);
+            var_dump($data);
+       } catch (SoapFault $exception) {
+            echo 'Exception: ' . $exception->faultstring;
+       }
+    }
 
     // public function caen(Request $request)
     // {
