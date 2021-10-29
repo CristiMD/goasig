@@ -704,7 +704,7 @@ class CereriController extends Controller
                     <request xsi:type='ns1:get_marci'>\n
                         <tip_inmatriculare xsi:type='tns:tipuri_inmatriculare'>inmatriculat</tip_inmatriculare>\n
                         <categorie xsi:type='xsd:string'>1</categorie>\n
-                        <sub_categorie xsi:type='xsd:string'>0</sub_categorie>\n
+                        <sub_categorie xsi:type='xsd:string'>Autoturism de teren</sub_categorie>\n
                     </request>\n
                 </ns1:get_marci>\n";
 
