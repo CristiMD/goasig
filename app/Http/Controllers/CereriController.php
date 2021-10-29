@@ -952,7 +952,7 @@ class CereriController extends Controller
         if($result["err"]) {
             echo "A aparut o eroare".$result["message"];
         } else {
-            print_r($result);
+            print_r($result["data"]);
             $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
             $xml = simplexml_load_string($clean_xml);
             $arr = $xml->Body->get_categoriiResponse->return;
