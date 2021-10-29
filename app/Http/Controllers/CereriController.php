@@ -882,34 +882,63 @@ class CereriController extends Controller
         }
     }
 
+    // public function caen(Request $request)
+    // {
+
+    //     $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+    //     $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+
+    //     $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+    //     'soap_version' => SOAP_1_1,
+    //     'location' => $location_URL,
+    //     'uri'      => $action_URL,
+    //     'style'    => SOAP_RPC,
+    //     'use'      => SOAP_ENCODED,
+    //     'trace'    => 1,
+    //     ));
+
+    //     $username = 'testRCA';
+    //     $password = 'test.1234';
+    //     $autentificare = new ComplexCredentials($username, $password);
+
+    //     try {
+    //         $result = $client->__call('GetCAENList',
+    //         array(
+    //             $autentificare
+    //         )
+    //     );
+    //     return $result->Lista;
+    //     } catch(Exception $a) {
+    //         echo $a;
+    //     }
+    // }
+
     public function caen(Request $request)
     {
+        $body =  "<ns1:get_coduri_caen>\n
+                    <request xsi:type='ns1:get_coduri_caen'>\n
+                    </request>\n
+                </ns1:get_coduri_caen>\n";
 
-        $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
-        $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+        $categorii = [];
 
-        $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
-        'soap_version' => SOAP_1_1,
-        'location' => $location_URL,
-        'uri'      => $action_URL,
-        'style'    => SOAP_RPC,
-        'use'      => SOAP_ENCODED,
-        'trace'    => 1,
-        ));
-
-        $username = 'testRCA';
-        $password = 'test.1234';
-        $autentificare = new ComplexCredentials($username, $password);
-
-        try {
-            $result = $client->__call('GetCAENList',
-            array(
-                $autentificare
-            )
-        );
-        return $result->Lista;
-        } catch(Exception $a) {
-            echo $a;
+        $result = $this->makeRequest($body);
+        if($result["err"]) {
+            echo "A aparut o eroare".$result["message"];
+        } else {
+            
+            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+            $xml = simplexml_load_string($clean_xml);
+            print_r($xml);
+            // $arr = $xml->Body->get_categoriiResponse->return;
+            // $array = json_decode(json_encode((array)$arr), TRUE); 
+            // foreach ($array["item"] as $key => $value) {
+            //     $tmp = new \stdClass();
+            //     $tmp->id = $value["id"][0];
+            //     $tmp->nume = $value["nume"][0];
+            //     array_push($categorii, $tmp);
+            // }
+            // return $categorii;
         }
     }
 
