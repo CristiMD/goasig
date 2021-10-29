@@ -708,7 +708,7 @@ class CereriController extends Controller
                     </request>\n
                 </ns1:get_marci>\n";
 
-        $activitati = [];
+        $marci = [];
 
         $result = $this->makeRequest($body);
         if($result["err"]) {
@@ -716,17 +716,16 @@ class CereriController extends Controller
         } else {
             $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
             $xml = simplexml_load_string($clean_xml);
-            print_r($xml);
-            // $arr = $xml->Body->get_subcategoriiResponse->return;
-            // $array = json_decode(json_encode((array)$arr), TRUE); 
-            // foreach ($array["item"] as $key => $value) {
-            //     $tmp = new \stdClass();
-            //     $tmp->id = $value["id"][0];
-            //     $tmp->categorie_id = $value["categorie_id"][0];
-            //     $tmp->nume = $value["nume"][0];
-            //     array_push($activitati, $tmp);
-            // }
-            // return $activitati;
+            $arr = $xml->Body->get_marciResponse->return;
+            $array = json_decode(json_encode((array)$arr), TRUE); 
+            foreach ($array["item"] as $key => $value) {
+                $tmp = new \stdClass();
+                $tmp->id = $value["id"][0];
+                $tmp->nume = $value["nume"][0];
+                $tmp->marca_uzuala = $value["marca_uzuala"][0];
+                array_push($marci, $tmp);
+            }
+            return $marci;
         }
     }
 
