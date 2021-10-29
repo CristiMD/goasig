@@ -760,13 +760,14 @@
         url: site_url+"/categorii",
         encode: true,
       }).done(function (data) {
-        console.log(data);
+        
         // let parsed = JSON.parse(data);
         // let categorii = Object.entries(parsed)
         if(data.length){
           $('#tip_vehicul').empty();
           $('#tip_vehicul').append(new Option("Tip vehicul", ""));
           data.map(categorie => {
+            console.log(categorie);
             $('#tip_vehicul').append(new Option(categorie.nume, categorie.id));
           });
         }
