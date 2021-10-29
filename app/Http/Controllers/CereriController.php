@@ -930,20 +930,15 @@ class CereriController extends Controller
             echo "A aparut o eroare".$result["message"];
         } else {
             // print_r($result["data"]);
-            // $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
-            // $xml = simplexml_load_string($clean_xml);
-            // // print_r($xml->Body->get_subcategoriiResponse->return);
-            // $arr = $xml->Body->get_subcategoriiResponse->return->children("item", true)->item;
-            // print_r($arr);
+            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+            $xml = simplexml_load_string($clean_xml);
+            // print_r($xml->Body->get_subcategoriiResponse->return);
+            $arr = $xml->Body->get_subcategoriiResponse->return->item;
+            $array = json_decode(json_encode((array)$arr), TRUE); 
+            print_r($array);
             // foreach ($arr as $key => $value) {
             //     echo $value;
             // }
-
-            $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $result["data"]);
-            $xml = new \SimpleXMLElement($response);
-            // $body = $xml->xpath('//SBody');
-            // $array = json_decode(json_encode((array)$body), TRUE); 
-            print_r($xml);
         }
     }
 
