@@ -828,10 +828,10 @@ class CereriController extends Controller
         $client = $this->makeRequest();
 
         $params = new \stdClass();
-        $params->categorie_id = 0;
+        $params->categorie_id = 1;
 
         try {
-            $data = $client->get_marci($params);
+            $data = $client->get_subcategorii($params);
             return $data;
         } catch (SoapFault $exception) {
             echo 'Exception: ' . $exception->faultstring;
