@@ -49,27 +49,111 @@ class ComplexCredentials{
     public $parola;
 }
 
-// class Vehicul {
-//     public function __construct($user, $parola) {
-//         $params->vehicul->numar_inmatriculare = $numar_inmatriculare;
-//         $params->vehicul->tip_inmatriculare = $tip_inmatriculare;
-//         $params->vehicul->serie_sasiu = $serie_sasiu;
-//         $params->vehicul->categorie = $categorie;
-//         $params->vehicul->subcategorie = $subcategorie;
-//         $params->vehicul->marca = $marca;
-//         $params->vehicul->model = $model;
-//         $params->vehicul->model_id = $model_id;
-//         $params->vehicul->an_fabricatie = $an_fabricatie;
-//         $params->vehicul->capacitate_cilindrica = $capacitate_cilindrica;
-//         $params->vehicul->putere = $putere;
-//         $params->vehicul->masa_maxima = $masa_maxima;
-//         $params->vehicul->numar_locuri = $numar_locuri;
-//         $params->vehicul->combustibil = $combustibil;
-//         $params->vehicul->tip_utilizare = $tip_utilizare;
-//         $params->vehicul->leasing = $leasing;
-//         $params->vehicul->carte_identitate = $carte_identitate;
-//     }
-// }
+
+class Cerere24 {
+    public function __construct($vehicul, $proprietar, $domeniu_activitate, $clasa_bm_anterioara, $data_inceput, $durata){
+        $vehicul = $vehicul;
+        $proprietar = $proprietar;
+        $domeniu_activitate = $domeniu_activitate;
+        $clasa_bm_anterioara = $clasa_bm_anterioara;
+        $data_inceput = $data_inceput;
+        $durata = $durata; 
+    }
+
+    public $vehicul;
+    public $proprietar;
+    public $domeniu_activitate;
+    public $clasa_bm_anterioara;
+    public $data_inceput;
+    public $durata;
+    public $societate;
+}
+
+class Vehicul24 {
+    public function __construct($numar_inmatriculare, $tip_inmatriculare, $serie_sasiu, $categorie, $subcategorie, $marca, $model, $model_id, $an_fabricatie, $capacitate_cilindrica, $putere, $masa_maxima, $numar_locuri, $combustibil, $tip_utilizare, $leasing, $carte_identitate) {
+        $this->numar_inmatriculare = $numar_inmatriculare;
+        $this->tip_inmatriculare = $tip_inmatriculare;
+        $this->serie_sasiu = $serie_sasiu;
+        $this->categorie = $categorie;
+        $this->subcategorie = $subcategorie;
+        $this->marca = $marca;
+        $this->model = $model;
+        $this->model_id = $model_id;
+        $this->an_fabricatie = $an_fabricatie;
+        $this->capacitate_cilindrica = $capacitate_cilindrica;
+        $this->putere = $putere;
+        $this->masa_maxima = $masa_maxima;
+        $this->numar_locuri = $numar_locuri;
+        $this->combustibil = $combustibil;
+        $this->tip_utilizare = $tip_utilizare;
+        $this->leasing = $leasing;
+        $this->carte_identitate = $carte_identitate;
+        $this->proprietar = $proprietar;
+    }
+
+        public $numar_inmatriculare;
+        public $tip_inmatriculare;
+        public $serie_sasiu;
+        public $categorie;
+        public $subcategorie;
+        public $marca;
+        public $model;
+        public $model_id;
+        public $an_fabricatie;
+        public $capacitate_cilindrica;
+        public $putere;
+        public $masa_maxima;
+        public $numar_locuri;
+        public $combustibil;
+        public $tip_utilizare;
+        public $leasing;
+        public $carte_identitate;
+        public $proprietar;
+}
+
+
+class Proprietar24 {
+    public function __construct($tip_persoana, $cod_unic, $telefon_mobil, $nume, $prenume, $societate, $adresa, $data_permis_conducere, $bugetar, $somer, $numar_daune, $societate_de_leasing) {
+        $this->tip_persoana = $tip_persoana;
+        $this->cod_unic = $cod_unic;
+        $this->telefon_mobil = $telefon_mobil;
+        $this->nume = $nume;
+        $this->prenume = $prenume;
+        $this->societate = $societate;
+        $this->adresa = $adresa;
+        $this->data_permis_conducere = $data_permis_conducere;
+        $this->bugetar = $bugetar;
+        $this->somer = $somer;
+        $this->numar_daune = $numar_daune;
+        $this->societate_de_leasing = $societate_de_leasing;
+    }
+
+    public $tip_persoana;
+    public $cod_unic;
+    public $telefon_mobil;
+    public $nume;
+    public $prenume;
+    public $societate;
+    public $adresa;
+    public $data_permis_conducere;
+    public $bugetar;
+    public $somer;
+    public $numar_daune;
+    public $societate_de_leasing;
+
+}
+
+class Adresa24 {
+    public function __construct($_cod_siruta, $_judet, $_strada){
+        $this->localitate_siruta = $_cod_siruta;
+        $this->judet = $_judet;
+        $this->strada = $_strada;
+    }
+
+    public $localitate_siruta;
+    public $judet;
+    public $strada;
+}
 
 class ComplexVehicle{
 
@@ -1138,58 +1222,62 @@ class CereriController extends Controller
         $clasa_bm_anterioara = 'B0';
         $data_inceput = request('data_rca');
         $durata = request('valabilitate');
-        
 
-        $params = new \stdClass();
-        $params->vehicul = new \stdClass();
-        $params->vehicul->numar_inmatriculare = $numar_inmatriculare;
-        $params->vehicul->tip_inmatriculare = $tip_inmatriculare;
-        $params->vehicul->serie_sasiu = $serie_sasiu;
-        $params->vehicul->categorie = $categorie;
-        $params->vehicul->subcategorie = $subcategorie;
-        $params->vehicul->marca = $marca;
-        $params->vehicul->model = $model;
-        $params->vehicul->model_id = $model_id;
-        $params->vehicul->an_fabricatie = $an_fabricatie;
-        $params->vehicul->capacitate_cilindrica = $capacitate_cilindrica;
-        $params->vehicul->putere = $putere;
-        $params->vehicul->masa_maxima = $masa_maxima;
-        $params->vehicul->numar_locuri = $numar_locuri;
-        $params->vehicul->combustibil = $combustibil;
-        $params->vehicul->tip_utilizare = $tip_utilizare;
-        $params->vehicul->leasing = $leasing;
-        $params->vehicul->carte_identitate = $carte_identitate;
-        $params->proprietar = new \stdClass();
-        $params->proprietar->tip_persoana = $tip_persoana;
-        $params->proprietar->cod_unic = $cod_unic;
-        $params->proprietar->telefon_mobil = $telefon_mobil;
-        $params->proprietar->nume = $nume;
-        $params->proprietar->prenume = $prenume;
-        $params->proprietar->societate = $societate;
-        $params->proprietar->adresa = new \stdClass();
-        $params->proprietar->adresa->localitate_siruta = $_cod_siruta;
-        $params->proprietar->adresa->judet = $_judet;
-        $params->proprietar->adresa->strada = $_strada;
-        $params->proprietar->data_permis_conducere = $data_permis_conducere;
-        $params->proprietar->bugetar = $bugetar;
-        $params->proprietar->somer = $somer;
-        $params->proprietar->numar_daune = $numar_daune;
-        $params->proprietar->societate_de_leasing = $societate_de_leasing;
-        $params->domeniu_activitate = $domeniu_activitate;
-        $params->clasa_bm_anterioara = $clasa_bm_anterioara;
-        $params->data_inceput = $data_inceput;
-        $params->reduceri = new \stdClass();
-        $params->reduceri->reducere_tehnica = $reducere_tehnica;
-        $params->durata = $durata;
+        $proprietar =  new Proprietar24($tip_persoana, $cod_unic, $telefon_mobil, $nume, $prenume, $societate, $adresa, $data_permis_conducere, $bugetar, $somer, $numar_daune, $societate_de_leasing);
+        $vehicul = new Vehicul24($numar_inmatriculare, $tip_inmatriculare, $serie_sasiu, $categorie, $subcategorie, $marca, $model, $model_id, $an_fabricatie, $capacitate_cilindrica, $putere, $masa_maxima, $numar_locuri, $combustibil, $tip_utilizare, $leasing, $carte_identitate);
+        $adresa = new Adresa24($_cod_siruta, $_judet, $_strada);
+
+        $cerere = new Cerere24($vehicul, $proprietar, $domeniu_activitate, $clasa_bm_anterioara, $data_inceput, $durata);
+        // $params = new \stdClass();
+        // $params->vehicul = new \stdClass();
+        // $params->vehicul->numar_inmatriculare = $numar_inmatriculare;
+        // $params->vehicul->tip_inmatriculare = $tip_inmatriculare;
+        // $params->vehicul->serie_sasiu = $serie_sasiu;
+        // $params->vehicul->categorie = $categorie;
+        // $params->vehicul->subcategorie = $subcategorie;
+        // $params->vehicul->marca = $marca;
+        // $params->vehicul->model = $model;
+        // $params->vehicul->model_id = $model_id;
+        // $params->vehicul->an_fabricatie = $an_fabricatie;
+        // $params->vehicul->capacitate_cilindrica = $capacitate_cilindrica;
+        // $params->vehicul->putere = $putere;
+        // $params->vehicul->masa_maxima = $masa_maxima;
+        // $params->vehicul->numar_locuri = $numar_locuri;
+        // $params->vehicul->combustibil = $combustibil;
+        // $params->vehicul->tip_utilizare = $tip_utilizare;
+        // $params->vehicul->leasing = $leasing;
+        // $params->vehicul->carte_identitate = $carte_identitate;
+        // $params->proprietar = new \stdClass();
+        // $params->proprietar->tip_persoana = $tip_persoana;
+        // $params->proprietar->cod_unic = $cod_unic;
+        // $params->proprietar->telefon_mobil = $telefon_mobil;
+        // $params->proprietar->nume = $nume;
+        // $params->proprietar->prenume = $prenume;
+        // $params->proprietar->societate = $societate;
+        // $params->proprietar->adresa = new \stdClass();
+        // $params->proprietar->adresa->localitate_siruta = $_cod_siruta;
+        // $params->proprietar->adresa->judet = $_judet;
+        // $params->proprietar->adresa->strada = $_strada;
+        // $params->proprietar->data_permis_conducere = $data_permis_conducere;
+        // $params->proprietar->bugetar = $bugetar;
+        // $params->proprietar->somer = $somer;
+        // $params->proprietar->numar_daune = $numar_daune;
+        // $params->proprietar->societate_de_leasing = $societate_de_leasing;
+        // $params->domeniu_activitate = $domeniu_activitate;
+        // $params->clasa_bm_anterioara = $clasa_bm_anterioara;
+        // $params->data_inceput = $data_inceput;
+        // $params->reduceri = new \stdClass();
+        // $params->reduceri->reducere_tehnica = $reducere_tehnica;
+        // $params->durata = $durata;
 
         $client = $this->makeRequest();
 
         $asiguratori = array('euroins', 'omniasig','generali', 'grawe');
 
         foreach ($asiguratori as $asigurator) {
-            $params->societate = $asigurator;
+            $cerere->societate = $asigurator;
             try {
-                $data = $client->get_cotatie($params);
+                $data = $client->get_cotatie($cerere);
                     var_dump($data);
             } catch (SoapFault $exception) {
                     echo 'Exception: ' . $exception->faultstring;
