@@ -930,7 +930,8 @@ class CereriController extends Controller
             echo "A aparut o eroare".$result["message"];
         } else {
             print_r($result["data"]);
-            $xml=simplexml_load_string($result["data"]) or die("Error: Cannot create object");
+            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+            $xml = simplexml_load_string($clean_xml);
             print_r($xml);
         }
     }
