@@ -936,7 +936,7 @@ class CereriController extends Controller
             $arr = $xml->Body->get_subcategoriiResponse->return;
             $array = json_decode(json_encode((array)$arr), TRUE); 
             //print_r($array["item"]);
-            foreach ($arr as $key => $value) {
+            foreach ($array as $key => $value) {
                 print_r($value);
             }
         }
