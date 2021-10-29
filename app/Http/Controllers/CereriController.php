@@ -940,9 +940,9 @@ class CereriController extends Controller
             //print_r($array["item"]);
             foreach ($array as $key => $value) {
                 $tmp = new \stdClass();
-                $tmp->id = $value->id[0];
-                $tmp->categorie_id = $value->categorie_id[0];
-                $tmp->nume = $value->nume[0];
+                $tmp->id = $value["id"][0];
+                $tmp->categorie_id = $value["categorie_id"][0];
+                $tmp->nume = $value["nume"][0];
                 array_push($categorii, $tmp);
             }
             print_r($categorii);
