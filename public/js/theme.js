@@ -718,10 +718,10 @@
         console.log(data);
         let parsed = JSON.parse(data);
         let brands = Object.entries(parsed)
-        if(brands.length){
+        if(data.length){
           $('#marca').empty();
           $('#marca').append(new Option("Marca", ""));
-          brands.map(brand => {
+          data.map(brand => {
             $('#marca').append(new Option(brand.nume, brand.id));
           });
         }
@@ -763,10 +763,10 @@
         console.log(data);
         let parsed = JSON.parse(data);
         let categorii = Object.entries(parsed)
-        if(categorii.length){
+        if(data.length){
           $('#tip_vehicul').empty();
           $('#tip_vehicul').append(new Option("Tip vehicul", ""));
-          categorii.map(categorie => {
+          data.map(categorie => {
             $('#tip_vehicul').append(new Option(categorie[0], categorie[1]));
           });
         }
