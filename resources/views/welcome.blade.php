@@ -154,10 +154,10 @@
 												<div class="styled-select">
 													<select class="required" id="stare_inmatriculare" name="stare_inmatriculare">
 														<option value="" selected>Stare inmatriculare</option>
-														<option value="Inmatriculat">Inmatriculat</option>
-														<option value="InVedereInmatriculare">In vederea inmatricularii</option>
-														<option value="Inregistrat">Inregistrat la primarie</option>
-														<option value="InVedereInregistrare">In vederea inregistrarii</option>
+														<option value="inmatriculat">Inmatriculat</option>
+														<option value="in vederea inmatricularii">In vederea inmatricularii</option>
+														<option value="inregistrat">Inregistrat la primarie</option>
+														<option value="in vederea inregistrarii">In vederea inregistrarii</option>
 													</select>
 												</div>
 											</div>
@@ -187,13 +187,13 @@
 													<div class="styled-select">
 														<select class="required" name="combustibil"  id="combustibil">
 															<option value="" selected>Combustibil</option>
-																<option value="501">Benzina</option>
-																<option value="502">Motorina</option>
-																<option value="503">Benzina si GPL</option>
-																<option value="504">Benzina si alcool</option>
-																<option value="505">Electric</option>
-																<option value="506">Alt tip de combustibil</option>
-																<option value="500">Fara combustibil</option>
+																<option value="benzina">Benzina</option>
+																<option value="motorina">Motorina</option>
+																<option value="benzina si gpl">Benzina si GPL</option>
+																<option value="benzina si alcool">Benzina si alcool</option>
+																<option value="electric">Electric</option>
+																<option value="altul">Alt tip de combustibil</option>
+																<option value="fara">Fara combustibil</option>
 														</select>
 													</div>
 												</div>
@@ -202,7 +202,21 @@
 														{{-- <select class="required" name="utilizare"  id="utilizare">
 															<option value="" selected>Utilizare</option>
 														</select> --}}
-														<select class="required" name="utilizare" id="utilizare"><option value="">Utilizare</option><option value="Privat">Privat</option><option value="Taxi">Taxi</option><option value="Rent-a-car">Rent-a-car</option><option value="Paza si protectie">Paza si protectie</option><option value="Distributie">Distributie</option><option value="Curierat">Curierat</option><option value="Transport persoane">Transport persoane</option><option value="Constructii">Constructii</option><option value="Agricultura si exploatare forestiera">Agricultura si exploatare forestiera</option><option value="Institutii ale statului/cu actionariat de stat">Institutii ale statului/cu actionariat de stat</option><option value="Societati financiar bancare si nebancare (exceptie leasing)">Societati financiar bancare si nebancare (exceptie leasing)</option><option value="Societati de leasing financiar utilizator persoana fizica">Societati de leasing financiar utilizator persoana fizica</option><option value="Societati de leasing financiar utilizator persoana juridica">Societati de leasing financiar utilizator persoana juridica</option><option value="Transport substante inflamabile">Transport substante inflamabile</option><option value="Scoala soferi">Scoala soferi</option><option value="Transport persoane urban">Transport persoane urban</option><option value="Ambulanta">Ambulanta</option><option value="Agricultura">Agricultura</option><option value="Silvicultura">Silvicultura</option><option value="Transport de marfuri">Transport de marfuri</option><option value="Catering">Catering</option><option value="Masina serviciu">Masina serviciu</option><option value="Altele">Altele</option></select>
+														<select class="required" name="utilizare" id="utilizare">
+															<option value="">Utilizare</option>
+															<option value="personal">Personal</option>
+															<option value="transport international">Transport international</option>
+															<option value="taxi">Taxi</option>
+															<option value="inchiriere">Inchiriere</option>
+															<option value="scoala de soferi">Scoala soferi</option>
+															<option value="paza si protectie">Paza si protectie</option></select>
+															<option value="curierat">Curierat</option>
+															<option value="institutie publica">Institutie publica</option>
+															<option value="constructii">Constructii</option>
+															<option value="distributie transport marfa">Distributie si transport marfa</option>
+															<option value="distributie">Distributie</option>
+															<option value="transport marfa">Transport de marfuri</option>
+															<option value="masina de serviciu">Masina serviciu</option>
 													</div>
 												</div>
 										</div>
@@ -303,9 +317,8 @@
 											<div class="form-group add_bottom_30">
 												<div class="styled-select">
 													<select class="required" name="persoana" id="persoana">
-															<option value="pf">Persoana Fizica</option>
-															<option value="pj">Persoana Juridica</option>
-															<option value="leasing">Leasing</option>
+															<option value="fizica">Persoana Fizica</option>
+															<option value="juridica">Persoana Juridica</option>
 													</select>
 												</div>
 											</div>
