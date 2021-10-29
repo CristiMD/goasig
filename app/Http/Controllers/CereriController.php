@@ -913,7 +913,7 @@ class CereriController extends Controller
 
     public function categorii(Request $request)
     {
-        $params = new \stdClass();
+       $params = new \stdClass();
         $params->vehicul = new \stdClass();
         $params->vehicul->numar_inmatriculare = 'CJ-06-BNM';
         $params->vehicul->tip_inmatriculare = 'inmatriculat';
@@ -948,12 +948,17 @@ class CereriController extends Controller
         $params->proprietar->somer = true;
         $params->proprietar->numar_daune = 3;
         $params->proprietar->societate_de_leasing = false;
-        $params->identificator_oferta = "a615a780-3897-11ec-b442-d686eb040809";
-        $params->mod_de_plata = 'op broker';
+        $params->domeniu_activitate = 3;
+        $params->clasa_bm_anterioara = 'B0';
+        $params->data_inceput = '2021-12-01';
+        $params->reduceri = new \stdClass();
+        $params->reduceri->reducere_tehnica = 5;
+        $params->societate = 'euroins';
+        $params->durata = 6;
 
         $client = $this->makeRequest();
         try {
-            $data = $client->emitere_polita($params);
+            $data = $client->get_cotatie($params);
             var_dump($data);
        } catch (SoapFault $exception) {
             echo 'Exception: ' . $exception->faultstring;
@@ -1041,60 +1046,81 @@ class CereriController extends Controller
     // }
 
 
-
     /////// cotatie 24broker /////
 
-    public function caen() {
+    public function ajaxify(Request $request)
+    {
+        $time_start = microtime(true); 
+
+        $_judet = request('judet');
+        $_localitate = request('localitate');
+        $_strada = request('strada_proprietar');
+
+        $diac = array('â','Â','î','Î','ş','Ş','ţ','Ţ');
+        $cor = array('a','A','i','I','s','S','t' ,'T');
+
+        $_strada = str_replace($diac,$cor,$_strada);
+        $_judet = str_replace($diac,$cor,$_judet);
+        $_localitate = str_replace($diac,$cor,$_localitate);
+
+        $_cod_siruta = strval(request('cod_siruta'));
+
         $params = new \stdClass();
         $params->vehicul = new \stdClass();
-        $params->vehicul->numar_inmatriculare = 'CJ-06-BNM';
-        $params->vehicul->tip_inmatriculare = 'inmatriculat';
-        $params->vehicul->serie_sasiu = 'WSDF123123154';
-        $params->vehicul->categorie = 1;
+        $params->vehicul->numar_inmatriculare = request('numar_inmatriculare');
+        $params->vehicul->tip_inmatriculare = request('stare_inmatriculare');
+        $params->vehicul->serie_sasiu = request('sasiu');
+        $params->vehicul->categorie = request('tip_vehicul');
         $params->vehicul->subcategorie = 'Autoturism de teren';
-        $params->vehicul->marca = 'DACIA';
-        $params->vehicul->model = 'Logan 1.5 dCi Prestige';
+        $params->vehicul->marca = request('marca');
+        $params->vehicul->model = request('model');
         $params->vehicul->model_id = "";
-        $params->vehicul->an_fabricatie = 2005;
-        $params->vehicul->capacitate_cilindrica = 1461;
-        $params->vehicul->putere = 63;
-        $params->vehicul->masa_maxima = 1065;
-        $params->vehicul->numar_locuri = 5;
-        $params->vehicul->combustibil = 'benzina';
+        $params->vehicul->an_fabricatie = request('an_fab');
+        $params->vehicul->capacitate_cilindrica = request('cap_cil');
+        $params->vehicul->putere = request('putere');
+        $params->vehicul->masa_maxima = request('masa_maxima');
+        $params->vehicul->numar_locuri = request('nr_loc');
+        $params->vehicul->combustibil = request('combustibil');
         $params->vehicul->tip_utilizare = 'personal';
         $params->vehicul->leasing = false;
-        $params->vehicul->carte_identitate = 'H123123';
+        $params->vehicul->carte_identitate = request('serie_civ');
         $params->proprietar = new \stdClass();
-        $params->proprietar->tip_persoana = 'fizica';
-        $params->proprietar->cod_unic = '1861111331600';
-        $params->proprietar->telefon_mobil = '0769030490';
-        $params->proprietar->nume = 'Florin';
-        $params->proprietar->prenume = 'Piersic';
+        $params->proprietar->tip_persoana = request('persoana');
+        $params->proprietar->request('cnp_proprietar');
+        $params->proprietar->telefon_mobil = request('telefon_livrare');
+        $params->proprietar->nume = request('nmume_proprietar');
+        $params->proprietar->prenume = request('prenume_proprietar');
         $params->proprietar->societate = null;
         $params->proprietar->adresa = new \stdClass();
-        $params->proprietar->adresa->localitate_siruta = 55268;
-        $params->proprietar->adresa->judet = 'CJ';
-        $params->proprietar->adresa->strada = 'Principala';
-        $params->proprietar->data_permis_conducere = '2012-02-29';
+        $params->proprietar->adresa->localitate_siruta = $_cod_siruta;
+        $params->proprietar->adresa->judet = $_judet;
+        $params->proprietar->adresa->strada = $_strada;
+        $params->proprietar->data_permis_conducere = request('an_permis_proprietar');
         $params->proprietar->bugetar = true;
         $params->proprietar->somer = true;
         $params->proprietar->numar_daune = 3;
         $params->proprietar->societate_de_leasing = false;
         $params->domeniu_activitate = 3;
         $params->clasa_bm_anterioara = 'B0';
-        $params->data_inceput = '2021-12-01';
+        $params->data_inceput = request('data_rca');
         $params->reduceri = new \stdClass();
         $params->reduceri->reducere_tehnica = 5;
-        $params->societate = 'euroins';
-        $params->durata = 6;
+        
+        $params->durata = request('valabilitate');
 
         $client = $this->makeRequest();
-        try {
-            $data = $client->get_cotatie($params);
-            var_dump($data);
-       } catch (SoapFault $exception) {
-            echo 'Exception: ' . $exception->faultstring;
-       }
+
+        $asiguratori = array('euroins', 'omniasig','generali', 'grawe');
+
+        foreach ($asiguratori as $asigurator) {
+            $params->societate = $asigurator;
+            try {
+                $data = $client->get_cotatie($params);
+                    var_dump($data);
+            } catch (SoapFault $exception) {
+                    echo 'Exception: ' . $exception->faultstring;
+            }
+        }
     }
 
     /**
@@ -1706,280 +1732,280 @@ class CereriController extends Controller
 
     }
 
-    public function ajaxify(Request $request)
-    {
-        $time_start = microtime(true); 
+    // public function ajaxify(Request $request)
+    // {
+    //     $time_start = microtime(true); 
 
-        //  $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
-        // $action_URL ="https://ubuntuphptest.maxygo-online.ro";
+    //     //  $location_URL = "https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl";
+    //     // $action_URL ="https://ubuntuphptest.maxygo-online.ro";
 
-        // $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
-        // 'soap_version' => SOAP_1_1,
-        // 'location' => $location_URL,
-        // 'uri'      => $action_URL,
-        // 'style'    => SOAP_RPC,
-        // 'use'      => SOAP_ENCODED,
-        // 'trace'    => 1,
-        // 'keep_alive' => true,
-        // 'connection_timeout' => 5000,
-        // 'cache_wsdl' => WSDL_CACHE_NONE,
-        // 'compression'   => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE,
-        // ));
+    //     // $client = new \SoapClient('https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl', array(
+    //     // 'soap_version' => SOAP_1_1,
+    //     // 'location' => $location_URL,
+    //     // 'uri'      => $action_URL,
+    //     // 'style'    => SOAP_RPC,
+    //     // 'use'      => SOAP_ENCODED,
+    //     // 'trace'    => 1,
+    //     // 'keep_alive' => true,
+    //     // 'connection_timeout' => 5000,
+    //     // 'cache_wsdl' => WSDL_CACHE_NONE,
+    //     // 'compression'   => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE,
+    //     // ));
 
 
-        $username = 'testRCA';
-        $password = 'test.1234';
-        $_km_totali = '120000';
-        $_km_an = '12000';
-        $_serie_motor='A123123';
-        $_allianz_supl = 'false';
-        $_allianz_dealer = 'false';
-        $_email= request('email_livrare');
-        $_telefon= request('telefon_fix');
-        $_mobil= request('telefon_livrare');
-        $_companie_tip ='?';
-        $_companie_profil='?';
-        $_companie_activitate='?';
-        $_companie_caen='?';
-        $nr_luni_valabilitate = "6";
-        $valabilitate = request('valabilitate');
-        $pensionar='0'; 
-        $deficiente='0';
-        $data_inceput_valabilitate=request('data_rca');
-        $activitate= 'Privat';
-        $leasing='3';  // nu este leasing
-        $tip_persoana= request('persoana');
-        $_serie_sasiu = request('sasiu');
-        $_stare_autevehicul =  request('stare_inmatriculare');
-        $_numar_inmatriculare = request('numar_inmatriculare');
-        $_marca = request('marca');
-        $_model = request('model');
-        $_serie_civ = request('serie_civ');
-        $_an_fabricatie = request('an_fab');
-        $_tip_autovehicul = request('tip_vehicul');
-        $_capacitate_cilindrica = request('cap_cil');
-        $_nr_locuri = request('nr_loc');
-        $_masa_maxima= request('masa_maxima');
-        $_putere = request('putere');
-        $_combustibil = request('combustibil');
-        $asigurator = request('asigurator');
-        $_city_acc = 'false';
-        $_euroins_acc = 'false';
-        $_decontare_directa = request('decontare_directa');
+    //     $username = 'testRCA';
+    //     $password = 'test.1234';
+    //     $_km_totali = '120000';
+    //     $_km_an = '12000';
+    //     $_serie_motor='A123123';
+    //     $_allianz_supl = 'false';
+    //     $_allianz_dealer = 'false';
+    //     $_email= request('email_livrare');
+    //     $_telefon= request('telefon_fix');
+    //     $_mobil= request('telefon_livrare');
+    //     $_companie_tip ='?';
+    //     $_companie_profil='?';
+    //     $_companie_activitate='?';
+    //     $_companie_caen='?';
+    //     $nr_luni_valabilitate = "6";
+    //     $valabilitate = request('valabilitate');
+    //     $pensionar='0'; 
+    //     $deficiente='0';
+    //     $data_inceput_valabilitate=request('data_rca');
+    //     $activitate= 'Privat';
+    //     $leasing='3';  // nu este leasing
+    //     $tip_persoana= request('persoana');
+    //     $_serie_sasiu = request('sasiu');
+    //     $_stare_autevehicul =  request('stare_inmatriculare');
+    //     $_numar_inmatriculare = request('numar_inmatriculare');
+    //     $_marca = request('marca');
+    //     $_model = request('model');
+    //     $_serie_civ = request('serie_civ');
+    //     $_an_fabricatie = request('an_fab');
+    //     $_tip_autovehicul = request('tip_vehicul');
+    //     $_capacitate_cilindrica = request('cap_cil');
+    //     $_nr_locuri = request('nr_loc');
+    //     $_masa_maxima= request('masa_maxima');
+    //     $_putere = request('putere');
+    //     $_combustibil = request('combustibil');
+    //     $asigurator = request('asigurator');
+    //     $_city_acc = 'false';
+    //     $_euroins_acc = 'false';
+    //     $_decontare_directa = request('decontare_directa');
 
-        $link_redirect_plata=config('app.url').'plata';
-        // $link_redirect_plata='http://127.0.0.1:8000/plata';
+    //     $link_redirect_plata=config('app.url').'plata';
+    //     // $link_redirect_plata='http://127.0.0.1:8000/plata';
 
-        // $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
-        // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
-        $asiguratori = array($asigurator);
+    //     // $asg_rm = array('euroins','generali', 'uniqa', 'grawe', 'groupama');
+    //     // $asiguratori = array('city', 'groupama', 'omniasig','generali', 'grawe');
+    //     $asiguratori = array($asigurator);
         
-        $nr_luni = array('12');
-        array_unshift($nr_luni,$valabilitate);
+    //     $nr_luni = array('12');
+    //     array_unshift($nr_luni,$valabilitate);
 
 
-        ///proprietar
-        $_cod_unic = request('cnp_proprietar');
-        $_nume = request('nmume_proprietar');
-        $_prenume= request('prenume_proprietar');
-        $_serie_ci= request('ci_proprietar');
-        $_numar_ci = request('nr_ci_proprietar');
-        $_sex_owner='M';
-        $_judet = request('judet');
-        $_localitate = request('localitate');
-        // $_cod_siruta = '95408';  // default pascani
-        $_strada = request('strada_proprietar');
-        $_numar = request('numar_adresa_proprietar');
-        $_bloc = request('bloc_proprietar');
-        $_scara = request('scara_proprietar');
-        $_etaj = request('etaj_proprietar');
-        $_ap = request('apartament_proprietar');
-        // $_cod_postal='705200';
-        $_permis_data=request('an_permis_proprietar');  
+    //     ///proprietar
+    //     $_cod_unic = request('cnp_proprietar');
+    //     $_nume = request('nmume_proprietar');
+    //     $_prenume= request('prenume_proprietar');
+    //     $_serie_ci= request('ci_proprietar');
+    //     $_numar_ci = request('nr_ci_proprietar');
+    //     $_sex_owner='M';
+    //     $_judet = request('judet');
+    //     $_localitate = request('localitate');
+    //     // $_cod_siruta = '95408';  // default pascani
+    //     $_strada = request('strada_proprietar');
+    //     $_numar = request('numar_adresa_proprietar');
+    //     $_bloc = request('bloc_proprietar');
+    //     $_scara = request('scara_proprietar');
+    //     $_etaj = request('etaj_proprietar');
+    //     $_ap = request('apartament_proprietar');
+    //     // $_cod_postal='705200';
+    //     $_permis_data=request('an_permis_proprietar');  
 
 
-        $_nume_driver = request('nume_conducator');
-        $_prenume_driver= request('prenume_conducator');
-        $_cnp_driver = request('cnp_conducator');
-        $_serie_ci_driver = request('ci_conducator');
-        $_numar_ci_driver = request('nr_ci_conducatorr');
-        $_parola= request('parola');
-        $_cont= request('creaza_cont');
+    //     $_nume_driver = request('nume_conducator');
+    //     $_prenume_driver= request('prenume_conducator');
+    //     $_cnp_driver = request('cnp_conducator');
+    //     $_serie_ci_driver = request('ci_conducator');
+    //     $_numar_ci_driver = request('nr_ci_conducatorr');
+    //     $_parola= request('parola');
+    //     $_cont= request('creaza_cont');
 
-        ///inlocuiri variabile
+    //     ///inlocuiri variabile
 
-        if(strcmp($tip_persoana, "pf") != 0) {
-            $_nume = request('societate');
-            $_companie_tip = request('companie_tip');
-            $_companie_profil='?';
-            $_companie_activitate=request('companie_activitate');
-            $_companie_caen= request('caen');
-            $_cod_unic = request('cui');
-        }
+    //     if(strcmp($tip_persoana, "pf") != 0) {
+    //         $_nume = request('societate');
+    //         $_companie_tip = request('companie_tip');
+    //         $_companie_profil='?';
+    //         $_companie_activitate=request('companie_activitate');
+    //         $_companie_caen= request('caen');
+    //         $_cod_unic = request('cui');
+    //     }
 
-        $diac = array('â','Â','î','Î','ş','Ş','ţ','Ţ');
-        $cor = array('a','A','i','I','s','S','t' ,'T');
+    //     $diac = array('â','Â','î','Î','ş','Ş','ţ','Ţ');
+    //     $cor = array('a','A','i','I','s','S','t' ,'T');
 
-        $_strada = str_replace($diac,$cor,$_strada);
-        $_nume = str_replace($diac,$cor,$_nume);
-        $_prenume = str_replace($diac,$cor,$_prenume);
-        $_judet = str_replace($diac,$cor,$_judet);
-        $_localitate = str_replace($diac,$cor,$_localitate);
+    //     $_strada = str_replace($diac,$cor,$_strada);
+    //     $_nume = str_replace($diac,$cor,$_nume);
+    //     $_prenume = str_replace($diac,$cor,$_prenume);
+    //     $_judet = str_replace($diac,$cor,$_judet);
+    //     $_localitate = str_replace($diac,$cor,$_localitate);
 
-        $_cod_siruta = strval(request('cod_siruta'));
-        $_cod_postal = strval(request('cod_postal'));
+    //     $_cod_siruta = strval(request('cod_siruta'));
+    //     $_cod_postal = strval(request('cod_postal'));
 
-        // ///coduri
+    //     // ///coduri
 
-        // $coduri =  asset('js/coduri.json');
+    //     // $coduri =  asset('js/coduri.json');
 
-        // $path = public_path() . "/js/coduri.json";
-        // if (!File::exists($path)) {
-        //     throw new Exception("Invalid File");
-        // }
-        // $file = File::get($path); // string
-        // $json = json_decode($file);
+    //     // $path = public_path() . "/js/coduri.json";
+    //     // if (!File::exists($path)) {
+    //     //     throw new Exception("Invalid File");
+    //     // }
+    //     // $file = File::get($path); // string
+    //     // $json = json_decode($file);
         
-        // for($i = 0; $i < count($json -> records); $i++) {
-        //     if(strcmp($json->records[$i][2], $_judet) == 0 && strcmp($json->records[$i][3], $_localitate) == 0){
-        //         $_cod_siruta = $json->records[$i][5];
-        //         $_cod_postal=$json->records[$i][4];
-        //         break;
-        //     }
-        // }
+    //     // for($i = 0; $i < count($json -> records); $i++) {
+    //     //     if(strcmp($json->records[$i][2], $_judet) == 0 && strcmp($json->records[$i][3], $_localitate) == 0){
+    //     //         $_cod_siruta = $json->records[$i][5];
+    //     //         $_cod_postal=$json->records[$i][4];
+    //     //         break;
+    //     //     }
+    //     // }
 
-        // $user = auth()->user();
+    //     // $user = auth()->user();
 
-        // // print_r($user->id);
+    //     // // print_r($user->id);
 
-        // if($_parola && $_cont) {
-        //     $user_id = $this->createUser($_email, $_nume, $_prenume, $_parola, $_mobil);
-        //     $this->createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user_id);
-        //     $this->createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user_id);
-        //     $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie,  $user_id);
-        // } else if($user){
-        //     $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie, $user->id);
-        // } else {
-        //     $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie, null);
-        // }
+    //     // if($_parola && $_cont) {
+    //     //     $user_id = $this->createUser($_email, $_nume, $_prenume, $_parola, $_mobil);
+    //     //     $this->createProprietar($_cod_unic, $tip_persoana, $_nume, $_prenume, $_serie_ci, $_numar_ci, $_permis_data,$_telefon, $_judet, $_localitate, $_strada, $_numar, $_bloc, $_scara, $_etaj, $_ap, $user_id);
+    //     //     $this->createConducator($_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $user_id);
+    //     //     $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie,  $user_id);
+    //     // } else if($user){
+    //     //     $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie, $user->id);
+    //     // } else {
+    //     //     $this->createVehicul($_numar_inmatriculare,$_tip_autovehicul, $_marca, $_model,$_combustibil,$activitate,$_masa_maxima,$_capacitate_cilindrica,$_putere,$_nr_locuri,$_serie_civ,$_serie_sasiu,$_an_fabricatie, null);
+    //     // }
 
-        $autentificare = new ComplexCredentials($username, $password);
-        $masina = new ComplexVehicle($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an,$_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa);
-        $proprietar = new ComplexOwner($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
-        $utilizator = new ComplexUser($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
-        $conducator = new ComplexDriver($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver);	
+    //     $autentificare = new ComplexCredentials($username, $password);
+    //     $masina = new ComplexVehicle($_serie_sasiu,$_stare_autevehicul,$_numar_inmatriculare,$_marca,$_model,$_serie_motor,$_serie_civ,$_an_fabricatie,$_km_totali,$_km_an,$_tip_autovehicul,$_capacitate_cilindrica,$_nr_locuri,$_masa_maxima,$_putere,$_combustibil,$_allianz_supl,$_allianz_dealer,$_city_acc,$_euroins_acc,$_decontare_directa);
+    //     $proprietar = new ComplexOwner($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
+    //     $utilizator = new ComplexUser($_cod_unic, $_nume , $_prenume ,$_sex_owner, $_judet , $_localitate, $_cod_siruta , $_strada, $_numar , $_bloc , $_scara , $_etaj, $_ap, $_cod_postal, $_email, $_telefon, $_mobil, $_permis_data, $_serie_ci, $_numar_ci, $_companie_tip, $_companie_profil, $_companie_activitate, $_companie_caen);
+    //     $conducator = new ComplexDriver($_nume_driver,$_prenume_driver,$_cnp_driver,$_serie_ci_driver,$_numar_ci_driver);	
 
 
-        ////syncronous way
-        // $oferte = array();
-        // foreach ($nr_luni as $luna) {
-        //     foreach ($asiguratori as $asigurator) {
+    //     ////syncronous way
+    //     // $oferte = array();
+    //     // foreach ($nr_luni as $luna) {
+    //     //     foreach ($asiguratori as $asigurator) {
                 
-        //         try {
-        //             $result = $client->__call('CerereOfertaRCA',
-        //             array(
-        //                 $autentificare,
-        //                 $link_redirect_plata,
-        //                 $asigurator,
-        //                 $luna,
-        //                 $data_inceput_valabilitate,
-        //                 $activitate,
-        //                 $leasing,
-        //                 $masina,
-        //                 $tip_persoana,
-        //                 $pensionar,
-        //                 $deficiente,
-        //                 $proprietar,
-        //                 $utilizator,
-        //                 $conducator
-        //                 )
-        //         );
-        //         if($result->Eroare != 1){
-        //             $tmp = array('date' => $result, 'asigurator' => $asigurator);
-        //             array_push($oferte, $tmp);
-        //         }
+    //     //         try {
+    //     //             $result = $client->__call('CerereOfertaRCA',
+    //     //             array(
+    //     //                 $autentificare,
+    //     //                 $link_redirect_plata,
+    //     //                 $asigurator,
+    //     //                 $luna,
+    //     //                 $data_inceput_valabilitate,
+    //     //                 $activitate,
+    //     //                 $leasing,
+    //     //                 $masina,
+    //     //                 $tip_persoana,
+    //     //                 $pensionar,
+    //     //                 $deficiente,
+    //     //                 $proprietar,
+    //     //                 $utilizator,
+    //     //                 $conducator
+    //     //                 )
+    //     //         );
+    //     //         if($result->Eroare != 1){
+    //     //             $tmp = array('date' => $result, 'asigurator' => $asigurator);
+    //     //             array_push($oferte, $tmp);
+    //     //         }
                 
-        //         } catch(Exception $a) {
-        //             echo $a;
-        //         }
-        //     }
-        // }
+    //     //         } catch(Exception $a) {
+    //     //             echo $a;
+    //     //         }
+    //     //     }
+    //     // }
 
 
-        // $collection = collect($oferte);
+    //     // $collection = collect($oferte);
         
-        // $grouped = $collection->mapToGroups(function ($item, $key) {
-        //     return [$item['asigurator'] => $item['date']];
-        // });
+    //     // $grouped = $collection->mapToGroups(function ($item, $key) {
+    //     //     return [$item['asigurator'] => $item['date']];
+    //     // });
 
 
-        ////async way
-        $user = auth()->user();
-        if($user) {
-            $user_id = $user->id;
-        } else {
-            $user_id = null;
-        }
+    //     ////async way
+    //     $user = auth()->user();
+    //     if($user) {
+    //         $user_id = $user->id;
+    //     } else {
+    //         $user_id = null;
+    //     }
 
 
-        $factory = new Factory();
-        $client = $factory->create(new Client(), new StreamFactory(), new RequestFactory(), 'https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl');
+    //     $factory = new Factory();
+    //     $client = $factory->create(new Client(), new StreamFactory(), new RequestFactory(), 'https://ubuntuphptest.maxygo-online.ro/mgb/home/emit_rca.php/home/rcawsdl?wsdl');
 
-        $cereri = [];
-        $oferte = [];
-        // async call
-        foreach ($nr_luni as $luna) {
-            foreach ($asiguratori as $asigurator) {
+    //     $cereri = [];
+    //     $oferte = [];
+    //     // async call
+    //     foreach ($nr_luni as $luna) {
+    //         foreach ($asiguratori as $asigurator) {
 
-                $promise = $client->callAsync('CerereOfertaRCA', array(
-                    $autentificare,
-                    $link_redirect_plata,
-                    $asigurator,
-                    $luna,
-                    $data_inceput_valabilitate,
-                    $activitate,
-                    $leasing,
-                    $masina,
-                    $tip_persoana,
-                    $pensionar,
-                    $deficiente,
-                    $proprietar,
-                    $utilizator,
-                    $conducator
-                ));
-                // $result = $promise->wait();
+    //             $promise = $client->callAsync('CerereOfertaRCA', array(
+    //                 $autentificare,
+    //                 $link_redirect_plata,
+    //                 $asigurator,
+    //                 $luna,
+    //                 $data_inceput_valabilitate,
+    //                 $activitate,
+    //                 $leasing,
+    //                 $masina,
+    //                 $tip_persoana,
+    //                 $pensionar,
+    //                 $deficiente,
+    //                 $proprietar,
+    //                 $utilizator,
+    //                 $conducator
+    //             ));
+    //             // $result = $promise->wait();
                 
 
-                array_push($cereri, [$promise,$asigurator]);
-            }
-        }
+    //             array_push($cereri, [$promise,$asigurator]);
+    //         }
+    //     }
 
-        for ($i=0; $i < count($cereri); $i++) {
-            $cereri[$i][0]->wait();
-            $res = $cereri[$i][0]->display()->result;
-            // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
-            array_push($oferte, $res);
-            // print_r($res);
-            $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_mobil, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate, $res->ComisionValoare,$res->DecontareDirectaValoare);
-        }
-        $end_time = microtime(true) - $time_start;
+    //     for ($i=0; $i < count($cereri); $i++) {
+    //         $cereri[$i][0]->wait();
+    //         $res = $cereri[$i][0]->display()->result;
+    //         // $tmp = array('date' => $cereri[$i][0]->display()->result, 'asigurator' => $cereri[$i][1]);
+    //         array_push($oferte, $res);
+    //         // print_r($res);
+    //         $this->createOferta($_cod_unic, $tip_persoana, $_nume, $_prenume, $_email, $_mobil, $_serie_ci, $_numar_ci, $user_id, $_cnp_driver,$_nume_driver, $_prenume_driver,$_serie_ci_driver, $_numar_ci_driver, $res->IdOferta, $_numar_inmatriculare, $_decontare_directa, $res->LinkPlata, $res->Valoare, $res->Valabilitate, $cereri[$i][1], $data_inceput_valabilitate, $res->ComisionValoare,$res->DecontareDirectaValoare);
+    //     }
+    //     $end_time = microtime(true) - $time_start;
 
-        // $collection = collect($oferte);
+    //     // $collection = collect($oferte);
         
-        // $grouped = $collection->mapToGroups(function ($item, $key) {
-        //     return [$item['asigurator'] => $item['date']];
-        // });
+    //     // $grouped = $collection->mapToGroups(function ($item, $key) {
+    //     //     return [$item['asigurator'] => $item['date']];
+    //     // });
 
-        // print_r($oferte);
+    //     // print_r($oferte);
 
-        ////async
+    //     ////async
 
-        return response()->json([
-            'oferte'=>$oferte,
-            'valabilitate'=>$valabilitate,
-            'time'=>$end_time,
-        ]);
-    }
+    //     return response()->json([
+    //         'oferte'=>$oferte,
+    //         'valabilitate'=>$valabilitate,
+    //         'time'=>$end_time,
+    //     ]);
+    // }
 
 
 }
