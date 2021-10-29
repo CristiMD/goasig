@@ -1052,9 +1052,9 @@ class CereriController extends Controller
     {
         $time_start = microtime(true); 
 
-        $_judet = $request('judet');
-        $_localitate = $request('localitate');
-        $_strada = $request('strada_proprietar');
+        $_judet = request('judet');
+        $_localitate = request('localitate');
+        $_strada = request('strada_proprietar');
 
         $diac = array('â','Â','î','Î','ş','Ş','ţ','Ţ');
         $cor = array('a','A','i','I','s','S','t' ,'T');
@@ -1063,50 +1063,50 @@ class CereriController extends Controller
         $_judet = str_replace($diac,$cor,$_judet);
         $_localitate = str_replace($diac,$cor,$_localitate);
 
-        $_cod_siruta = strval($request('cod_siruta'));
+        $_cod_siruta = strval(request('cod_siruta'));
 
         $params = new \stdClass();
         $params->vehicul = new \stdClass();
-        $params->vehicul->numar_inmatriculare = $request('numar_inmatriculare');
-        $params->vehicul->tip_inmatriculare = $request('stare_inmatriculare');
-        $params->vehicul->serie_sasiu = $request('sasiu');
-        $params->vehicul->categorie = $request('tip_vehicul');
+        $params->vehicul->numar_inmatriculare = request('numar_inmatriculare');
+        $params->vehicul->tip_inmatriculare = request('stare_inmatriculare');
+        $params->vehicul->serie_sasiu = request('sasiu');
+        $params->vehicul->categorie = request('tip_vehicul');
         $params->vehicul->subcategorie = 'Autoturism de teren';
-        $params->vehicul->marca = $request('marca');
-        $params->vehicul->model = $request('model');
+        $params->vehicul->marca = request('marca');
+        $params->vehicul->model = request('model');
         $params->vehicul->model_id = "";
-        $params->vehicul->an_fabricatie = $request('an_fab');
-        $params->vehicul->capacitate_cilindrica = $request('cap_cil');
-        $params->vehicul->putere = $request('putere');
-        $params->vehicul->masa_maxima = $request('masa_maxima');
-        $params->vehicul->numar_locuri = $request('nr_loc');
-        $params->vehicul->combustibil = $request('combustibil');
+        $params->vehicul->an_fabricatie = request('an_fab');
+        $params->vehicul->capacitate_cilindrica = request('cap_cil');
+        $params->vehicul->putere = request('putere');
+        $params->vehicul->masa_maxima = request('masa_maxima');
+        $params->vehicul->numar_locuri = request('nr_loc');
+        $params->vehicul->combustibil = request('combustibil');
         $params->vehicul->tip_utilizare = 'personal';
         $params->vehicul->leasing = false;
-        $params->vehicul->carte_identitate = $request('serie_civ');
+        $params->vehicul->carte_identitate = request('serie_civ');
         $params->proprietar = new \stdClass();
-        $params->proprietar->tip_persoana = $request('persoana');
-        $params->proprietar->$request('cnp_proprietar');
-        $params->proprietar->telefon_mobil = $request('telefon_livrare');
-        $params->proprietar->nume = $request('nmume_proprietar');
-        $params->proprietar->prenume = $request('prenume_proprietar');
+        $params->proprietar->tip_persoana = request('persoana');
+        $params->proprietar->request('cnp_proprietar');
+        $params->proprietar->telefon_mobil = request('telefon_livrare');
+        $params->proprietar->nume = request('nmume_proprietar');
+        $params->proprietar->prenume = request('prenume_proprietar');
         $params->proprietar->societate = null;
         $params->proprietar->adresa = new \stdClass();
         $params->proprietar->adresa->localitate_siruta = $_cod_siruta;
         $params->proprietar->adresa->judet = $_judet;
         $params->proprietar->adresa->strada = $_strada;
-        $params->proprietar->data_permis_conducere = $request('an_permis_proprietar');
+        $params->proprietar->data_permis_conducere = request('an_permis_proprietar');
         $params->proprietar->bugetar = true;
         $params->proprietar->somer = true;
         $params->proprietar->numar_daune = 3;
         $params->proprietar->societate_de_leasing = false;
         $params->domeniu_activitate = 3;
         $params->clasa_bm_anterioara = 'B0';
-        $params->data_inceput = $request('data_rca');
+        $params->data_inceput = request('data_rca');
         $params->reduceri = new \stdClass();
         $params->reduceri->reducere_tehnica = 5;
         
-        $params->durata = $request('valabilitate');
+        $params->durata = request('valabilitate');
 
         $client = $this->makeRequest();
 

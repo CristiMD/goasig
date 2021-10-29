@@ -699,8 +699,8 @@
         $('#loader').fadeOut(); // will first fade out the loading animation
         $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         $('body').delay(350).css({'overflow':'visible'});
-        // getVehicleCategories();
-        // getVehicleBrands();
+        getVehicleCategories();
+        getVehicleBrands();
         // getVehicleActivities();
         // getCompanyCAEN();
     })
@@ -715,6 +715,7 @@
         url: site_url+"/marci",
         encode: true,
       }).done(function (data) {
+        console.log(data);
         let parsed = JSON.parse(data);
         let brands = Object.entries(parsed)
         if(brands.length){
@@ -759,6 +760,7 @@
         url: site_url+"/categorii",
         encode: true,
       }).done(function (data) {
+        console.log(data);
         let parsed = JSON.parse(data);
         let categorii = Object.entries(parsed)
         if(categorii.length){
