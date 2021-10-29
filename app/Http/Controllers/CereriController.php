@@ -934,6 +934,7 @@ class CereriController extends Controller
             $xml = simplexml_load_string($clean_xml);
             // print_r($xml->Body->get_subcategoriiResponse->return);
             $arr = $xml->Body->get_subcategoriiResponse->return->item;
+            print_r($arr);
             foreach ($arr as $key => $value) {
                 echo $value;
             }
