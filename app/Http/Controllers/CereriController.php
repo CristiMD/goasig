@@ -881,51 +881,13 @@ class CereriController extends Controller
 
     public function activitati(Request $request)
     {
-
-        // $curl = curl_init();
- 
-        // curl_setopt_array($curl, array(
-        // CURLOPT_URL => "http://ws-rca-dev.24broker.ro/?wsdl",
-        // CURLOPT_RETURNTRANSFER => true,
-        // CURLOPT_CUSTOMREQUEST => "POST",
-        // CURLOPT_INTERFACE => "176.223.122.169",
-        // CURLOPT_POSTFIELDS => 
-        // "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://ws-rca-dev.24broker.ro\">\n  
-        //     <soapenv:Header>\n
-        //         <ns2:autentificare>\n
-        //             <utilizator>goasig_dev</utilizator>\n
-        //             <parola>M3PJfSR2dEMrSQ4Y</parola>\n
-        //         </ns2:autentificare>
-        //     </soapenv:Header>\n   
-        //     <soapenv:Body>\n
-        //         <ns1:get_subcategorii>\n
-        //             <request xsi:type='ns1:get_marci'>\n
-        //             <categorie_id xsi:type='xsd:int'>0</categorie_id>\n
-        //             </request>\n
-        //         </ns1:get_subcategorii>\n
-        //     </soapenv:Body>\n
-        // </soapenv:Envelope>",
-        // CURLOPT_HTTPHEADER => array("content-type: text/xml"),
-        // ));
-        
-        // $response = curl_exec($curl);
-        // $err = curl_error($curl);
-        
-        // curl_close($curl);
-        
-        // if ($err) {
-        // echo "cURL Error #:" . $err;
-        // } else {
-        // echo $response;
-        // }
-
         $body =  "<ns1:get_subcategorii>\n
                     <request xsi:type='ns1:get_marci'>\n
                     <categorie_id xsi:type='xsd:int'>0</categorie_id>\n
                     </request>\n
                  </ns1:get_subcategorii>\n";
 
-        $categorii = [];
+        $activitati = [];
 
         $result = $this->makeRequest($body);
         if($result["err"]) {
@@ -940,9 +902,9 @@ class CereriController extends Controller
                 $tmp->id = $value["id"][0];
                 $tmp->categorie_id = $value["categorie_id"][0];
                 $tmp->nume = $value["nume"][0];
-                array_push($categorii, $tmp);
+                array_push($activitati, $tmp);
             }
-            return $categorii;
+            return $activitati;
         }
     }
 
@@ -984,11 +946,25 @@ class CereriController extends Controller
                     </request>\n
                 </ns1:get_categorii>\n";
 
+        $categorii = [];
+
         $result = $this->makeRequest($body);
         if($result["err"]) {
             echo "A aparut o eroare".$result["message"];
         } else {
-            print_r($result["data"]);
+            print_r($result);
+            $clean_xml = str_ireplace(['SOAP-ENV:', 'SOAP:'], '', $result["data"]);
+            $xml = simplexml_load_string($clean_xml);
+            $arr = $xml->Body->get_categoriiResponse->return;
+            $array = json_decode(json_encode((array)$arr), TRUE); 
+            foreach ($array["item"] as $key => $value) {
+                $tmp = new \stdClass();
+                $tmp->id = $value["id"][0];
+                $tmp->categorie_id = $value["categorie_id"][0];
+                $tmp->nume = $value["nume"][0];
+                array_push($categorii, $tmp);
+            }
+            return $categorii;
         }
     }
 
