@@ -52,12 +52,12 @@ class ComplexCredentials{
 
 class Cerere24 {
     public function __construct($vehicul, $proprietar, $domeniu_activitate, $clasa_bm_anterioara, $data_inceput, $durata){
-        $vehicul = $vehicul;
-        $proprietar = $proprietar;
-        $domeniu_activitate = $domeniu_activitate;
-        $clasa_bm_anterioara = $clasa_bm_anterioara;
-        $data_inceput = $data_inceput;
-        $durata = $durata; 
+        $this->vehicul = $vehicul;
+        $this->proprietar = $proprietar;
+        $this->domeniu_activitate = $domeniu_activitate;
+        $this->clasa_bm_anterioara = $clasa_bm_anterioara;
+        $this->data_inceput = $data_inceput;
+        $this->durata = $durata; 
     }
 
     public $vehicul;
@@ -70,7 +70,7 @@ class Cerere24 {
 }
 
 class Vehicul24 {
-    public function __construct($numar_inmatriculare, $tip_inmatriculare, $serie_sasiu, $categorie, $subcategorie, $marca, $model, $model_id, $an_fabricatie, $capacitate_cilindrica, $putere, $masa_maxima, $numar_locuri, $combustibil, $tip_utilizare, $leasing, $carte_identitate) {
+    public function __construct($numar_inmatriculare, $tip_inmatriculare, $serie_sasiu, $categorie, $subcategorie, $marca, $model, $model_id, $an_fabricatie, $capacitate_cilindrica, $putere, $masa_maxima, $numar_locuri, $combustibil, $tip_utilizare, $leasing, $carte_identitate, $proprietar) {
         $this->numar_inmatriculare = $numar_inmatriculare;
         $this->tip_inmatriculare = $tip_inmatriculare;
         $this->serie_sasiu = $serie_sasiu;
@@ -921,7 +921,8 @@ class CereriController extends Controller
         $options = array('socket' => array('bindto' => '176.223.122.169:0'));
         $context = stream_context_create($options);
 
-        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context));
+        // $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE, 'stream_context' => $context));
+        $client = new \SoapClient('http://ws-rca-dev.24broker.ro/?wsdl',array('trace'=>true, 'cache' => WSDL_CACHE_NONE));
         $param = new \SoapVar(array('utilizator' => 'goasig_dev','parola'=>'M3PJfSR2dEMrSQ4Y'), SOAP_ENC_OBJECT); 
         $header = new \SoapHeader('http://ws-rca-dev.24broker.ro/', 'autentificare', $param,false);
         $client->__setSoapHeaders($header);
@@ -1173,7 +1174,7 @@ class CereriController extends Controller
     {
         $time_start = microtime(true); 
 
-        $_judet = request('judet');
+        // $_judet = request('judet');
         $_localitate = request('localitate');
         $_strada = request('strada_proprietar');
 
@@ -1181,7 +1182,8 @@ class CereriController extends Controller
         $cor = array('a','A','i','I','s','S','t' ,'T');
 
         $_strada = str_replace($diac,$cor,$_strada);
-        $_judet = str_replace($diac,$cor,$_judet);
+        // $_judet = str_replace($diac,$cor,$_judet);
+        $_judet = "BT";
         $_localitate = str_replace($diac,$cor,$_localitate);
 
         $_cod_siruta = strval(request('cod_siruta'));
@@ -1210,9 +1212,9 @@ class CereriController extends Controller
         $nume = request('nmume_proprietar');
         $prenume = request('prenume_proprietar');
         $societate = null;
-        $adresa->localitate_siruta = $_cod_siruta;
-        $adresa->judet = $_judet;
-        $adresa->strada = $_strada;
+        // $adresa->localitate_siruta = $_cod_siruta;
+        // $adresa->judet = $_judet;
+        // $adresa->strada = $_strada;
         $data_permis_conducere = request('an_permis_proprietar');
         $bugetar = true;
         $somer = true;
@@ -1222,11 +1224,13 @@ class CereriController extends Controller
         $clasa_bm_anterioara = 'B0';
         $data_inceput = request('data_rca');
         $durata = request('valabilitate');
+        $adresa = new Adresa24($_cod_siruta, $_judet, $_strada);
+        var_dump($adresa);
 
         $proprietar =  new Proprietar24($tip_persoana, $cod_unic, $telefon_mobil, $nume, $prenume, $societate, $adresa, $data_permis_conducere, $bugetar, $somer, $numar_daune, $societate_de_leasing);
-        $vehicul = new Vehicul24($numar_inmatriculare, $tip_inmatriculare, $serie_sasiu, $categorie, $subcategorie, $marca, $model, $model_id, $an_fabricatie, $capacitate_cilindrica, $putere, $masa_maxima, $numar_locuri, $combustibil, $tip_utilizare, $leasing, $carte_identitate);
-        $adresa = new Adresa24($_cod_siruta, $_judet, $_strada);
-
+        var_dump($proprietar);
+        $vehicul = new Vehicul24($numar_inmatriculare, $tip_inmatriculare, $serie_sasiu, $categorie, $subcategorie, $marca, $model, $model_id, $an_fabricatie, $capacitate_cilindrica, $putere, $masa_maxima, $numar_locuri, $combustibil, $tip_utilizare, $leasing, $carte_identitate, $proprietar);
+        var_dump($vehicul);
         $cerere = new Cerere24($vehicul, $proprietar, $domeniu_activitate, $clasa_bm_anterioara, $data_inceput, $durata);
         // $params = new \stdClass();
         // $params->vehicul = new \stdClass();
@@ -1276,6 +1280,7 @@ class CereriController extends Controller
 
         foreach ($asiguratori as $asigurator) {
             $cerere->societate = $asigurator;
+            var_dump($cerere);
             try {
                 $data = $client->get_cotatie($cerere);
                     var_dump($data);
